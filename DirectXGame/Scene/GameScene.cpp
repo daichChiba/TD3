@@ -10,10 +10,21 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	camera = new Camera();
+	camera->Initialize();
+
+	PlayerModel_ = Model::CreateFromOBJ("Player");
+	playerBulletModel_ = Model::CreateFromOBJ("cube");
+
+	Player_ = new PlayerMain();
+
+	Player_->Initialize(PlayerModel_, playerBulletModel_, Vector3(0.0f, 0.0f, 0.0f));
+	
 }
 
 void GameScene::Update() {
-
+	Player_->Update();
 }
 
 void GameScene::Draw() {
@@ -41,6 +52,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	Player_->Draw(*camera);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
