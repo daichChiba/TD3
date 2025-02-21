@@ -1,6 +1,6 @@
 #include <KamataEngine.h>
-
 using namespace KamataEngine;
+#include"Scene/GameScene.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -11,6 +11,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	Audio* audio = nullptr;
 	AxisIndicator* axisIndicator = nullptr;
 	PrimitiveDrawer* primitiveDrawer = nullptr;
+
+	GameScene* gameScene = new GameScene;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -49,7 +51,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	primitiveDrawer = PrimitiveDrawer::GetInstance();
 	primitiveDrawer->Initialize();
+
 #pragma endregion
+#ifdef _DEBUG
+	gameScene = new GameScene;
+	gameScene->Initialize();
+#endif // _DEBUG
+	
+
 
 	// メインループ
 	while (true) {
@@ -62,6 +71,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		imguiManager->Begin();
 		// 入力関連の毎フレーム処理
 		input->Update();
+		// ゲームシーンの更新
+		gameScene->Update();
 		// 軸表示の更新
 		axisIndicator->Update();
 		// ImGui受付終了
@@ -71,6 +82,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		dxCommon->PreDraw();
 		// 軸表示の描画
 		axisIndicator->Draw();
+		// ゲームシーンの描画
+		gameScene->Draw();
 		// プリミティブ描画のリセット
 		primitiveDrawer->Reset();
 		// ImGui描画
