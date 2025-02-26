@@ -26,8 +26,15 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
+	void DrawImGui();
+
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_;}
-	protected:
+
+	void SetCamera(const Camera* camera)
+	{
+		camera_ = camera;
+	}
+protected:
 	virtual void Move() { return; }
 	virtual void Attack() { return; }
 
@@ -35,6 +42,10 @@ public:
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
 
-	Vector3 velocity;
+	const Camera* camera_ = nullptr;
 
+	Vector3 move_;
+	static inline const float kSpeed_ = 0.03f;
+
+	XINPUT_STATE xinput_;
 };

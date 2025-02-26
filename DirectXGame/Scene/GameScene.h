@@ -39,14 +39,14 @@ public:
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
-	Camera* camera_;
-
 	Model* cubeModel_;
 
 	Model* PlayerModel_;
 	Model* playerBulletModel_;
 
-	ActorManager* actorManager;
+	Model* skyDome_;
 
-	FollowCamera* followCamera_;
+	WorldTransform skyDomeTrans;
+
+	ActorManager* actorManager;
 };
