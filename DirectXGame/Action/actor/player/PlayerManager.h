@@ -1,12 +1,14 @@
-#pragma once
-
+#pragma once 
 #include "KamataEngine.h"
+
+#include "PlayerActor.h"
 
 using namespace KamataEngine;
 
-class GameScene;
+class PlayerFactory;
 
-class PlayerActor {
+class PlayerManager
+{
 public:
 	/// <summary>
 	/// 初期化
@@ -18,7 +20,7 @@ public:
 	/// <summary>
 	/// アップデート
 	/// </summary>
-	virtual void Update();
+	void Update();
 
 	/// <summary>
 	/// 描画
@@ -26,15 +28,15 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
-	WorldTransform* GetWorldTransfrom() { return &worldTransform_;}
-	protected:
-	virtual void Move() { return; }
-	virtual void Attack() { return; }
+	PlayerActor* GetPlayer() { return Manager_.get();}
 
+	void CreatePlayerMain();
+
+private:
 	Model* model_;
-	Model* BulletModel_;
-	WorldTransform worldTransform_;
+	Model* bulletModel_;
+	Vector3 Startpos_;
 
-	Vector3 velocity;
-
+	std::unique_ptr<PlayerActor> Manager_;
+	PlayerFactory* factory_;
 };

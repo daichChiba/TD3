@@ -106,8 +106,12 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action\actor\ActorManager.cpp" />
     <ClCompile Include="Action\actor\player\PlayerActor.cpp" />
+    <ClCompile Include="Action\actor\player\PlayerFactory.cpp" />
     <ClCompile Include="Action\actor\player\PlayerMain.cpp" />
+    <ClCompile Include="Action\actor\player\PlayerManager.cpp" />
+    <ClCompile Include="Action\FolloCamera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtilityEX.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
@@ -189,8 +193,12 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action\actor\ActorManager.h" />
     <ClInclude Include="Action\actor\player\PlayerActor.h" />
+    <ClInclude Include="Action\actor\player\PlayerFactory.h" />
     <ClInclude Include="Action\actor\player\PlayerMain.h" />
+    <ClInclude Include="Action\actor\player\PlayerManager.h" />
+    <ClInclude Include="Action\FolloCamera.h" />
     <ClInclude Include="Scene\GameScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

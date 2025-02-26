@@ -1,5 +1,7 @@
 #include "PlayerActor.h"
 
+using namespace MathUtility;
+
 void PlayerActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos)
 {
 #ifdef _DEBUG
@@ -16,6 +18,13 @@ void PlayerActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos
 
 void PlayerActor::Update()
 {
+	Move();
+
+	Attack();
+
+	worldTransform_.translation_ += velocity;
+	velocity = Vector3{ 0.0f, 0.0f, 0.0f};
+
 	worldTransform_.UpdateMatrix();
 }
 

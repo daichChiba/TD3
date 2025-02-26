@@ -1,5 +1,9 @@
 #include "GameScene.h"
 
+#include "../Action/FolloCamera.h"
+#include "../Action/actor/ActorManager.h"
+#include "../Action/actor/player/PlayerActor.h"
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -7,68 +11,74 @@ GameScene::~GameScene() {
 }
 
 void GameScene::Initialize() {
-	dxCommon_ = DirectXCommon::GetInstance();
-	input_ = Input::GetInstance();
-	audio_ = Audio::GetInstance();
+    dxCommon_ = DirectXCommon::GetInstance();
+    input_ = Input::GetInstance();
+    audio_ = Audio::GetInstance();
 
-	camera = new Camera();
-	camera->Initialize();
+    camera_ = new Camera();
+    camera_->Initialize();
 
-	PlayerModel_ = Model::CreateFromOBJ("Player");
-	playerBulletModel_ = Model::CreateFromOBJ("cube");
+    followCamera_ = new FollowCamera();
+    followCamera_->Initialize();
 
-	Player_ = new PlayerMain();
+    cubeModel_ = Model::CreateFromOBJ("cube");
 
-	Player_->Initialize(PlayerModel_, playerBulletModel_, Vector3(0.0f, 0.0f, 0.0f));
-	
+    PlayerModel_ = Model::CreateFromOBJ("Player");
+    playerBulletModel_ = Model::CreateFromOBJ("cube");
+
+    actorManager = new ActorManager();
+    actorManager->Initialize(PlayerModel_, playerBulletModel_, cubeModel_, cubeModel_);
+
+    followCamera_->SetTarget(actorManager->GetPlayer()->GetWorldTransfrom());
 }
 
 void GameScene::Update() {
-	Player_->Update();
+    actorManager->Update();
+    followCamera_->Update();
 }
 
 void GameScene::Draw() {
-	// コマンドリストの取得
-	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
+    // コマンドリストの取得
+    ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
 #pragma region 背景スプライト描画
-	// 背景スプライト描画前処理
-	Sprite::PreDraw(commandList);
+    // 背景スプライト描画前処理
+    Sprite::PreDraw(commandList);
 
-	/// <summary>
-	/// ここに背景スプライトの描画処理を追加できる
-	/// </summary>
+    /// <summary>
+    /// ここに背景スプライトの描画処理を追加できる
+    /// </summary>
 
-	// スプライト描画後処理
-	Sprite::PostDraw();
-	// 深度バッファクリア
-	dxCommon_->ClearDepthBuffer();
+    // スプライト描画後処理
+    Sprite::PostDraw();
+    // 深度バッファクリア
+    dxCommon_->ClearDepthBuffer();
 #pragma endregion
 
 #pragma region 3Dオブジェクト描画
-	// 3Dオブジェクト描画前処理
-	Model::PreDraw(commandList);
+    // 3Dオブジェクト描画前処理
+    Model::PreDraw(commandList);
 
-	/// <summary>
-	/// ここに3Dオブジェクトの描画処理を追加できる
-	/// </summary>
-	Player_->Draw(*camera);
+    /// <summary>
+    /// ここに3Dオブジェクトの描画処理を追加できる
+    /// </summary>
+    actorManager->Draw(*camera_);
 
-	// 3Dオブジェクト描画後処理
-	Model::PostDraw();
+    // 3Dオブジェクト描画後処理
+    Model::PostDraw();
 #pragma endregion
 
 #pragma region 前景スプライト描画
-	// 前景スプライト描画前処理
-	Sprite::PreDraw(commandList);
+    // 前景スプライト描画前処理
+    Sprite::PreDraw(commandList);
 
-	/// <summary>
-	/// ここに前景スプライトの描画処理を追加できる
-	/// </summary>
+    /// <summary>
+    /// ここに前景スプライトの描画処理を追加できる
+    /// </summary>
 
 
-	// スプライト描画後処理
-	Sprite::PostDraw();
+    // スプライト描画後処理
+    Sprite::PostDraw();
 
 #pragma endregion
 }

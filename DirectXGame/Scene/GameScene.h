@@ -1,10 +1,10 @@
 #pragma once
 #include <KamataEngine.h>
-#include "../action/actor/player/PlayerActor.h"
-#include "../action/actor/player/PlayerMain.h"
+#include "../Action/actor/ActorManager.h"
 
 using namespace KamataEngine;
 
+class FollowCamera;
 
 class GameScene {
 public:
@@ -39,10 +39,14 @@ public:
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
-	Camera* camera;
+	Camera* camera_;
+
+	Model* cubeModel_;
 
 	Model* PlayerModel_;
 	Model* playerBulletModel_;
 
-	PlayerActor* Player_;
+	ActorManager* actorManager;
+
+	FollowCamera* followCamera_;
 };
