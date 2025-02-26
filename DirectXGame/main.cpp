@@ -14,6 +14,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	GameScene* gameScene = new GameScene;
 
+
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
 	win->CreateGameWindow();
