@@ -106,11 +106,11 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Action\actor\player\PlayerActor.cpp" />
-    <ClCompile Include="Action\actor\player\PlayerMain.cpp" />
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtilityEX.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="worldTransfromEX.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,9 +189,9 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action\actor\player\PlayerActor.h" />
-    <ClInclude Include="Action\actor\player\PlayerMain.h" />
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Scene\GameScene.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

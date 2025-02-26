@@ -1,10 +1,8 @@
 #pragma once
 #include <KamataEngine.h>
-#include "../action/actor/player/PlayerActor.h"
-#include "../action/actor/player/PlayerMain.h"
-
 using namespace KamataEngine;
 
+#include "../Board.h"
 
 class GameScene {
 public:
@@ -41,8 +39,5 @@ public:
 
 	Camera* camera;
 
-	Model* PlayerModel_;
-	Model* playerBulletModel_;
-
-	PlayerActor* Player_;
+	Board board;
 };

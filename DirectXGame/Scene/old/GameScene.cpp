@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include <iostream>
 
 GameScene::GameScene() {}
 
@@ -11,59 +10,12 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	camera = new Camera();
+	camera->Initialize();
 }
 
 void GameScene::Update() {
-	/*
-	while (true) {
-		board.display();
-
-		if (board.isSolved()) {
-			//std::cout << "おめでとう！パズル完成！\n";
-//			printf("おめでとう\n");
-			break;
-		}
-
-	//	std::cout << "WASD で移動（Qで終了）: ";
-//		char input;
-//		std::cin >> input;
-
-		if (input == 'q' || input == 'Q')
-			break;
-
-		switch (input) {
-		case 'w':
-			board.moveTile(0, 1);
-			break;
-		case 's':
-			board.moveTile(0, -1);
-			break;
-		case 'a':
-			board.moveTile(1, 0);
-			break;
-		case 'd':
-			board.moveTile(-1, 0);
-			break;
-		}
-	}
-	*/
-
-	//board.display();
-	board.ImGuiX();
-
-	//if (Input::GetInstance()->TriggerKey(DIK_W)) {
-	//	board.MoveTile(board.emptyIndex - Board::SIZE);
-	//}
-	//if (Input::GetInstance()->TriggerKey(DIK_S)) {
-	//	board.MoveTile(0);
-	//}
-	//if (Input::GetInstance()->TriggerKey(DIK_A)) {
-	//	board.MoveTile(1, 0);
-	//}
-	//if (Input::GetInstance()->TriggerKey(DIK_D)) {
-	//	board.MoveTile(-1, 0);
-	//}
-
 }
 
 void GameScene::Draw() {
@@ -99,18 +51,6 @@ void GameScene::Draw() {
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
-
-	//for (int y = 0; y < Board::SIZE; y++) {
-	//	for (int x = 0; x < Board::SIZE; x++) {
-	//		if (board.tiles[x][y].isEmpty()) {
-	//			// 空白タイルの描画
-
-	//		} else {
-	//			// タイルの描画
-	//			// ここにタイルの描画コードを追加
-	//		}
-	//	}
-	//}
 
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
