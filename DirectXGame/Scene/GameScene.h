@@ -37,7 +37,5 @@ public:
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
-	Camera* camera;
-
-	Board board;
+	Board* board;
 };
