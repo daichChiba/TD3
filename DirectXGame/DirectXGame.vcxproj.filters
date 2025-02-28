@@ -16,12 +16,42 @@
     <Filter Include="シェーダー ファイル">
       <UniqueIdentifier>{718c7f4c-fc51-40ad-a221-b9456a7a1a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\action">
+      <UniqueIdentifier>{1ed69199-be59-4930-b1b6-96fbd3973b3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\action\actor">
+      <UniqueIdentifier>{9bc7b939-a2c1-4046-ba63-faefeae5c873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\action\actor\player">
+      <UniqueIdentifier>{c54f0418-ff3b-4ed3-be18-1fe034750290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\action">
+      <UniqueIdentifier>{3b9b8686-8847-4e51-add1-42bfd23c6653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\action\actor">
+      <UniqueIdentifier>{eb61bba2-770c-40d8-b2ec-d86d4c9843ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\action\actor\player">
+      <UniqueIdentifier>{ebd47147-2195-4328-ae38-52391ee9b458}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp">
+    <ClCompile Include="Action\actor\player\PlayerActor.cpp">
+      <Filter>ソース ファイル\action\actor\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\player\PlayerMain.cpp">
+      <Filter>ソース ファイル\action\actor\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="worldTransfromEX.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtilityEX.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,7 +105,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameScene.h">
+    <ClInclude Include="Action\actor\player\PlayerActor.h">
+      <Filter>ヘッダー ファイル\action\actor\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\player\PlayerMain.h">
+      <Filter>ヘッダー ファイル\action\actor\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

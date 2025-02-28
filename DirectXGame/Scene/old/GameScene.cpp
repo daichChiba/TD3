@@ -1,4 +1,4 @@
-#include "Scene/GameScene.h"
+#include "GameScene.h"
 
 GameScene::GameScene() {}
 
@@ -10,10 +10,12 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	camera = new Camera();
+	camera->Initialize();
 }
 
 void GameScene::Update() {
-
 }
 
 void GameScene::Draw() {

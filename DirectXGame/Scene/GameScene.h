@@ -2,6 +2,8 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
+#include "../Board.h"
+
 class GameScene {
 public:
 	// メンバ関数
@@ -33,5 +35,8 @@ public:
 	private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
+
 	Audio* audio_ = nullptr;
+
+	Board* board;
 };
