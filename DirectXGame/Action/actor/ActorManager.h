@@ -6,6 +6,7 @@ using namespace KamataEngine;
 class FollowCamera;
 class PlayerManager;
 class PlayerActor;
+class GameScene;
 
 class ActorManager
 {
@@ -14,13 +15,17 @@ public:
 	void Update();
 	void Draw();
 
+	Camera* SetCamera(){ return camera_; }
+
+	void SetGeamScene(GameScene* gameScene) { gameScene_ = gameScene;};
 	PlayerActor* GetPlayer();
-	Camera& GetCamera() { return camera_; }
+
 private:
 	Model* PlayeModel_,* PlayerBulletModel_,* enemyModel_,* enemyBulletModel_;
 
-	Camera camera_;
+	Camera* camera_;
 	FollowCamera* followCamera_;
+	GameScene* gameScene_;
 
 	PlayerManager* playerManager_;
 };

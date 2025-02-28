@@ -5,6 +5,7 @@
 
 using namespace KamataEngine;
 
+class ActorManager;
 class PlayerFactory;
 
 class PlayerManager
@@ -15,7 +16,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">モデルの座標</param>
-	void Initialize(Model* model, Model* bulletModel, const Vector3 pos);
+	void Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager);
 
 	/// <summary>
 	/// アップデート
@@ -36,6 +37,8 @@ private:
 	Model* model_;
 	Model* bulletModel_;
 	Vector3 Startpos_;
+
+	ActorManager* actorManager_;
 
 	std::unique_ptr<PlayerActor> Manager_;
 	PlayerFactory* factory_;

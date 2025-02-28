@@ -21,10 +21,10 @@ void FollowCamera::Update()
 		followCamera.translation_ = target_->translation_ + offset;
 	}
 
-	float Rx = xinput_.Gamepad.sThumbRX / 32767.0f; // 正規化（-1.0 ～ 1.0）
+	Rx = xinput_.Gamepad.sThumbRX / 32767.0f; // 正規化（-1.0 ～ 1.0）
 	//float Ry = xinput_.Gamepad.sThumbRY / 32767.0f;
 
-	if(Rx >= 0.8f)
+	if(Rx >= 0.8f || Rx <= -0.8f)
 	{
 		// カメラの回転を更新
 		followCamera.rotation_.y += Rx * kRotationSpeed;
@@ -47,5 +47,7 @@ void FollowCamera::DrowImgui()
 	ImGui::Begin("followCamera");
 	ImGui::Text("pos : %.3f,%.3f,%.3f", followCamera.translation_.x,followCamera.translation_.y,followCamera.translation_.z);
 	ImGui::Text("rot : %.3f,%.3f,%.3f", followCamera.rotation_.x, followCamera.rotation_.y ,followCamera.rotation_.z);
+	ImGui::Text("conX : %f", Rx);
+
 	ImGui::End();
 }

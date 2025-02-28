@@ -45,6 +45,7 @@ public:
 	Model* playerBulletModel_;
 
 	Model* skyDome_;
+	Model* ground_;
 
 	WorldTransform skyDomeTrans;
 

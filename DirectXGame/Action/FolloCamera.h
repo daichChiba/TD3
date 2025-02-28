@@ -23,6 +23,8 @@ private:
 	Camera followCamera;
 	const WorldTransform* target_ = nullptr;
 
+	float Rx;
+
 	static inline const float kRotationSpeed = 0.01f;
 	static inline const float targetDistance = 1.0f;
 };

@@ -1,10 +1,11 @@
 #include "PlayerManager.h"
 
-#include "PlayerFactory.h"
+#include "../ActorManager.h"
 
+#include "PlayerFactory.h"
 #include "PlayerMain.h"
 
-void PlayerManager::Initialize(Model* model, Model* bulletModel, const Vector3 pos)
+void PlayerManager::Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager)
 {
 #ifdef _DEBUG
 	assert(model);
@@ -15,6 +16,8 @@ void PlayerManager::Initialize(Model* model, Model* bulletModel, const Vector3 p
 	bulletModel_ = bulletModel;
 
 	Startpos_ = pos;
+
+	actorManager_ = actorManager;
 
 	factory_ = new PlayerFactory();
 }
@@ -32,5 +35,5 @@ void PlayerManager::Draw(Camera& camera)
 void PlayerManager::CreatePlayerMain()
 {
 	Manager_ = std::make_unique<PlayerMain>();
-	Manager_->Initialize(model_, bulletModel_, Startpos_);
+	Manager_->Initialize(model_, bulletModel_, Startpos_, actorManager_);
 }

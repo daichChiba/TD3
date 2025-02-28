@@ -11,8 +11,10 @@ public:
 	~PlayerMain();
 
 private:
+	
 	void Move() override;
 	void Attack() override;
+
 
 	static inline const float PlayerMoveSpeed = 0.05f;
 };

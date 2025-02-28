@@ -15,6 +15,7 @@ void GameScene::Initialize() {
 
 	cubeModel_ = Model::CreateFromOBJ("cube");
 	skyDome_ = Model::CreateFromOBJ("SkyDome", true);
+	ground_ = Model::CreateFromOBJ("ground");
 
 	skyDomeTrans.Initialize();
 
@@ -22,9 +23,9 @@ void GameScene::Initialize() {
 	playerBulletModel_ = Model::CreateFromOBJ("cube");
 
 	actorManager = new ActorManager();
+	actorManager->SetGeamScene(this);
 	actorManager->Initialize(PlayerModel_, playerBulletModel_, cubeModel_, cubeModel_);
-
-	PrimitiveDrawer::GetInstance()->SetViewProjection(&actorManager->GetCamera());
+	
 }
 
 void GameScene::Update() {
@@ -58,7 +59,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	skyDome_->Draw(skyDomeTrans, actorManager->GetCamera());
+	skyDome_->Draw(skyDomeTrans, *actorManager->SetCamera());
+	ground_->Draw(skyDomeTrans, *actorManager->SetCamera());
 
 	actorManager->Draw();
 

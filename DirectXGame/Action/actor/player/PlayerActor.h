@@ -5,6 +5,7 @@
 using namespace KamataEngine;
 
 class GameScene;
+class ActorManager;
 
 class PlayerActor {
 public:
@@ -13,7 +14,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">モデルの座標</param>
-	void Initialize(Model* model, Model* bulletModel, const Vector3 pos);
+	void Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager);
 
 	/// <summary>
 	/// アップデート
@@ -30,10 +31,10 @@ public:
 
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_;}
 
-	void SetCamera(const Camera* camera)
-	{
-		camera_ = camera;
-	}
+	Camera* camera_ = nullptr;
+
+	int a = 0;
+
 protected:
 	virtual void Move() { return; }
 	virtual void Attack() { return; }
@@ -42,10 +43,12 @@ protected:
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
 
-	const Camera* camera_ = nullptr;
+	
+
+	ActorManager* actorManager_;
 
 	Vector3 move_;
-	static inline const float kSpeed_ = 0.03f;
+	static inline const float kSpeed_ = 0.3f;
 
 	XINPUT_STATE xinput_;
 };
