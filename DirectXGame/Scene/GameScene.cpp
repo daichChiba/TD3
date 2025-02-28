@@ -40,6 +40,8 @@ void GameScene::Draw() {
 	dxCommon_->ClearDepthBuffer();
 #pragma endregion
 
+
+
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
