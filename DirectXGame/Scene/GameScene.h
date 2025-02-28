@@ -40,5 +40,6 @@ private:
 
 	Board* board;
 
-	
+	// タイルを配置するメソッド
+	void PlaceTiles();
 };
