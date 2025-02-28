@@ -29,7 +29,6 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
     playerManager_->CreatePlayerMain();
 
-    // PlayerActorのcamera_を設定
     playerManager_->GetPlayer()->camera_ = camera_;
 
     followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
@@ -38,16 +37,14 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 void ActorManager::Update()
 {
-    playerManager_->GetPlayer()->camera_->matView = followCamera_->GetCamera().matView;
-    playerManager_->GetPlayer()->camera_->matProjection = followCamera_->GetCamera().matProjection;;
-    playerManager_->GetPlayer()->a = 1;
+    playerManager_->GetPlayer()->camera_->rotation_ = followCamera_->GetCamera().rotation_;
 	playerManager_->Update();
 
-	followCamera_->Update();
+    followCamera_->Update();
 	camera_->matView = followCamera_->GetCamera().matView;
 	camera_->matProjection = followCamera_->GetCamera().matProjection;
-
-	camera_->TransferMatrix();
+    
+    camera_->TransferMatrix();
 }
 
 void ActorManager::Draw()

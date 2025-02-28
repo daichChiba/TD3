@@ -51,7 +51,6 @@ void PlayerActor::Update() {
     }
 
 	
-
 	worldTransform_.translation_ += move_;
 	DrawImGui();
 	move_ = Vector3{0.0f, 0.0f, 0.0f};
@@ -67,7 +66,7 @@ void PlayerActor::DrawImGui() {
 	ImGui::Text("pos : %.3f,%.3f,%.3f", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
 	ImGui::Text("rot : %.3f,%.3f,%.3f", worldTransform_.rotation_.x, worldTransform_.rotation_.y, worldTransform_.rotation_.z);
 	ImGui::Text("move : %.3f,%.3f,%.3f", move_.x, move_.y, move_.z);
-	ImGui::Text("cameraRot : %.3f,%.3f,%.3f", camera_->rotation_.x, camera_->rotation_.y, camera_->rotation_.z);
+	ImGui::DragFloat3("cameraRot", &camera_->rotation_.x, 0.01f);
 	ImGui::Text("a : %d", a);
 	ImGui::End();
 }
