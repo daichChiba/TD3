@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include <iostream>
 
 GameScene::GameScene() {}
 
@@ -11,13 +10,9 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-
-	board = new Board();
 }
 
 void GameScene::Update() {
-	
-	board->ImGuiX();
 
 }
 
