@@ -1,16 +1,15 @@
 #pragma once
 
-#include "KamataEngine.h"
-#include <random>
 #include <vector>
-
+#include <imgui.h>
+#include "KamataEngine.h"
 using namespace KamataEngine;
 
 class Board {
 public:
 	// コンストラクタ: ボードの初期化
 	Board();
-
+	
 	// タイルを移動する関数
 	bool MoveTile(int index);
 
@@ -20,9 +19,17 @@ public:
 	// ImGuiを使用してスライドパズルを描画する関数
 	void ImGuiX();
 
+	//パズルが解けたか同化を確認するメソッド
+	bool IsSolved();
+
+	void Clear();
+
+	//タイルを任意の位置に配置するメソッド
+	void PlaceTile(int index, int value);
+
 private:
 	// ボードのサイズ
-	static const int SIZE = 4;
+	static const int SIZE = 3;
 
 	// タイルの状態を保持するベクトル
 	std::vector<int> tiles;
@@ -47,4 +54,6 @@ private:
 
 	// 空白のタイルの列
 	int emptyCol;
+
+	Input* input_ = nullptr;
 };

@@ -1,11 +1,9 @@
 #include "GameScene.h"
 #include <iostream>
 
-GameScene::GameScene() {}
+GameScene::GameScene() : board(nullptr){}
 
-GameScene::~GameScene() {
-
-}
+GameScene::~GameScene() { delete board; }
 
 void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -13,12 +11,13 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	board = new Board();
+	
 }
 
 void GameScene::Update() {
 	
 	board->ImGuiX();
-
+	
 }
 
 void GameScene::Draw() {
@@ -65,3 +64,4 @@ void GameScene::Draw() {
 
 #pragma endregion
 }
+

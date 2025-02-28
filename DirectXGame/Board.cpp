@@ -1,9 +1,7 @@
 #include "Board.h"
-#include <cstdlib>
-#include <ctime>
-
+#include <random>
 #include <algorithm>
-#include <array>
+#include <chrono>
 
 // コンストラクタ: ボードの初期化
 Board::Board() {
@@ -50,6 +48,7 @@ bool Board::MoveTile(int index) {
 	}
 
 	return false;
+
 }
 
 // ImGui を使用してスライドパズルを表示する関数
@@ -83,6 +82,37 @@ void Board::ImGuiX() {
 	}
 
 	ImGui::End();
+
+}
+
+bool Board::IsSolved() { 
+	 for (int i = 0; i < row * col - 1; ++i) {
+		if (tiles[i] != i + 1) {
+			return false;
+		}
+	}
+	return tiles[row * col - 1] == EMPTY_TILE;
+}
+
+void Board::Clear() {
+	// ImGuiを使用してタイルを配置する
+	ImGui::Begin("Place Tiles");
+
+	for (int i = 0; i < row * col; ++i) {
+		int value = tiles[i];
+		if (ImGui::InputInt(("Tile " + std::to_string(i)).c_str(), &value)) {
+			PlaceTile(i, value);
+		}
+	}
+
+	ImGui::End();
+}
+
+void Board::PlaceTile(int index, int value) {
+	tiles[index] = value;
+	if (value == EMPTY_TILE) {
+		emptyIndex = index;
+	}
 }
 
 // スライドパズルを表示する関数
