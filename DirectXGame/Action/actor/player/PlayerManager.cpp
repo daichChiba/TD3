@@ -24,16 +24,16 @@ void PlayerManager::Initialize(Model* model, Model* bulletModel, const Vector3 p
 
 void PlayerManager::Update()
 {
-	Manager_->Update();
+	Plauyer_->Update();
 }
 
 void PlayerManager::Draw(Camera& camera)
 {
-	Manager_->Draw(camera);
+	Plauyer_->Draw(camera);
 }
 
 void PlayerManager::CreatePlayerMain()
 {
-	Manager_ = std::make_unique<PlayerMain>();
-	Manager_->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+	Plauyer_ = std::make_unique<PlayerMain>();
+	Plauyer_->Initialize(model_, bulletModel_, Startpos_, actorManager_);
 }

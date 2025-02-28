@@ -23,7 +23,7 @@ void FollowCamera::Update()
 
 	Rx = xinput_.Gamepad.sThumbRX / 32767.0f; // 正規化（-1.0 ～ 1.0）
 	//float Ry = xinput_.Gamepad.sThumbRY / 32767.0f;
-
+	
 	if(Rx >= 0.8f || Rx <= -0.8f)
 	{
 		// カメラの回転を更新
