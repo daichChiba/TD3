@@ -10,7 +10,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	board = new Board();
+	board = new Board(4, 4);
 	
 }
 
@@ -54,7 +54,7 @@ void GameScene::Draw() {
 	Model::PostDraw();
 #pragma endregion
 
-	 board->ShowSliderPuzzle();
+	 //board->ShowSliderPuzzle();
 
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理

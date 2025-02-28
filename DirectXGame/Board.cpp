@@ -48,7 +48,7 @@ bool Board::MoveTile(int index) {
 	emptyCol = emptyIndex % col;
 
 	// 選択されたタイルが空白のタイルと隣接しているかチェック
-	if ((std::abs(row - emptyRow) + std::abs(col - emptyCol)) == 1) {
+	if ((std::abs(rows - emptyRow) + std::abs(cols - emptyCol)) == 1) {
 		// タイルを交換
 		std::swap(tiles[index], tiles[emptyIndex]);
 

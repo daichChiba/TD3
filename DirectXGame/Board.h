@@ -14,9 +14,6 @@ public:
 	// 選択されたタイルの列
 	int col;
 
-	// 空白のタイルの値
-	static const int EMPTY_TILE = 0;
-
 	// タイルの状態を保持するベクトル
 	std::vector<int> tiles;
 
@@ -56,7 +53,8 @@ public:
 
 private:
 
-	
+	// 空白のタイルの値
+	static const int EMPTY_TILE = 0;
 
 	// 空白のタイルのインデックス
 	int emptyIndex;
