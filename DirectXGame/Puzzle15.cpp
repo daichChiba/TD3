@@ -218,14 +218,13 @@ void Puzzle15::ImGuiX() {
 	// 移動回数を表示
 	ImGui::Text("Move Count: %d", moveCount);
 
-	//最短手数を表示
-	minMoves = CalculateMinimumMoves();
-	if (minMoves != -1) {
-		ImGui::Text("Minimum Move : %d", minMoves);
-	} else {
-		ImGui::Text("No solution found");
-	}
-
+	////最短手数を表示
+	//minMoves = CalculateMinimumMoves();
+	//if (minMoves != -1) {
+	//	ImGui::Text("Minimum Move : %d", minMoves);
+	//} else {
+	//	ImGui::Text("No solution found");
+	//}
 
 	ImGui::End();
 }
