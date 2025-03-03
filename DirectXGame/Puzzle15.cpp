@@ -226,6 +226,7 @@ void Puzzle15::ImGuiX() {
 		ImGui::Text("No solution found");
 	}
 
+
 	ImGui::End();
 }
 
