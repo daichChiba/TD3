@@ -94,7 +94,7 @@ void Board::ImGuiX() {
 
 	 // リセットボタン
 	if (ImGui::Button("Reset")) {
-		//Reset();
+		Reset();
 	}
 
 	// 移動回数を表示
