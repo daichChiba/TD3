@@ -4,7 +4,7 @@
 #include <imgui.h>
 #include <stack>
 #include <queue>//列
-#include <unordered_map>//順序なしセット
+#include <unordered_set>//順序なしセット
 #include "KamataEngine.h"
 using namespace KamataEngine;
 
@@ -61,25 +61,22 @@ public:
 	void UndoMove();
 
 	// スライドパズルを表示する関数
-	void ShowSliderPuzzle();                 
+	void ShowSliderPuzzle();      
+
+	// ヒューリスティック関数
+	int Heuristic(const std::vector<int>& state);
 
 private:
-
-	//ヒューリスティック関数
-	int Heuristic(const std::vector<int>& state);
 
 	// 空白のタイルの値
 	static const int EMPTY_TILE = 0;
 
 	int rows;
-
 	int cols;
-
 	int minMoves;
 
 	// 空白のタイルの行
 	int emptyRow;
-
 	// 空白のタイルの列
 	int emptyCol;
 

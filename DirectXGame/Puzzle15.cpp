@@ -3,7 +3,18 @@
 #include <algorithm>
 #include <chrono>
 #include <queue>
-#include <unordered_map>
+#include <unordered_set>
+
+// カスタムハッシュ関数を定義
+struct VectorHash {
+	std::size_t operator()(const std::vector<int>& v) const {
+		std::size_t seed = v.size();
+		for (auto& i : v) {
+			seed ^= i + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+		}
+		return seed;
+	}
+};
 
 // コンストラクタ: ボードの初期化
 Puzzle15::Puzzle15(int row, int col) : row(row), col(col), moveCount(0) {
@@ -95,6 +106,75 @@ bool Puzzle15::MoveTile(int index) {
 	return false;
 }
 
+// 最後の移動を元に戻す関数
+void Puzzle15::UndoMove() {
+	if (!moveHistory.empty()) {
+		auto [prevEmptyIndex, prevTileIndex] = moveHistory.top();
+		moveHistory.pop();
+		std::swap(tiles[emptyIndex], tiles[prevTileIndex]);
+		emptyIndex = prevEmptyIndex;
+		moveCount--;
+	}
+}
+
+// ヒューリスティック関数
+// 問題の正確な解決策がない場合や解決策を取得する時間が長すぎる場合に、問題を解決するためのショートカットとして使用される関数
+int Puzzle15::Heuristic(const std::vector<int>& state) {
+	int h = 0;
+	for (int i = 0; i < state.size(); ++i) {
+		if (state[i] != EMPTY_TILE) {
+			int targetRow = (state[i] - 1) / col;
+			int targetCol = (state[i] - 1) % col;
+			int currentRow = i / col;
+			int currentCol = i % col;
+			h += std::abs(targetRow - currentRow) + std::abs(targetCol - currentCol);
+		}
+	}
+	return h;
+}
+
+//最短手数を計算する関数
+ int Puzzle15::CalculateMinimumMoves() {
+	std::priority_queue<std::pair<int, std::vector<int>>, std::vector<std::pair<int, std::vector<int>>>, std::greater<>> pq;
+	std::unordered_set<std::vector<int>, VectorHash> visited;
+	pq.push({Heuristic(tiles), tiles});
+	visited.insert(tiles);
+
+	while (!pq.empty()) {
+		auto [cost, state] = pq.top();
+		pq.pop();
+
+		if (std::is_sorted(state.begin(), state.end() - 1) && state.back() == EMPTY_TILE) {
+			return cost;
+		}
+
+		emptyIndex = (int)std::distance(state.begin(), std::find(state.begin(), state.end(), EMPTY_TILE));
+		emptyRow = emptyIndex / col;
+		emptyCol = emptyIndex % col;
+
+		std::vector<std::pair<int, int>> directions = {
+		    {-1, 0 },
+             {1,  0 },
+             {0,  -1},
+             {0,  1 }
+         };
+		for (auto [dr, dc] : directions) {
+			int newRow = emptyRow + dr;
+			int newCol = emptyCol + dc;
+			if (newRow >= 0 && newRow < row && newCol >= 0 && newCol < col) {
+				std::vector<int> newState = state;
+				std::swap(newState[emptyRow * col + emptyCol], newState[newRow * col + newCol]);
+				if (visited.find(newState) == visited.end()) {
+					pq.push({cost + 1 + Heuristic(newState), std::move(newState)});
+					visited.insert(newState);
+				}
+			}
+		}
+	}
+
+	return -1; // 解が見つからない場合
+ }
+
 // ImGui を使用してスライドパズルを表示する関数
 void Puzzle15::ImGuiX() {
 	ImGui::Begin("Slide Puzzle");
@@ -141,7 +221,7 @@ void Puzzle15::ImGuiX() {
 	//最短手数を表示
 	minMoves = CalculateMinimumMoves();
 	if (minMoves != -1) {
-		ImGui::Text("Move Count : %d", minMoves);
+		ImGui::Text("Minimum Move : %d", minMoves);
 	} else {
 		ImGui::Text("No solution found");
 	}
@@ -182,74 +262,9 @@ void Puzzle15::Reset() {
 //移動回数をリセットする関数
 void Puzzle15::ResetMoveCount() { moveCount = 0; }
 
-//最短手数を計算する関数
-int Puzzle15::CalculateMinimumMoves() {
-	std::priority_queue<std::pair<int, std::vector<int>>, std::vector<std::pair<int, std::vector<int>>>, std::greater<>> pq;
-	std::unordered_map<std::vector<int>,bool> visited;
-	pq.push({Heuristic(tiles), tiles});
-	visited[tiles] = true;
 
-	while (!pq.empty()) {
-		auto [cost, state] = pq.top();
-		pq.pop();
 
-		if (std::is_sorted(state.begin(), state.end() - 1) && state.back() == EMPTY_TILE) {
-			return cost;
-		}
-
-		emptyIndex = (int)std::distance(state.begin(), std::find(state.begin(), state.end(), EMPTY_TILE));
-		emptyRow = emptyIndex / col;
-		emptyCol = emptyIndex % col;
-
-		std::vector<std::pair<int, int>> directions = {
-		    {-1, 0 },
-            {1,  0 },
-            {0,  -1},
-            {0,  1 }
-        };
-		for (auto [dr, dc] : directions) {
-			int newRow = emptyRow + dr;
-			int newCol = emptyCol + dc;
-			if (newRow >= 0 && newRow < row && newCol >= 0 && newCol < col) {
-				std::vector<int> newState = state;
-				std::swap(newState[emptyRow * col + emptyCol], newState[newRow * col + newCol]);
-				if (visited.find(newState) == visited.end()) {
-					pq.push({cost + 1 + Heuristic(newState), std::move(newState)});
-					visited[newState] = true;
-				}
-			}
-		}
-	}
-
-	return -1; // 解が見つからない場合
-}
-
-//最後の移動を元に戻す関数
-void Puzzle15::UndoMove() { 
-	if (!moveHistory.empty()) {
-		auto [prevEmptyIndex, prevTileIndex] = moveHistory.top();
-		moveHistory.pop();
-		std::swap(tiles[emptyIndex], tiles[prevTileIndex]);
-		emptyIndex = prevEmptyIndex;
-		moveCount--;
-	}
-}
 
 // スライドパズルを表示する関数
 void Puzzle15::ShowSliderPuzzle() { ImGuiX(); }
 
-//ヒューリスティック関数
-//問題の正確な解決策がない場合や解決策を取得する時間が長すぎる場合に、問題を解決するためのショートカットとして使用される関数
-int Puzzle15::Heuristic(const std::vector<int>& state) {
-	int h = 0;
-	for (int i = 0; i < state.size(); ++i) {
-		if (state[i] != EMPTY_TILE) {
-			int targetRow = (state[i] - 1) / col;
-			int targetCol = (state[i] - 1) % col;
-			int currentRow = i / col;
-			int currentCol = i % col;
-			h += std::abs(targetRow - currentRow) + std::abs(targetCol - currentCol);
-		}
-	}
-	return h;
-}
