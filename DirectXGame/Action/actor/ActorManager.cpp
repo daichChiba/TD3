@@ -25,20 +25,19 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 	enemyBulletModel_ = enemyBulletModel;
 
 	playerManager_ = new PlayerManager();
-	playerManager_->Initialize(PlayeModel_, PlayerBulletModel, Vector3{0.0f, 0.0f, 0.0f}, this);
+	playerManager_->Initialize(PlayeModel_, PlayerBulletModel, Vector3{0.0f, 10.0f, 0.0f}, this);
 
 	playerManager_->CreatePlayerMain();
-
-	playerManager_->GetPlayer()->camera_ = camera_;
 
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 }
 
 void ActorManager::Update() {
-	playerManager_->GetPlayer()->camera_->rotation_ = followCamera_->GetCamera().rotation_;
+	followCamera_->Update();
+	
+	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
 
-	followCamera_->Update();
 	camera_->matView = followCamera_->GetCamera().matView;
 	camera_->matProjection = followCamera_->GetCamera().matProjection;
 

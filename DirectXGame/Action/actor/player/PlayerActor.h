@@ -31,9 +31,7 @@ public:
 
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_;}
 
-	Camera* camera_ = nullptr;
-
-	int a = 0;
+	void SetCameraRot(Vector3 cameraRot){ cameraRot_ = cameraRot; }
 
 protected:
 	virtual void Move() { return; }
@@ -43,12 +41,18 @@ protected:
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
 
-	
+	Vector3 cameraRot_;
 
 	ActorManager* actorManager_;
+
+	XINPUT_STATE xinput_;
+	float lx, ly;
 
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.3f;
 
-	XINPUT_STATE xinput_;
+	bool onGround_;
+	static inline const float kGroundHeight = 0.5f;
+
+	static inline const float kFoalSpeed = -0.05f;
 };
