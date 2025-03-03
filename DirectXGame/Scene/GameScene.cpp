@@ -23,7 +23,7 @@ void GameScene::Update() {
 	PlaceTiles();
 
 
-	
+	puzzle15_->Update();
 
 }
 

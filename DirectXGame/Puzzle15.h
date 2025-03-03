@@ -23,7 +23,7 @@ public:
 	int col;
 
 	// タイルの状態を保持するベクトル
-	std::vector<int> tiles;
+	std::vector<std::vector<int>> tiles;
 	// 初期状態を保存するためのベクター
 	std::vector<int> initialTiles; 
 	//移動履歴を保存するスタック
@@ -32,7 +32,9 @@ public:
 public:
 	// コンストラクタ: ボードの初期化
 	Puzzle15(int row, int col);
-	
+
+	void Update();
+
 	// タイルをシャッフルする関数
 	void Shuffle();
 

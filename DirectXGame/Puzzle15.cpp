@@ -38,8 +38,33 @@ Puzzle15::Puzzle15(int row, int col) : row(row), col(col), moveCount(0) {
 	Shuffle();
 }
 
+void Puzzle15::Update() {
+	if (input_ && input_->TriggerKey(DIK_Z)) {
+		UndoMove();
+	}
+}
+
 // タイルをシャッフルする関数
 void Puzzle15::Shuffle() {
+	int x = 3;
+	int y = 3;
+	tiles.clear();
+	for (int i = 0;i < x;i++) {
+		tiles.push_back(std::vector<int>());
+	}
+
+	for (std::vector<int> tile : tiles) {
+		for (int i = 0; i < y; i++) {
+			tile.push_back(1);
+		}
+	}
+
+	for (int i = 0; i < x; i++) {
+		for (int j = 0; j < y; j++) {
+			tiles[j][i] = 1 + x + y * 3;
+		}
+	}
+
 	// 乱数生成器の初期化
 	std::random_device rd;
 	std::mt19937 g(rd());
@@ -179,6 +204,10 @@ int Puzzle15::Heuristic(const std::vector<int>& state) {
 void Puzzle15::ImGuiX() {
 	ImGui::Begin("Slide Puzzle");
 
+	if (IsSolved()) {
+		ImGui::Text("Congratulations! The puzzle is solved!");
+	}
+
 	// ボードのタイルを表示
 	for (int y = 0; y < row; y++) {
 		for (int x = 0; x < col; x++) {
@@ -217,6 +246,21 @@ void Puzzle15::ImGuiX() {
 
 	// 移動回数を表示
 	ImGui::Text("Move Count: %d", moveCount);
+
+	// パズルの現在の状態を表示
+	ImGui::Text("Current State:");
+	for (int y = 0; y < row; y++) {
+		for (int x = 0; x < col; x++) {
+			int index = y * col + x;
+			if (tiles[index] != EMPTY_TILE) {
+				ImGui::Text("%d ", tiles[index]);
+			} else {
+				ImGui::Text("  ");
+			}
+			if (x < col - 1)
+				ImGui::SameLine();
+		}
+	}
 
 	////最短手数を表示
 	//minMoves = CalculateMinimumMoves();

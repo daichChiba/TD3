@@ -111,7 +111,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtilityEX.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
-    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="worldTransfromEX.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +191,6 @@
   <ItemGroup>
     <ClInclude Include="Puzzle15.h" />
     <ClInclude Include="Scene\GameScene.h" />
-    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
