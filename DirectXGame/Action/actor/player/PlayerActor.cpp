@@ -39,10 +39,13 @@ void PlayerActor::Update() {
 
 	Attack();
 
-	move_ = Normalize(move_);
-	//move_ = move_ * kSpeed_;
 	
+	//move_ = move_ * kSpeed_;
+	//move_ = Normalize(move_);
+
 	if(Length(cameraRot_) != 0.0f) {
+		
+
 		Matrix4x4 matRotX = MakeRotateXMatrix(cameraRot_.x);
 		Matrix4x4 matRotY = MakeRotateYMatrix(cameraRot_.y);
 		Matrix4x4 matRotZ = MakeRotateZMatrix(cameraRot_.z);

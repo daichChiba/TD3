@@ -19,7 +19,9 @@ private:
 
 	Vector3 acceletion;
 
-	static inline const float kMpoveSpeed = 1.0f;
+	int a = 0;
+
+	static inline const float kMpoveSpeed = 0.1f;
 	static inline const float kJumpPower = 1.0f;
 	static inline const float kAttenuation = 0.05f;
 

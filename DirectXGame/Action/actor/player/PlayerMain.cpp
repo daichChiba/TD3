@@ -17,18 +17,21 @@ void PlayerMain::Move() {
 				move_.z *= (1.0f - kAttenuation);
 
 			acceletion.z += kMpoveSpeed;
+			a = 1;
 
 		} else if (backKey) {
 			if (move_.z > 0.0f)
 				move_.z *= (1.0f - kAttenuation);
 
 			acceletion.z += -kMpoveSpeed;
+			a = 1;
 		}
 	} else {
 		move_.z *= (1.0f - kAttenuation);
 		//move_.z = 0.0f;
-		if (std::abs(acell.z) < moveRiset)
+		if (std::abs(move_.z) < moveRiset && a == 1)
 			move_.z = 0.0f;
+			a = 0;
 	}
 
 	if (rightKey || leftKey) {
