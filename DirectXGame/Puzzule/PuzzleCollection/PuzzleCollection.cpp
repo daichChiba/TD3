@@ -1,6 +1,10 @@
 #include "PuzzleCollection.h"
 
 void PuzzleCollection::Initialize() {
+#ifdef _DEBUG
+
+#endif // _DEBUG
+
 
 }
 

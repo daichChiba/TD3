@@ -6,5 +6,5 @@ class puzzleCollection;
 
 class PuzzleFactory {
 public:
-	std::unique_ptr<puzzleCollection> CreatePuzzle15();
+	std::unique_ptr<puzzleCollection> CreatePuzzle15();	
 };
