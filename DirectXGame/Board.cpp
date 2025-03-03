@@ -47,17 +47,25 @@ bool Board::MoveTile(int index) {
 	emptyRow = emptyIndex / col;
 	emptyCol = emptyIndex % col;
 
+	int x = std::abs(rows - emptyRow), y = std::abs(cols - emptyCol);// タイルとあいているのタイル距離
+
 	// 選択されたタイルが空白のタイルと隣接しているかチェック
-	if ((std::abs(rows - emptyRow) + std::abs(cols - emptyCol)) == 1) {
-		// タイルを交換
-		std::swap(tiles[index], tiles[emptyIndex]);
+	//if ((std::abs(rows - emptyRow) + std::abs(cols - emptyCol)) == 1) {
+	
+	if(x != 0 && y != 0 || )
+	{
+		for( int i = 0; i < x; ++i)
+		{
+			// タイルを交換
+			std::swap(tiles[index], tiles[emptyIndex]);
 
-		// 空白のタイルのインデックスを更新
-		emptyIndex = index;
+			// 空白のタイルのインデックスを更新
+			emptyIndex = index;
 
-		//移動回数をインクリメント
-		moveCount++;
-		return true;
+			//移動回数をインクリメント
+			moveCount++;
+			return true;
+		}
 	}
 	return false;
 }
