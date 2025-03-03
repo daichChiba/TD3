@@ -1,6 +1,6 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
-#include"Scene/GameScene.h"
+#include "Scene/GameScene.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -13,8 +13,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	PrimitiveDrawer* primitiveDrawer = nullptr;
 
 	GameScene* gameScene = new GameScene;
-
-
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -59,8 +57,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	gameScene = new GameScene;
 	gameScene->Initialize();
 #endif // _DEBUG
-	
-
 
 	// メインループ
 	while (true) {
@@ -68,6 +64,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		if (win->ProcessMessage()) {
 			break;
 		}
+
+
 
 		// ImGui受付開始
 		imguiManager->Begin();

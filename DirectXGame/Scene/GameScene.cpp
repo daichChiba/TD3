@@ -16,11 +16,15 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-	
+
 	puzzle15_->ImGuiX();
 
 	//タイルを配置する
 	PlaceTiles();
+
+
+	
+
 }
 
 void GameScene::Draw() {
