@@ -1,8 +1,11 @@
 #include "PuzzleManager.h"
+#include "PuzzleCollection/PuzzleCollection.h"
 
 void PuzzleManager::Initialize() {
 	camera_ = new Camera();
 	camera_->Initialize();
+	puzzleCollection_ = new PuzzleCollection();
+	puzzleCollection_->Initialize();
 }
 
 void PuzzleManager::Update() {
@@ -10,10 +13,11 @@ void PuzzleManager::Update() {
 	// カメラの更新
 	camera_->TransferMatrix();
 
+	puzzleCollection_->Update();
 }
 
 void PuzzleManager::Draw() {
-
+	puzzleCollection_->Draw();
 }
 
 void PuzzleManager::DrawImGui() {

@@ -2,9 +2,9 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
-class puzzleCollection;
+class PuzzleCollection;
 
 class PuzzleFactory {
 public:
-	std::unique_ptr<puzzleCollection> CreatePuzzle15();	
+	std::unique_ptr<PuzzleCollection> CreatePuzzle15();
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 using namespace KamataEngine;
+#include "../Puzzule/PuzzleCollection/PuzzleCollection.h"
 class GameScene;
 
 class PuzzleManager {
@@ -28,4 +29,6 @@ private:
 	/// puzzleManagerのImGui描画
 	/// </summary>
 	void DrawImGui();
+
+	PuzzleCollection* puzzleCollection_;
 };
