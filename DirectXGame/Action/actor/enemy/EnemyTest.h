@@ -1,6 +1,6 @@
 #pragma once
 #include "kamataEngine.h"
-#include ""
+#include "EnemyActor.h"
 using namespace KamataEngine;
 
 

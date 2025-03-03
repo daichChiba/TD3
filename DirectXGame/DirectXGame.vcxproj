@@ -110,12 +110,12 @@
     <ClCompile Include="Action\actor\enemy\EnemyActor.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyFactory.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyManager.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyTest.cpp" />
     <ClCompile Include="Action\actor\player\PlayerActor.cpp" />
     <ClCompile Include="Action\actor\player\PlayerFactory.cpp" />
     <ClCompile Include="Action\actor\player\PlayerMain.cpp" />
     <ClCompile Include="Action\actor\player\PlayerManager.cpp" />
     <ClCompile Include="Action\FolloCamera.cpp" />
-    <ClCompile Include="EnemyTest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtilityEX.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
@@ -201,12 +201,12 @@
     <ClInclude Include="Action\actor\enemy\EnemyActor.h" />
     <ClInclude Include="Action\actor\enemy\EnemyFactory.h" />
     <ClInclude Include="Action\actor\enemy\EnemyManager.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyTest.h" />
     <ClInclude Include="Action\actor\player\PlayerActor.h" />
     <ClInclude Include="Action\actor\player\PlayerFactory.h" />
     <ClInclude Include="Action\actor\player\PlayerMain.h" />
     <ClInclude Include="Action\actor\player\PlayerManager.h" />
     <ClInclude Include="Action\FolloCamera.h" />
-    <ClInclude Include="EnemyTest.h" />
     <ClInclude Include="Scene\GameScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

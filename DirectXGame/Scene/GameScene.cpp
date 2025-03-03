@@ -4,6 +4,7 @@
 #include "../Action/actor/ActorManager.h"
 #include "../Action/actor/player/PlayerActor.h"
 #include "../Action/actor/enemy/EnemyActor.h"
+#include "../Action/actor/enemy/EnemyTest.h"
 
 
 GameScene::GameScene() {}
@@ -28,7 +29,8 @@ void GameScene::Initialize() {
 	//Enemy
 	
 	enemyModel_ = Model::CreateFromOBJ("Enemy");
-	
+	Enemy_ = std::make_unique<EnemyTest>();
+	Enemy_->Initialize(enemyModel_, enemyModel_, Vector3{0.0f, 0.0f, 0.0f}, actorManager_);
 
 	//////////////////////////////
 
@@ -45,7 +47,7 @@ void GameScene::Update() {
 
 	//////////////////////////////
 	// Enemy
-	Manager_->Update();
+	Enemy_->Update();
 	//////////////////////////////
 
 }
@@ -82,7 +84,7 @@ void GameScene::Draw() {
 
 	//////////////////////////////
 	// Enemy
-	Manager_->Draw(*actorManager->SetCamera());
+	Enemy_->Draw(*actorManager->SetCamera());
 	//////////////////////////////
 
 
