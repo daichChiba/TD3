@@ -108,7 +108,8 @@
   <ItemGroup>
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PuzzleCollection.cpp" />
+    <ClCompile Include="PuzzleFactory.cpp" />
+    <ClCompile Include="Puzzule\PuzzleCollection\PuzzleCollection.cpp" />
     <ClCompile Include="Puzzule\PuzzleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +188,8 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PuzzleCollection.h" />
+    <ClInclude Include="PuzzleFactory.h" />
+    <ClInclude Include="Puzzule\PuzzleCollection\PuzzleCollection.h" />
     <ClInclude Include="Puzzule\PuzzleManager.h" />
     <ClInclude Include="Scene\GameScene.h" />
   </ItemGroup>
