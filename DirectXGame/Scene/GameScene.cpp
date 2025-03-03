@@ -1,9 +1,9 @@
 #include "GameScene.h"
 #include <iostream>
 
-GameScene::GameScene() : board(nullptr){}
+GameScene::GameScene() : puzzle15_(nullptr) {}
 
-GameScene::~GameScene() { delete board; }
+GameScene::~GameScene() { delete puzzle15_; }
 
 void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -11,13 +11,13 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	//ボードの数を設定し、初期値を割り当てる
-	board = new Board(3, 3);
+	puzzle15_ = new Puzzle15(3, 3);
 	
 }
 
 void GameScene::Update() {
 	
-	board->ImGuiX();
+	puzzle15_->ImGuiX();
 
 	//タイルを配置する
 	PlaceTiles();
@@ -75,10 +75,10 @@ void GameScene::PlaceTiles() {
 	// ImGuiを使用してタイルを配置する
 	ImGui::Begin("Place Tiles");
 
-	for (int i = 0; i < board->row * board->col; i++) {
-		int value = board->tiles[i];
+	for (int i = 0; i < puzzle15_->row * puzzle15_->col; i++) {
+		int value = puzzle15_->tiles[i];
 		if (ImGui::InputInt(("Tile" + std::to_string(i)).c_str(), &value)) {
-			board->PlaceTile(i, value);
+			puzzle15_->PlaceTile(i, value);
 		}
 	}
 	ImGui::End();

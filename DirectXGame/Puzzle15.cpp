@@ -1,10 +1,12 @@
-#include "Board.h"
+#include "Puzzle15.h"
 #include <random>
 #include <algorithm>
 #include <chrono>
+#include <queue>
+#include <unordered_map>
 
 // コンストラクタ: ボードの初期化
-Board::Board(int row, int col) : row(row), col(col), moveCount(0){
+Puzzle15::Puzzle15(int row, int col) : row(row), col(col), moveCount(0) {
 	// タイルの数を設定し、初期値を割り当てる
 	tiles.resize(row * col);
 	initialTiles.resize(row * col);
@@ -26,20 +28,26 @@ Board::Board(int row, int col) : row(row), col(col), moveCount(0){
 }
 
 // タイルをシャッフルする関数
-void Board::Shuffle() {
+void Puzzle15::Shuffle() {
 	// 乱数生成器の初期化
 	std::random_device rd;
 	std::mt19937 g(rd());
+
 	// タイルをランダムにシャッフル
 	std::shuffle(tiles.begin(), tiles.end(), g);
 	// シャッフル後の空白のタイルのインデックスを更新
 	emptyIndex = (int)std::distance(tiles.begin(), std::find(tiles.begin(), tiles.end(), EMPTY_TILE));
 	//移動回数をリセット
 	ResetMoveCount();
+
+	//移動履歴をクリア
+	while (!moveHistory.empty()) {
+		moveHistory.pop();
+	}
 }
 
 // タイルを移動する関数
-bool Board::MoveTile(int index) {
+bool Puzzle15::MoveTile(int index) {
 	// 選択されたタイルの行と列を計算
 	rows = index / col;
 	cols = index % col;
@@ -61,6 +69,7 @@ bool Board::MoveTile(int index) {
 				std::swap(tiles[emptyRow * col + i], tiles[emptyRow * col + i + 1]);
 			}
 		}
+		moveHistory.push({emptyIndex, index});
 		emptyIndex = index;
 		moveCount++;
 		return true;
@@ -77,6 +86,7 @@ bool Board::MoveTile(int index) {
 				std::swap(tiles[i * col + emptyCol], tiles[(i + 1) * col + emptyCol]);
 			}
 		}
+		moveHistory.push({emptyIndex, index});
 		emptyIndex = index;
 		moveCount++;
 		return true;
@@ -86,7 +96,7 @@ bool Board::MoveTile(int index) {
 }
 
 // ImGui を使用してスライドパズルを表示する関数
-void Board::ImGuiX() {
+void Puzzle15::ImGuiX() {
 	ImGui::Begin("Slide Puzzle");
 
 	// ボードのタイルを表示
@@ -120,15 +130,27 @@ void Board::ImGuiX() {
 		Reset();
 	}
 
+	//元に戻すボタン
+	if (ImGui::Button("Undo")) {
+		UndoMove();
+	}
+
 	// 移動回数を表示
 	ImGui::Text("Move Count: %d", moveCount);
 
-	ImGui::End();
+	//最短手数を表示
+	minMoves = CalculateMinimumMoves();
+	if (minMoves != -1) {
+		ImGui::Text("Move Count : %d", minMoves);
+	} else {
+		ImGui::Text("No solution found");
+	}
 
+	ImGui::End();
 }
 
 //パズルが解けたかどうかを確認する関数
-bool Board::IsSolved() {
+bool Puzzle15::IsSolved() {
 	for (int i = 0; i < row * col - 1; ++i) {
 		if (tiles[i] != i + 1) {
 			return false;
@@ -138,7 +160,7 @@ bool Board::IsSolved() {
 }
 
 //タイルを任意の場所に配置する関数
-void Board::PlaceTile(int index, int value) {
+void Puzzle15::PlaceTile(int index, int value) {
 	tiles[index] = value;
 	if (value == EMPTY_TILE) {
 		emptyIndex = index;
@@ -146,15 +168,88 @@ void Board::PlaceTile(int index, int value) {
 }
 
 //パズルを初期化状態にリセットする関数
-void Board::Reset() {
+void Puzzle15::Reset() {
 	tiles = initialTiles;
 	emptyIndex = initialEmptyIndex;
 	//移動回数をリセット
 	ResetMoveCount();
+	//移動履歴をクリア
+	while (!moveHistory.empty()) {
+		moveHistory.pop();
+	}
 }
 
 //移動回数をリセットする関数
-void Board::ResetMoveCount() { moveCount = 0; }
+void Puzzle15::ResetMoveCount() { moveCount = 0; }
+
+//最短手数を計算する関数
+int Puzzle15::CalculateMinimumMoves() {
+	std::priority_queue<std::pair<int, std::vector<int>>, std::vector<std::pair<int, std::vector<int>>>, std::greater<>> pq;
+	std::unordered_map<std::vector<int>,bool> visited;
+	pq.push({Heuristic(tiles), tiles});
+	visited[tiles] = true;
+
+	while (!pq.empty()) {
+		auto [cost, state] = pq.top();
+		pq.pop();
+
+		if (std::is_sorted(state.begin(), state.end() - 1) && state.back() == EMPTY_TILE) {
+			return cost;
+		}
+
+		emptyIndex = (int)std::distance(state.begin(), std::find(state.begin(), state.end(), EMPTY_TILE));
+		emptyRow = emptyIndex / col;
+		emptyCol = emptyIndex % col;
+
+		std::vector<std::pair<int, int>> directions = {
+		    {-1, 0 },
+            {1,  0 },
+            {0,  -1},
+            {0,  1 }
+        };
+		for (auto [dr, dc] : directions) {
+			int newRow = emptyRow + dr;
+			int newCol = emptyCol + dc;
+			if (newRow >= 0 && newRow < row && newCol >= 0 && newCol < col) {
+				std::vector<int> newState = state;
+				std::swap(newState[emptyRow * col + emptyCol], newState[newRow * col + newCol]);
+				if (visited.find(newState) == visited.end()) {
+					pq.push({cost + 1 + Heuristic(newState), std::move(newState)});
+					visited[newState] = true;
+				}
+			}
+		}
+	}
+
+	return -1; // 解が見つからない場合
+}
+
+//最後の移動を元に戻す関数
+void Puzzle15::UndoMove() { 
+	if (!moveHistory.empty()) {
+		auto [prevEmptyIndex, prevTileIndex] = moveHistory.top();
+		moveHistory.pop();
+		std::swap(tiles[emptyIndex], tiles[prevTileIndex]);
+		emptyIndex = prevEmptyIndex;
+		moveCount--;
+	}
+}
 
 // スライドパズルを表示する関数
-void Board::ShowSliderPuzzle() { ImGuiX(); }
+void Puzzle15::ShowSliderPuzzle() { ImGuiX(); }
+
+//ヒューリスティック関数
+//問題の正確な解決策がない場合や解決策を取得する時間が長すぎる場合に、問題を解決するためのショートカットとして使用される関数
+int Puzzle15::Heuristic(const std::vector<int>& state) {
+	int h = 0;
+	for (int i = 0; i < state.size(); ++i) {
+		if (state[i] != EMPTY_TILE) {
+			int targetRow = (state[i] - 1) / col;
+			int targetCol = (state[i] - 1) % col;
+			int currentRow = i / col;
+			int currentCol = i % col;
+			h += std::abs(targetRow - currentRow) + std::abs(targetCol - currentCol);
+		}
+	}
+	return h;
+}

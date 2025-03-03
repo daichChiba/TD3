@@ -2,7 +2,7 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
-#include "../Board.h"
+#include "../Puzzle15.h"
 
 class GameScene {
 public:
@@ -38,7 +38,7 @@ private:
 
 	Audio* audio_ = nullptr;
 
-	Board* board;
+	Puzzle15* puzzle15_;
 
 	// タイルを配置するメソッド
 	void PlaceTiles();

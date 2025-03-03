@@ -39,12 +39,6 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Action\actor\player\PlayerActor.cpp">
-      <Filter>ソース ファイル\action\actor\player</Filter>
-    </ClCompile>
-    <ClCompile Include="Action\actor\player\PlayerMain.cpp">
-      <Filter>ソース ファイル\action\actor\player</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\GameScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -52,6 +46,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="MathUtilityEX.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle15.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,13 +105,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action\actor\player\PlayerActor.h">
-      <Filter>ヘッダー ファイル\action\actor\player</Filter>
-    </ClInclude>
-    <ClInclude Include="Action\actor\player\PlayerMain.h">
-      <Filter>ヘッダー ファイル\action\actor\player</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\GameScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzle15.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
