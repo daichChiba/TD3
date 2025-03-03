@@ -14,32 +14,40 @@ void FollowCamera::Update()
 	if (target_) {
 		Vector3 offset = {0.0f, 2.0f, -10.0f};
 
-		 Matrix4x4 rotationMatrix = MakeRotateYMatrix(followCamera.rotation_.y);
+		Matrix4x4 rotationMatrix = MakeRotateYMatrix(followCamera.rotation_.y);
 
 		offset = TransformNormal(offset, rotationMatrix);
 		
 		followCamera.translation_ = target_->translation_ + offset;
 	}
 
-	Rx = xinput_.Gamepad.sThumbRX / 32767.0f; // 正規化（-1.0 ～ 1.0）
-	//float Ry = xinput_.Gamepad.sThumbRY / 32767.0f;
-	
-	if(Rx >= 0.8f || Rx <= -0.8f)
-	{
-		// カメラの回転を更新
-		followCamera.rotation_.y += Rx * kRotationSpeed;
-	}
-	else if (Input::GetInstance()->PushKey(DIK_Q))
-	{
-		followCamera.rotation_.y -= kRotationSpeed;
-	}
-	else if (Input::GetInstance()->PushKey(DIK_E))
-	{
-		followCamera.rotation_.y += kRotationSpeed;
-	}
+	//Rx = xinput_.Gamepad.sThumbRX / 32767.0f; // 正規化（-1.0 ～ 1.0）
+	////float Ry = xinput_.Gamepad.sThumbRY / 32767.0f;
+	//
+	//if(Rx >= 0.8f || Rx <= -0.8f)
+	//{
+	//	// カメラの回転を更新
+	//	followCamera.rotation_.y += Rx * kRotationSpeed;
+	//}
+	//else if (Input::GetInstance()->PushKey(DIK_Q))
+	//{
+	//	followCamera.rotation_.y -= kRotationSpeed;
+	//}
+	//else if (Input::GetInstance()->PushKey(DIK_E))
+	//{
+	//	followCamera.rotation_.y += kRotationSpeed;
+	//}
 
-	followCamera.UpdateMatrix();
-	DrowImgui();
+	followCamera.UpdateViewMatrix();
+}
+
+void FollowCamera::DrawImgui()
+{
+	ImGui::Begin("followCamera");
+	ImGui::DragFloat3("pos", &followCamera.translation_.x);
+	ImGui::DragFloat3("rot", &followCamera.rotation_.x);
+	ImGui::End();
+	//followCamera.UpdateViewMatrix();
 }
 
 void FollowCamera::DrowImgui()

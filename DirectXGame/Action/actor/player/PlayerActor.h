@@ -49,7 +49,7 @@ protected:
 	float lx, ly;
 
 	Vector3 move_;
-	static inline const float kSpeed_ = 0.3f;
+	static inline const float kSpeed_ = 0.05f;
 
 	bool onGround_;
 	static inline const float kGroundHeight = 0.5f;

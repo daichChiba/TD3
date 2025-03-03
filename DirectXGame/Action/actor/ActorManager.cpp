@@ -35,15 +35,20 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 }
 
 void ActorManager::Update() {
+	
+	followCamera_->DrawImgui();
 	followCamera_->Update();
 	
-	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
-	playerManager_->Update();
-
 	camera_->matView = followCamera_->GetCamera().matView;
 	camera_->matProjection = followCamera_->GetCamera().matProjection;
 
 	camera_->TransferMatrix();
+
+	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
+	playerManager_->Update();
+
+	
+	
 }
 
 void ActorManager::Draw() { playerManager_->Draw(*camera_); }

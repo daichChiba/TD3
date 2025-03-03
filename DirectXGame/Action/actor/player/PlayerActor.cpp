@@ -43,22 +43,18 @@ void PlayerActor::Update() {
 	//move_ = move_ * kSpeed_;
 	//move_ = Normalize(move_);
 
-	if(Length(cameraRot_) != 0.0f) {
-		
+	Matrix4x4 matRotX = MakeRotateXMatrix(cameraRot_.x);
+	Matrix4x4 matRotY = MakeRotateYMatrix(cameraRot_.y);
+	Matrix4x4 matRotZ = MakeRotateZMatrix(cameraRot_.z);
 
-		Matrix4x4 matRotX = MakeRotateXMatrix(cameraRot_.x);
-		Matrix4x4 matRotY = MakeRotateYMatrix(cameraRot_.y);
-		Matrix4x4 matRotZ = MakeRotateZMatrix(cameraRot_.z);
+	Matrix4x4 matRot = matRotX * matRotY * matRotZ;
 
-		Matrix4x4 matRot = matRotX * matRotY * matRotZ;
-
-		move_ = TransformNormal(move_, matRot);
-	}
+	//move_ = TransformNormal(move_, matRot);
 
 	worldTransform_.translation_ += move_;
 
 	DrawImGui();
-	//move_ = Vector3{0.0f, 0.0f, 0.0f};
+	move_ = Vector3{0.0f, 0.0f, 0.0f};
 
 	worldTransform_.UpdateMatrix();
 }
