@@ -2,6 +2,9 @@
 #include <KamataEngine.h>
 #include "../Action/actor/ActorManager.h"
 
+#include "../Action/actor/enemy/EnemyActor.h"
+
+
 using namespace KamataEngine;
 
 class FollowCamera;
@@ -34,7 +37,7 @@ public:
 	/// </summary>
 	void Draw();
 
-	private:
+private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -43,6 +46,15 @@ public:
 
 	Model* PlayerModel_;
 	Model* playerBulletModel_;
+
+	//////////////////////////////
+	// Enemy
+	Model* enemyModel_;
+	ActorManager* actorManager_;
+	std::unique_ptr<EnemyActor> Manager_;
+	//std::list<std::shared_ptr<EnemyActor>> Enemy;
+
+	//////////////////////////////
 
 	Model* skyDome_;
 	Model* ground_;

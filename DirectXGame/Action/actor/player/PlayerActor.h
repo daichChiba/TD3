@@ -35,6 +35,7 @@ public:
 
 	int a = 0;
 
+// 派生クラスでしか使わない関数はprotectedにする
 protected:
 	virtual void Move() { return; }
 	virtual void Attack() { return; }
@@ -50,5 +51,6 @@ protected:
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.3f;
 
+	//コントローラに関する変数
 	XINPUT_STATE xinput_;
 };

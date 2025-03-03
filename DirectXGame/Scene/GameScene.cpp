@@ -3,6 +3,8 @@
 #include "../Action/FolloCamera.h"
 #include "../Action/actor/ActorManager.h"
 #include "../Action/actor/player/PlayerActor.h"
+#include "../Action/actor/enemy/EnemyActor.h"
+
 
 GameScene::GameScene() {}
 
@@ -22,6 +24,14 @@ void GameScene::Initialize() {
 	PlayerModel_ = Model::CreateFromOBJ("Player");
 	playerBulletModel_ = Model::CreateFromOBJ("cube");
 
+	//////////////////////////////
+	//Enemy
+	
+	enemyModel_ = Model::CreateFromOBJ("Enemy");
+	
+
+	//////////////////////////////
+
 	actorManager = new ActorManager();
 	actorManager->SetGeamScene(this);
 	actorManager->Initialize(PlayerModel_, playerBulletModel_, cubeModel_, cubeModel_);
@@ -32,6 +42,12 @@ void GameScene::Update() {
 	actorManager->Update();
 
 	skyDomeTrans.UpdateMatrix();
+
+	//////////////////////////////
+	// Enemy
+	Manager_->Update();
+	//////////////////////////////
+
 }
 
 void GameScene::Draw() {
@@ -63,6 +79,13 @@ void GameScene::Draw() {
 	ground_->Draw(skyDomeTrans, *actorManager->SetCamera());
 
 	actorManager->Draw();
+
+	//////////////////////////////
+	// Enemy
+	Manager_->Draw(*actorManager->SetCamera());
+	//////////////////////////////
+
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

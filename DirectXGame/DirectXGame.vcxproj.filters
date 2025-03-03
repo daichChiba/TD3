@@ -78,10 +78,10 @@
     <ClCompile Include="Action\actor\enemy\EnemyFactory.cpp">
       <Filter>ソース ファイル\action\actor\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Action\actor\enemy\EnemyMain.cpp">
+    <ClCompile Include="Action\actor\enemy\EnemyManager.cpp">
       <Filter>ソース ファイル\action\actor\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Action\actor\enemy\EnemyManager.cpp">
+    <ClCompile Include="EnemyTest.cpp">
       <Filter>ソース ファイル\action\actor\enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -162,10 +162,10 @@
     <ClInclude Include="Action\actor\enemy\EnemyFactory.h">
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Action\actor\enemy\EnemyMain.h">
+    <ClInclude Include="Action\actor\enemy\EnemyManager.h">
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Action\actor\enemy\EnemyManager.h">
+    <ClInclude Include="EnemyTest.h">
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
     </ClInclude>
   </ItemGroup>
