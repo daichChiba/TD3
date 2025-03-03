@@ -6,7 +6,10 @@ void PuzzleManager::Initialize() {
 }
 
 void PuzzleManager::Update() {
-	DrawImGui();
+
+	// カメラの更新
+	camera_->TransferMatrix();
+
 }
 
 void PuzzleManager::Draw() {
