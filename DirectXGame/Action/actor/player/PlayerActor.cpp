@@ -39,16 +39,18 @@ void PlayerActor::Update() {
 
 	Attack();
 
-	move_ = Normalize(move_) * kSpeed_;
+	move_ = Normalize(move_);
 	//move_ = move_ * kSpeed_;
+	
+	if(Length(cameraRot_) != 0.0f) {
+		Matrix4x4 matRotX = MakeRotateXMatrix(cameraRot_.x);
+		Matrix4x4 matRotY = MakeRotateYMatrix(cameraRot_.y);
+		Matrix4x4 matRotZ = MakeRotateZMatrix(cameraRot_.z);
 
-	Matrix4x4 matRotX = MakeRotateXMatrix(cameraRot_.x);
-	Matrix4x4 matRotY = MakeRotateYMatrix(cameraRot_.y);
-	Matrix4x4 matRotZ = MakeRotateZMatrix(cameraRot_.z);
+		Matrix4x4 matRot = matRotX * matRotY * matRotZ;
 
-	Matrix4x4 matRot = matRotX * matRotY * matRotZ;
-
-	move_ = TransformNormal(move_, matRot);
+		move_ = TransformNormal(move_, matRot);
+	}
 
 	worldTransform_.translation_ += move_;
 
@@ -65,5 +67,6 @@ void PlayerActor::DrawImGui() {
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x, 0.01f);
 	ImGui::DragFloat3("rot", &worldTransform_.rotation_.x, 0.01f);
 	ImGui::DragFloat3("move", &move_.x, 0.1f);
+	ImGui::DragFloat3("cameraRot", &cameraRot_.x, 0.1f);
 	ImGui::End();
 }

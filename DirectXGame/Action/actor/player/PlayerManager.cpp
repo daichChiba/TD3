@@ -34,6 +34,6 @@ void PlayerManager::Draw(Camera& camera)
 
 void PlayerManager::CreatePlayerMain()
 {
-	Plauyer_ = std::make_unique<PlayerMain>();
+	Plauyer_ = factory_->CreatePlayer();
 	Plauyer_->Initialize(model_, bulletModel_, Startpos_, actorManager_);
 }

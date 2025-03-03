@@ -30,6 +30,8 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 	playerManager_->CreatePlayerMain();
 
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
+
+
 }
 
 void ActorManager::Update() {
