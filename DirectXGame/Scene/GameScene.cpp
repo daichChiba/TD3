@@ -10,7 +10,8 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	board = new Board(4, 4);
+	//ボードの数を設定し、初期値を割り当てる
+	board = new Board(3, 3);
 	
 }
 

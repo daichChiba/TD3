@@ -47,18 +47,41 @@ bool Board::MoveTile(int index) {
 	emptyRow = emptyIndex / col;
 	emptyCol = emptyIndex % col;
 
-	// 選択されたタイルが空白のタイルと隣接しているかチェック
-	if ((std::abs(rows - emptyRow) + std::abs(cols - emptyCol)) == 1) {
-		// タイルを交換
-		std::swap(tiles[index], tiles[emptyIndex]);
-
-		// 空白のタイルのインデックスを更新
+	 // タイルが同じ行または同じ列にある場合に移動を許可
+	if (rows == emptyRow) {
+		// 同じ行にある場合
+		if (cols < emptyCol) {
+			// 左側にある場合
+			for (int i = emptyCol; i > cols; --i) {
+				std::swap(tiles[emptyRow * col + i], tiles[emptyRow * col + i - 1]);
+			}
+		} else if (cols > emptyCol) {
+			// 右側にある場合
+			for (int i = emptyCol; i < cols; ++i) {
+				std::swap(tiles[emptyRow * col + i], tiles[emptyRow * col + i + 1]);
+			}
+		}
 		emptyIndex = index;
-
-		//移動回数をインクリメント
+		moveCount++;
+		return true;
+	} else if (cols == emptyCol) {
+		// 同じ列にある場合
+		if (rows < emptyRow) {
+			// 上側にある場合
+			for (int i = emptyRow; i > rows; --i) {
+				std::swap(tiles[i * col + emptyCol], tiles[(i - 1) * col + emptyCol]);
+			}
+		} else if (rows > emptyRow) {
+			// 下側にある場合
+			for (int i = emptyRow; i < rows; ++i) {
+				std::swap(tiles[i * col + emptyCol], tiles[(i + 1) * col + emptyCol]);
+			}
+		}
+		emptyIndex = index;
 		moveCount++;
 		return true;
 	}
+
 	return false;
 }
 
