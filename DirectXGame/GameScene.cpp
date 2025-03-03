@@ -10,10 +10,14 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	puzzleManager_ = new PuzzleManager();
+	puzzleManager_->SetGameScene(this);
+	puzzleManager_->Initialize();
 }
 
 void GameScene::Update() {
-
+	puzzleManager_->Update();
 }
 
 void GameScene::Draw() {
@@ -41,6 +45,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	puzzleManager_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
