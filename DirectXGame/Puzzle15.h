@@ -63,10 +63,10 @@ public:
 	// スライドパズルを表示する関数
 	void ShowSliderPuzzle();      
 
-	// ヒューリスティック関数
-	int Heuristic(const std::vector<int>& state);
-
 private:
+
+	// ヒューリスティック関数(移動履歴保存)
+	int Heuristic(const std::vector<int>& state);
 
 	// 空白のタイルの値
 	static const int EMPTY_TILE = 0;

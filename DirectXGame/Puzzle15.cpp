@@ -211,7 +211,7 @@ void Puzzle15::ImGuiX() {
 	}
 
 	//元に戻すボタン
-	if (ImGui::Button("Undo")) {
+	if (ImGui::Button("Reverse")) {
 		UndoMove();
 	}
 
