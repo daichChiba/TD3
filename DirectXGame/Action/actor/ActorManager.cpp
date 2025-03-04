@@ -36,6 +36,11 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 void ActorManager::Update() {
 	
+	preCameraRot = followCamera_->GetCamera().rotation_;
+
+	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
+	playerManager_->Update();
+
 	followCamera_->DrawImgui();
 	followCamera_->Update();
 	
@@ -44,8 +49,7 @@ void ActorManager::Update() {
 
 	camera_->TransferMatrix();
 
-	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
-	playerManager_->Update();
+	
 
 	
 	

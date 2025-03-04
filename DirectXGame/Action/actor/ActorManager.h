@@ -28,5 +28,7 @@ private:
 	GameScene* gameScene_;
 
 	PlayerManager* playerManager_;
+
+	Vector3 preCameraRot;
 };
 
