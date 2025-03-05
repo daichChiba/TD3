@@ -22,5 +22,9 @@ private:
 	/// <summary>
 	/// puzzleManagerのImGui描画
 	/// </summary>
-	void DrawImGui();
+	void DrawImGui() { return; };
+	/// <summary>
+	/// パズルが完成しているか確認
+	/// </summary>
+	void ChackPuzzle() { return; };
 };

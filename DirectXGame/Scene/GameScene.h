@@ -36,6 +36,6 @@ public:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
-
+	// シーンの状態
 	PuzzleManager* puzzleManager_;
 };

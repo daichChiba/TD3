@@ -19,6 +19,10 @@ public:
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// ゲームシーンの設定
+	/// </summary>
+	/// <param name="gameScene"></param>
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 
 private:

@@ -34,6 +34,12 @@
     <Filter Include="ヘッダー ファイル\puzzle\puzzleCollection\puzzles">
       <UniqueIdentifier>{b088cd7a-5aa6-4d09-8120-9ae9bb63fc41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\puzzle\puzzleCollection\puzzles\puzzle15">
+      <UniqueIdentifier>{649e5c36-3425-45df-9bae-f92bdeb33113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\puzzleCollection\puzzles\puzzle15">
+      <UniqueIdentifier>{d4c16796-4505-48b8-83e0-254b7d2a72df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="Puzzule\PuzzleCollection\puzzles\PuzzleFactory.cpp">
       <Filter>ソース ファイル\puzzle\puzzleCollection\puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\PuzzleCollection\puzzles\Puzzle15\Puzzle15.cpp">
+      <Filter>ソース ファイル\puzzle\puzzleCollection\puzzles\puzzle15</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Puzzule\PuzzleCollection\puzzles\PuzzleFactory.h">
       <Filter>ヘッダー ファイル\puzzle\puzzleCollection\puzzles</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\PuzzleCollection\puzzles\Puzzle15\Puzzle15.h">
+      <Filter>ヘッダー ファイル\puzzle\puzzleCollection\puzzles\puzzle15</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

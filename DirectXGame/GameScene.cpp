@@ -11,12 +11,14 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	// パズルマネージャーの初期化
 	puzzleManager_ = new PuzzleManager();
 	puzzleManager_->SetGameScene(this);
 	puzzleManager_->Initialize();
 }
 
 void GameScene::Update() {
+	// 入力情報の更新
 	puzzleManager_->Update();
 }
 
@@ -46,6 +48,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+	// パズルマネージャーの描画
 	puzzleManager_->Draw();
 
 	// 3Dオブジェクト描画後処理

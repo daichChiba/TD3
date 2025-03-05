@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzule\PuzzleCollection\puzzles\Puzzle15\Puzzle15.cpp" />
     <ClCompile Include="Puzzule\PuzzleCollection\puzzles\PuzzleFactory.cpp" />
     <ClCompile Include="Puzzule\PuzzleCollection\PuzzleCollection.cpp" />
     <ClCompile Include="Puzzule\PuzzleManager.cpp" />
@@ -188,6 +189,7 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Puzzule\PuzzleCollection\puzzles\Puzzle15\Puzzle15.h" />
     <ClInclude Include="Puzzule\PuzzleCollection\puzzles\PuzzleFactory.h" />
     <ClInclude Include="Puzzule\PuzzleCollection\PuzzleCollection.h" />
     <ClInclude Include="Puzzule\PuzzleManager.h" />

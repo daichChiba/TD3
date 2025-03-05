@@ -1,9 +1,11 @@
 #include "PuzzleManager.h"
 #include "PuzzleCollection/PuzzleCollection.h"
 
+//
 void PuzzleManager::Initialize() {
 	camera_ = new Camera();
 	camera_->Initialize();
+
 	puzzleCollection_ = new PuzzleCollection();
 	puzzleCollection_->Initialize();
 }
