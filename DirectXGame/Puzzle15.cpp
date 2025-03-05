@@ -16,6 +16,29 @@ struct VectorHash {
 	}
 };
 
+void Puzzle15::Initialize() {
+	
+}
+
+void Puzzle15::Update() {
+	HandleInput();
+	if (input_ && input_->TriggerKey(DIK_Z)) {
+		UndoMove();
+	}
+}
+
+void Puzzle15::Draw() {
+	for (int y = 0; y < rows_; y++) {
+		for (int x = 0; x < cols_; x++) {
+			index_ = y * cols_ + x;
+			if (tiles_[y][x] != EMPTY_TILE) {
+				sprites_[tiles_[y][x] - 1]->SetPosition(Vector2(x * 50.0f, y * 50.0f));
+				sprites_[tiles_[y][x] - 1]->Draw();
+			}
+		}
+	}
+}
+
 // コンストラクタ: ボードの初期化
 Puzzle15::Puzzle15(int rows, int cols) : row_(rows), col_(cols), moveCount_(0) {
 	// タイルの数を設定し、初期値を割り当てる
@@ -36,15 +59,17 @@ Puzzle15::Puzzle15(int rows, int cols) : row_(rows), col_(cols), moveCount_(0) {
 	emptyIndex_ = rows * cols - 1;
 	initialEmptyIndex_ = rows * cols - 1;
 
+	// スプライトとテクスチャの初期化
+	sprites_.resize(rows * cols);
+	textures_.resize(rows * cols);
+	for (int i = 0; i < rows * cols - 1; i++) {
+		sprites_[i] = new Sprite();
+		textures_[i] = TextureManager::Load("puzzle15_Tile/tile" + std::to_string(i + 1) + ".png");
+		sprites_[i]->SetTextureHandle(textures_[i]);
+	}
+
 	// タイルをシャッフル
 	Shuffle();
-}
-
-//1つ前に戻る関数
-void Puzzle15::Update() {
-	if (input_ && input_->TriggerKey(DIK_Z)) {
-		UndoMove();
-	}
 }
 
 // タイルをシャッフルする関数
@@ -301,4 +326,27 @@ void Puzzle15::ResetMoveCount() { moveCount_ = 0; }
 
 // スライドパズルを表示する関数
 void Puzzle15::ShowSliderPuzzle() { ImGuiX(); }
+
+void Puzzle15::HandleInput() {
+	if (input_ == nullptr)
+		return;
+
+	if (input_->TriggerKey(DIK_UP)) {
+		if (emptyRow_ < rows_ - 1) {
+			MoveTile((emptyRow_ + 1) * cols_ + emptyCol_);
+		}
+	} else if (input_->TriggerKey(DIK_DOWN)) {
+		if (emptyRow_ > 0) {
+			MoveTile((emptyRow_ - 1) * cols_ + emptyCol_);
+		}
+	} else if (input_->TriggerKey(DIK_LEFT)) {
+		if (emptyCol_ < cols_ - 1) {
+			MoveTile(emptyRow_ * cols_ + (emptyCol_ + 1));
+		}
+	} else if (input_->TriggerKey(DIK_RIGHT)) {
+		if (emptyCol_ > 0) {
+			MoveTile(emptyRow_ * cols_ + (emptyCol_ - 1));
+		}
+	}
+}
 
