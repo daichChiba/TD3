@@ -79,11 +79,11 @@ void GameScene::PlaceTiles() {
 	// ImGuiを使用してタイルを配置する
 	ImGui::Begin("Place Tiles");
 
-	for (int i = 0; i < puzzle15_->row * puzzle15_->col; i++) {
+	/*for (int i = 0; i < puzzle15_->row * puzzle15_->col; i++) {
 		int value = puzzle15_->tiles[i];
 		if (ImGui::InputInt(("Tile" + std::to_string(i)).c_str(), &value)) {
 			puzzle15_->PlaceTile(i, value);
 		}
-	}
+	}*/
 	ImGui::End();
 }
