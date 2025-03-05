@@ -30,8 +30,8 @@ void GameScene::Initialize() {
 	
 	enemyModel_ = Model::CreateFromOBJ("Enemy");
 	Enemy_ = std::make_unique<EnemyTest>();
-	Enemy_->(enemyModel_, enemyModel_, Vector3{0.0f, 0.0f, 0.0f}, actorManager_);
-Initialize
+	Enemy_->Initialize(enemyModel_, enemyModel_, Vector3{0.0f, 1.0f, 10.0f}, actorManager_);
+
 	//////////////////////////////
 
 	actorManager = new ActorManager();

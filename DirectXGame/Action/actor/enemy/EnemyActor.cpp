@@ -11,6 +11,7 @@ void EnemyActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos,
 	model_ = model;
 	BulletModel_ = bulletModel;
 
+
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = pos;
 
@@ -21,7 +22,7 @@ void EnemyActor::Update() {
 	Move();
 	Attack();
 
-	move_ = Normalize(move_) * kSpeed_;
+	/*move_ = Normalize(move_) * kSpeed_;
 
 	if (camera_) {
 
@@ -31,12 +32,12 @@ void EnemyActor::Update() {
 
 		Matrix4x4 matRot = matRotX * matRotY * matRotZ;
 
-		move_ = TransformNormal(move_, matRot);
+		move_ = TransformNormal(move_, matRot);*/
 
-		move_.y = 0.0f;
-	}
+		move_.z = 0.1f;
+	/*}*/
 
-	worldTransform_.translation_ += move_;
+	worldTransform_.translation_ -= move_;
 	DrawImGui();
 	move_ = Vector3{0.0f, 0.0f, 0.0f};
 
