@@ -1,6 +1,8 @@
 #pragma once
 #include "KamataEngine.h"
 
+#include "bullet/BulletActor.h"
+
 using namespace KamataEngine;
 
 class FollowCamera;
@@ -20,7 +22,10 @@ public:
 	Camera* SetCamera(){ return camera_; }
 
 	void SetGeamScene(GameScene* gameScene) { gameScene_ = gameScene;};
+
 	PlayerActor* GetPlayer();
+
+	void AddBullet(std::shared_ptr<BulletActor> attack) { attack_.push_back(attack); }
 
 private:
 	Model* PlayeModel_,* PlayerBulletModel_,* enemyModel_,* enemyBulletModel_;
@@ -31,5 +36,6 @@ private:
 
 	PlayerManager* playerManager_;
 	EnemyManager* enemyManager_;
+	std::list<std::shared_ptr<BulletActor>> attack_;
 };
 

@@ -34,6 +34,12 @@
     <Filter Include="ヘッダー ファイル\action\actor\player">
       <UniqueIdentifier>{ebd47147-2195-4328-ae38-52391ee9b458}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\action\actor\bullet">
+      <UniqueIdentifier>{4d4be31c-2a24-4bbf-8cec-a7192c63314e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\action\actor\bullet">
+      <UniqueIdentifier>{f61e4ef2-3d1a-49ab-8f6e-d9c4124ef7ff}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ソース ファイル\action\actor\enemy">
       <UniqueIdentifier>{7fcb4da6-52ac-4526-b3ed-31e479854ef1}</UniqueIdentifier>
     </Filter>
@@ -71,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="Action\FolloCamera.cpp">
       <Filter>ソース ファイル\action</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\bullet\BulletActor.cpp">
+      <Filter>ソース ファイル\action\actor\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\bullet\BulletPlayerSubAttack.cpp">
+      <Filter>ソース ファイル\action\actor\bullet</Filter>
     </ClCompile>
     <ClCompile Include="Action\actor\enemy\EnemyActor.cpp">
       <Filter>ソース ファイル\action\actor\enemy</Filter>
@@ -150,11 +162,17 @@
     <ClInclude Include="Action\actor\player\PlayerFactory.h">
       <Filter>ヘッダー ファイル\action\actor\player</Filter>
     </ClInclude>
+    <ClInclude Include="Action\FolloCamera.h">
+      <Filter>ヘッダー ファイル\action</Filter>
+    </ClInclude>
     <ClInclude Include="Action\actor\ActorManager.h">
       <Filter>ヘッダー ファイル\action\actor</Filter>
     </ClInclude>
-    <ClInclude Include="Action\FolloCamera.h">
-      <Filter>ヘッダー ファイル\action</Filter>
+    <ClInclude Include="Action\actor\bullet\BulletActor.h">
+      <Filter>ヘッダー ファイル\action\actor\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\bullet\BulletPlayerSubAttack.h">
+      <Filter>ヘッダー ファイル\action\actor\bullet</Filter>
     </ClInclude>
     <ClInclude Include="Action\actor\enemy\EnemyActor.h">
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>

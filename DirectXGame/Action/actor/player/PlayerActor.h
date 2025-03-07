@@ -29,13 +29,10 @@ public:
 
 	void DrawImGui();
 
-	WorldTransform* GetWorldTransfrom() { return &worldTransform_;}
+	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
-	Camera* camera_ = nullptr;
+	void SetCameraRot(Vector3 cameraRot) { cameraRot_ = cameraRot; }
 
-	int a = 0;
-
-// 派生クラスでしか使わない関数はprotectedにする
 protected:
 	virtual void Move() { return; }
 	virtual void Attack() { return; }
@@ -44,13 +41,28 @@ protected:
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
 
-	
+	Vector3 cameraRot_;
 
 	ActorManager* actorManager_;
 
-	Vector3 move_;
-	static inline const float kSpeed_ = 0.3f;
-
-	//コントローラに関する変数
 	XINPUT_STATE xinput_;
+	float lx, ly;
+
+	static inline const float flameTime_ = 1.0f / 60.0f;
+
+	Vector3 move_;
+	static inline const float kSpeed_ = 0.05f;
+
+	float playerYSpeed;
+
+	bool onGround_;
+	static inline const float kGroundHeight = 0.5f;
+	static inline const float kGravity = -0.03f;
+
+
+	bool isJumping_ = true;
+
+	bool isDush_ = true;
+	float jumpSpeed_ = 0.0f;
+	static inline const float kJumpForce = 0.5f;
 };

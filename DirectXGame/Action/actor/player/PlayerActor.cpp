@@ -17,57 +17,57 @@ void PlayerActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos
 	worldTransform_.translation_ = pos;
 
 	actorManager_ = actorManager;
-
-	//camera_ = actorManager_ ->SetCamera();
 }
 
 void PlayerActor::Update() {
+
+	XInputGetState(0, &xinput_);
+
+	// 左スティックのX, Y値を取得
+	lx = xinput_.Gamepad.sThumbLX / 32767.0f; // 正規化（-1.0 ～ 1.0）
+	ly = xinput_.Gamepad.sThumbLY / 32767.0f;
+
 	Move();
 
 	Attack();
 
-	move_ = Normalize(move_) * kSpeed_;
+	// ジャンプ中の処理
+	if (isJumping_) {
+		worldTransform_.translation_.y += jumpSpeed_;
+		jumpSpeed_ += kGravity;
 
-	if (camera_) {
-		/*float cameraYawY = camera_->rotation_.y;
-		float s = sin(cameraYawY);
-		float c = cos(cameraYawY);
+		// 地面に着地した場合
+		if (worldTransform_.translation_.y <= kGroundHeight) {
+			worldTransform_.translation_.y = kGroundHeight;
+			isJumping_ = false;
+			jumpSpeed_ = 0.0f;
+			onGround_ = true;
+		}
+	}
 
-		float newX = move_.x * c - move_.z * s;
-		float newZ = move_.x * s + move_.z * c;
+	move_ = Normalize(move_);
 
-		move_.x = newX;
-		move_.z = newZ;*/
-
-		Matrix4x4 matRotX = MakeRotateXMatrix(camera_->rotation_.x);
-		Matrix4x4 matRotY = MakeRotateYMatrix(camera_->rotation_.y);
-		Matrix4x4 matRotZ = MakeRotateZMatrix(camera_->rotation_.z);
-
-		Matrix4x4 matRot = matRotX * matRotY * matRotZ;
-
-		move_ = TransformNormal(move_, matRot);
-
-		move_.y = 0.0f;
-    }
-
+	Matrix4x4 matRot = MakeRotateYMatrix(cameraRot_.y);
+	
+	move_ = TransformNormal(move_, matRot);
+	worldTransform_.translation_ += move_;
+	worldTransform_.rotation_.y = cameraRot_.y;
 	
 
-	worldTransform_.translation_ += move_;
 	DrawImGui();
+
 	move_ = Vector3{0.0f, 0.0f, 0.0f};
 
 	worldTransform_.UpdateMatrix();
-	
 }
 
 void PlayerActor::Draw(Camera& camera) { model_->Draw(worldTransform_, camera); }
 
 void PlayerActor::DrawImGui() {
 	ImGui::Begin("player");
-	ImGui::Text("pos : %.3f,%.3f,%.3f", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
-	ImGui::Text("rot : %.3f,%.3f,%.3f", worldTransform_.rotation_.x, worldTransform_.rotation_.y, worldTransform_.rotation_.z);
-	ImGui::Text("move : %.3f,%.3f,%.3f", move_.x, move_.y, move_.z);
-	ImGui::Text("cameraRot : %.3f,%.3f,%.3f", camera_->rotation_.x, camera_->rotation_.y, camera_->rotation_.z);
-	ImGui::Text("a : %d", a);
+	ImGui::DragFloat3("pos", &worldTransform_.translation_.x, 0.01f);
+	ImGui::DragFloat3("rot", &worldTransform_.rotation_.x, 0.01f);
+	ImGui::DragFloat3("move", &move_.x, 0.1f);
+	ImGui::DragFloat3("cameraRot", &cameraRot_.x, 0.1f);
 	ImGui::End();
 }

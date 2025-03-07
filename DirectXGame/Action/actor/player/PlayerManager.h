@@ -29,7 +29,7 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
-	PlayerActor* GetPlayer() { return Manager_.get();}
+	PlayerActor* GetPlayer() { return Plauyer_.get();}
 
 	void CreatePlayerMain();
 
@@ -40,6 +40,6 @@ private:
 
 	ActorManager* actorManager_;
 
-	std::unique_ptr<PlayerActor> Manager_;
+	std::unique_ptr<PlayerActor> Plauyer_;
 	PlayerFactory* factory_;
 };
