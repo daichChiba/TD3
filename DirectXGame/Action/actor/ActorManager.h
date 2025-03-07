@@ -1,7 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 
-#include "BulletActor.h"
+#include "bullet/BulletActor.h"
 
 using namespace KamataEngine;
 

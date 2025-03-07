@@ -48,6 +48,8 @@ protected:
 	XINPUT_STATE xinput_;
 	float lx, ly;
 
+	static inline const float flameTime_ = 1.0f / 60.0f;
+
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.05f;
 

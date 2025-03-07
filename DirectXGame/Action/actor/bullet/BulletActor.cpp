@@ -13,6 +13,8 @@ void BulletActor::Initialize(Model* model, Vector3 pos)
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = pos;
 
+	isDelete_ = false;
+
 	color = new ObjectColor;
 	color->Initialize();
 	color->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -20,9 +22,18 @@ void BulletActor::Initialize(Model* model, Vector3 pos)
 
 void BulletActor::Update()
 {
+	
+
 	Move();
 
-	worldTransform_.translation_ += velocity_;
+	worldTransform_.translation_ += move_;
+
+	ImGui::Begin("bullet");
+	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
+	ImGui::DragFloat3("move", &move_.x);
+	ImGui::Text("deleteTimer : %.2f", deleteTimer_);
+	ImGui::End();
+
 	worldTransform_.UpdateMatrix();
 }
 
@@ -38,7 +49,7 @@ void BulletActor::OnCollision()
 
 void BulletActor::Move()
 {
-	deleteTimer_ += 60.0f/ 1.0f;
+	deleteTimer_ += 1.0f / 60.0f;
 	if (deleteTimer_ > kDeleteTime_)
 	{
 		isDelete_ = true;

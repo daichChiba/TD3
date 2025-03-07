@@ -1,6 +1,10 @@
 #include "PlayerMain.h"
 
-#include "../BulletActor.h"
+
+#include "../ActorManager.h"
+
+#include "../bullet/BulletActor.h"
+#include "../bullet/BulletPlayerSubAttack.h"
 
 
 using namespace MathUtility;
@@ -83,7 +87,17 @@ void PlayerMain::Move() {
 }
 
 void PlayerMain::Attack() {
-	
+
+	SkillTimerMove();
+
+	if(normalAttackKey && NormalAttackTimer_ < 0.0f){
+		std::shared_ptr<BulletActor> attack = std::make_shared<BulletPlayerSubAttack>();
+		attack->Initialize(BulletModel_, worldTransform_.translation_);
+		attack->SetMove(cameraRot_);
+		actorManager_->AddBullet(attack); // プレイヤーが持っているゲームシーンからゲームシーンにポインタを渡す
+
+		NormalAttackTimer_ = kNormalAttackCoolTime_;
+	}
 }
 
 void PlayerMain::CheckKey() {
@@ -112,4 +126,14 @@ void PlayerMain::CheckKey() {
 	} else {
 		jumpKey = false;
 	}
+	if (xinput_.Gamepad.bRightTrigger >= 100 || Input::GetInstance()->PushKey(DIK_Q)) {
+		normalAttackKey = true;
+	} else {
+		normalAttackKey = false;
+	}
+}
+
+void PlayerMain::SkillTimerMove()
+{
+	NormalAttackTimer_ -= flameTime_;
 }

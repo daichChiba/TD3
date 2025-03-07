@@ -38,6 +38,12 @@ void ActorManager::Update() {
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
 
+	for (std::shared_ptr<BulletActor> bullet : attack_)
+	{
+		bullet->Update();
+	}
+	attack_.remove_if([](std::shared_ptr<BulletActor> a) { return a->IsDelete(); });
+
 	followCamera_->DrawImgui();
 	followCamera_->Update();
 	
@@ -52,6 +58,12 @@ void ActorManager::Update() {
 	
 }
 
-void ActorManager::Draw() { playerManager_->Draw(*camera_); }
+void ActorManager::Draw() { 
+	playerManager_->Draw(*camera_); 
+	for (std::shared_ptr<BulletActor> bullet : attack_)
+	{
+		bullet->Draw(*camera_);
+	}
+}
 
 PlayerActor* ActorManager::GetPlayer() { return playerManager_->GetPlayer(); }

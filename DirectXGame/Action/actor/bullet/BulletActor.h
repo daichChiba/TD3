@@ -11,6 +11,8 @@ public:
 	void Update();
 	virtual void Draw(Camera& camera);
 
+	void SetMove( Vector3 MoveVectorl){ move_ = MoveVectorl; }
+
 	bool IsDelete() const { return isDelete_; }
 
 	virtual void OnCollision();
@@ -21,7 +23,7 @@ protected:
 	Model* model_ = nullptr;
 	WorldTransform worldTransform_;
 
-	Vector3 velocity_;
+	Vector3 move_;
 
 	bool isDelete_ = false;
 	float deleteTimer_;

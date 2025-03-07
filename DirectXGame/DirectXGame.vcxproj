@@ -107,7 +107,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action\actor\ActorManager.cpp" />
-    <ClCompile Include="Action\actor\BulletActor.cpp" />
+    <ClCompile Include="Action\actor\bullet\BulletActor.cpp" />
+    <ClCompile Include="Action\actor\bullet\BulletPlayerSubAttack.cpp" />
     <ClCompile Include="Action\actor\player\PlayerActor.cpp" />
     <ClCompile Include="Action\actor\player\PlayerFactory.cpp" />
     <ClCompile Include="Action\actor\player\PlayerMain.cpp" />
@@ -195,7 +196,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action\actor\ActorManager.h" />
-    <ClInclude Include="Action\actor\BulletActor.h" />
+    <ClInclude Include="Action\actor\bullet\BulletActor.h" />
+    <ClInclude Include="Action\actor\bullet\BulletPlayerSubAttack.h" />
     <ClInclude Include="Action\actor\player\PlayerActor.h" />
     <ClInclude Include="Action\actor\player\PlayerFactory.h" />
     <ClInclude Include="Action\actor\player\PlayerMain.h" />
