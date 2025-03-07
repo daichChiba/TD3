@@ -38,11 +38,19 @@ void GameScene::Initialize() {
 	//Enemy->Initialize(enemyModel_, enemyModel_, Vector3{0.0f, 1.0f, 10.0f}, actorManager_);
 
 	float a = -4.0f;
+
+
 	for (const auto& enemy : Enemy) {
 		enemy->Initialize(enemyModel_, enemyModel_, Vector3{a, 1.0f, 10.0f}, actorManager_); 
 		// OK: std::shared_ptr 経由で EnemyActor::Initialize() を呼ぶ
 		a += 4.0f;
+		enemy->SetMove(Vector3{a/0.01f, 0.0f, -0.1f});
 	}
+	
+	// // 各敵の動きを異なる方向に設定
+	//Enemy[0]->SetMove(Vector3{0.1f, 0.0f, 0.0f});  // 右方向
+	//Enemy[1]->SetMove(Vector3{-0.1f, 0.0f, 0.0f}); // 左方向
+	//Enemy[2]->SetMove(Vector3{0.0f, 0.0f, -0.1f}); // 後ろ方向
 
 	//////////////////////////////
 

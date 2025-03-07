@@ -34,6 +34,7 @@ public:
 
 	Camera* camera_ = nullptr;
 
+	void SetMove(Vector3 move) { move_ = move; }
 
 	/*/// <summary>
 	/// 動き
@@ -56,6 +57,7 @@ protected:
 	WorldTransform worldTransform_;
 
 	ActorManager* actorManager_;
+
 
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.3f;
