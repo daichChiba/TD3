@@ -2,7 +2,7 @@
 #include <KamataEngine.h>
 #include "../Action/actor/ActorManager.h"
 
-#include "../Action/actor/enemy/EnemyActor.h"
+#include "../Action/actor/enemy/EnemyManager.h"
 
 
 using namespace KamataEngine;
@@ -53,8 +53,8 @@ private:
 	Model* enemyModel_;
 	ActorManager* actorManager_;
 	/*std::shared_ptr<EnemyActor> Enemy_;*/
-	std::list<std::shared_ptr<EnemyActor>> Enemy;
-
+	//std::list<std::shared_ptr<EnemyActor>> Enemy;
+	EnemyManager* enemy_;
 
 	//////////////////////////////
 

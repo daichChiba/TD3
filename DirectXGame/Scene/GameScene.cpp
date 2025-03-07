@@ -28,24 +28,10 @@ void GameScene::Initialize() {
 	//////////////////////////////
 	//Enemy
 	
-	enemyModel_ = Model::CreateFromOBJ("Enemy");
+	//enemyModel_ = Model::CreateFromOBJ("Player");
+	enemy_ = new EnemyManager();
+	enemy_->Initialize(PlayerModel_, PlayerModel_, Vector3(0.0f, 0.0f, 0.0f), actorManager_);
 	
-	//Enemyクラスに変数を追加
-	Enemy.push_back(std::make_shared<EnemyTest>());
-	Enemy.push_back(std::make_shared<EnemyTest>());
-	Enemy.push_back(std::make_shared<EnemyTest>());
-	/*Enemy = std::make_unique<EnemyTest>();*/
-	//Enemy->Initialize(enemyModel_, enemyModel_, Vector3{0.0f, 1.0f, 10.0f}, actorManager_);
-
-	float a = -4.0f;
-
-
-	for (const auto& enemy : Enemy) {
-		enemy->Initialize(enemyModel_, enemyModel_, Vector3{a, 1.0f, 10.0f}, actorManager_); 
-		// OK: std::shared_ptr 経由で EnemyActor::Initialize() を呼ぶ
-		a += 4.0f;
-		enemy->SetMove(Vector3{a/0.01f, 0.0f, -0.1f});
-	}
 	
 	// // 各敵の動きを異なる方向に設定
 	//Enemy[0]->SetMove(Vector3{0.1f, 0.0f, 0.0f});  // 右方向
@@ -68,9 +54,7 @@ void GameScene::Update() {
 	//////////////////////////////
 	// Enemy
 	/*Enemy_->Update();*/
-	for (std::shared_ptr<EnemyActor> enemy : Enemy) {
-		enemy->Update();
-	} 
+	enemy_->Update();
 	//////////////////////////////
 
 }
@@ -104,14 +88,10 @@ void GameScene::Draw() {
 	ground_->Draw(skyDomeTrans, *actorManager->SetCamera());
 
 	actorManager->Draw();
-
+	enemy_->Draw( *actorManager->SetCamera());
 	//////////////////////////////
 	// Enemy
 	//Enemy_->Draw(*actorManager->SetCamera());
-
-	for (std::shared_ptr<EnemyActor> enemy : Enemy) {
-		enemy->Draw(*actorManager->SetCamera());
-	} 
 
 	//////////////////////////////
 
