@@ -51,8 +51,9 @@ private:
 	// Enemy
 	Model* enemyModel_;
 	ActorManager* actorManager_;
-	std::shared_ptr<EnemyActor> Enemy_;
-	//std::list<std::shared_ptr<EnemyActor>> Enemy;
+	/*std::shared_ptr<EnemyActor> Enemy_;*/
+	std::list<std::shared_ptr<EnemyActor>> Enemy;
+
 
 	//////////////////////////////
 

@@ -16,6 +16,9 @@ void EnemyActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos,
 	worldTransform_.translation_ = pos;
 
 	actorManager_ = actorManager;
+
+	move_ = Vector3{0.0f, 0.0f, 0.1f};
+
 }
 
 void EnemyActor::Update() {
@@ -34,15 +37,15 @@ void EnemyActor::Update() {
 
 		move_ = TransformNormal(move_, matRot);*/
 
-		move_.z = 0.1f;
+		
 	/*}*/
 
 	worldTransform_.translation_ -= move_;
 	DrawImGui();
-	move_ = Vector3{0.0f, 0.0f, 0.0f};
 
 	worldTransform_.UpdateMatrix();
 	
+
 
 }
 
@@ -51,7 +54,7 @@ void EnemyActor::Draw(Camera& camera) {
 
 void EnemyActor::DrawImGui() {
 	ImGui::Begin("enemy");
-	ImGui::Text("pos : %.3f,%.3f,%.3f", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::Text("move : %.3f,%.3f,%.3f", move_.x, move_.y, move_.z);
 	ImGui::End();
 }

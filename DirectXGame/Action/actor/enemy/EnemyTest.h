@@ -4,4 +4,13 @@
 using namespace KamataEngine;
 
 
-class EnemyTest : public EnemyActor {};
+class EnemyTest : public EnemyActor {
+public:
+	EnemyTest();
+	~EnemyTest();
+
+private:
+	void Move() override;
+	void Attack() override;
+
+};

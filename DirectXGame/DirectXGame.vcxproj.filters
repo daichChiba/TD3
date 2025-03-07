@@ -81,7 +81,7 @@
     <ClCompile Include="Action\actor\enemy\EnemyManager.cpp">
       <Filter>ソース ファイル\action\actor\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyTest.cpp">
+    <ClCompile Include="Action\actor\enemy\EnemyTest.cpp">
       <Filter>ソース ファイル\action\actor\enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -165,7 +165,7 @@
     <ClInclude Include="Action\actor\enemy\EnemyManager.h">
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyTest.h">
+    <ClInclude Include="Action\actor\enemy\EnemyTest.h">
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
     </ClInclude>
   </ItemGroup>

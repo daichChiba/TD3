@@ -29,8 +29,20 @@ void GameScene::Initialize() {
 	//Enemy
 	
 	enemyModel_ = Model::CreateFromOBJ("Enemy");
-	Enemy_ = std::make_unique<EnemyTest>();
-	Enemy_->Initialize(enemyModel_, enemyModel_, Vector3{0.0f, 1.0f, 10.0f}, actorManager_);
+	
+	//Enemyクラスに変数を追加
+	Enemy.push_back(std::make_shared<EnemyTest>());
+	Enemy.push_back(std::make_shared<EnemyTest>());
+	Enemy.push_back(std::make_shared<EnemyTest>());
+	/*Enemy = std::make_unique<EnemyTest>();*/
+	//Enemy->Initialize(enemyModel_, enemyModel_, Vector3{0.0f, 1.0f, 10.0f}, actorManager_);
+
+	float a = -4.0f;
+	for (const auto& enemy : Enemy) {
+		enemy->Initialize(enemyModel_, enemyModel_, Vector3{a, 1.0f, 10.0f}, actorManager_); 
+		// OK: std::shared_ptr 経由で EnemyActor::Initialize() を呼ぶ
+		a += 4.0f;
+	}
 
 	//////////////////////////////
 
@@ -47,7 +59,10 @@ void GameScene::Update() {
 
 	//////////////////////////////
 	// Enemy
-	Enemy_->Update();
+	/*Enemy_->Update();*/
+	for (std::shared_ptr<EnemyActor> enemy : Enemy) {
+		enemy->Update();
+	} 
 	//////////////////////////////
 
 }
@@ -84,7 +99,12 @@ void GameScene::Draw() {
 
 	//////////////////////////////
 	// Enemy
-	Enemy_->Draw(*actorManager->SetCamera());
+	//Enemy_->Draw(*actorManager->SetCamera());
+
+	for (std::shared_ptr<EnemyActor> enemy : Enemy) {
+		enemy->Draw(*actorManager->SetCamera());
+	} 
+
 	//////////////////////////////
 
 
