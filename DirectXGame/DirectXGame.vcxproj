@@ -197,7 +197,7 @@
     <ClInclude Include="Puzzule\PuzzleManager.h" />
     <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="CircuitPuzzle.h" />
-    <ClInclude Include="Scene\GameScene.h" />
+    <ClInclude Include="GameScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
