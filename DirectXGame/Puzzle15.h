@@ -11,8 +11,11 @@ using namespace KamataEngine;
 
 class Puzzle15 {
 public:
+	// 初期化処理
 	void Initialize();
+	// 更新処理
 	void Update();
+	// 描画処理
 	void Draw();
 
 	// コンストラクタ: ボードの初期化
@@ -48,15 +51,15 @@ public:
 	// スライドパズルを表示する関数
 	void ShowSliderPuzzle();
 
-	//ユーザー入力を処理する関数
+	// ユーザー入力を処理する関数
 	void HandleInput();
 
 public:
-	// タイルの状態を保持するベクトル
+	// タイルの状態を保持するベクトル (2次元配列)
 	std::vector<std::vector<int>> tiles_;
-	// 初期状態を保存するためのベクター
+	// 初期状態を保存するためのベクター (1次元配列)
 	std::vector<int> initialTiles_;
-	// 移動履歴を保存するスタック
+	// 移動履歴を保存するスタック (移動前の空白タイルのインデックス、移動後の空白タイルのインデックス)
 	std::stack<std::pair<int, int>> moveHistory_;
 
 private:
@@ -67,10 +70,14 @@ private:
 	// 空白のタイルの値
 	static const int EMPTY_TILE = 0;
 
+	// 行数
 	int rows_;
+	// 列数
 	int cols_;
+	// インデックス
 	int index_;
 
+	// 最小移動数
 	int minMoves;
 
 	// 空白のタイルの行
@@ -78,32 +85,24 @@ private:
 	// 空白のタイルの列
 	int emptyCol_;
 
+	// 入力
 	Input* input_ = nullptr;
 
 	// スプライト描画用のメンバ変数
-	/*Sprite* sprite_[9];
-	uint32_t texture_[9];*/
-
 	std::vector<Sprite*> sprites_;
 	std::vector<uint32_t> textures_;
 
+	// Puzzle15クラスのポインタ
 	Puzzle15* puzzle15_;
-
 
 	// 移動回数をカウントするメンバ変数
 	int moveCount_;
 	// 初期状態の空白タイルのインデックス
 	int initialEmptyIndex_;
-	// 空白のタイルのインデックス
+	// 現在の空白のタイルのインデックス
 	int emptyIndex_;
 	// 選択されたタイルの行
 	int row_;
 	// 選択されたタイルの列
 	int col_;
-
-	//
-	// std::unique_ptr<Sprite> spriteBatch_;
-	////std::unique_ptr<SpriteFont> spriteFont_;
-	// ID3D12Device* device_;
-	// ID3D11DeviceContext* context_;
 };
