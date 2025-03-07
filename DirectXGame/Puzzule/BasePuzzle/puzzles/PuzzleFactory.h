@@ -12,4 +12,9 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	std::unique_ptr<BasePuzzle> CreatePuzzle15();
+	/// <summary>
+	/// 回路パズルを作成
+	/// </summary>
+	/// <returns></returns>
+	std::unique_ptr<BasePuzzle> CreateCircuitPuzzle();
 };
