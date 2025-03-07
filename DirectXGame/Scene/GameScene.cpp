@@ -29,9 +29,9 @@ void GameScene::Initialize() {
 	//Enemy
 	
 	//enemyModel_ = Model::CreateFromOBJ("Player");
-	enemy_ = new EnemyManager();
+	/*enemy_ = new EnemyManager();
 	enemy_->Initialize(PlayerModel_, PlayerModel_, Vector3(0.0f, 0.0f, 0.0f), actorManager_);
-	
+	*/
 	
 	// // 各敵の動きを異なる方向に設定
 	//Enemy[0]->SetMove(Vector3{0.1f, 0.0f, 0.0f});  // 右方向
@@ -54,7 +54,7 @@ void GameScene::Update() {
 	//////////////////////////////
 	// Enemy
 	/*Enemy_->Update();*/
-	enemy_->Update();
+	//enemy_->Update();
 	//////////////////////////////
 
 }
@@ -88,7 +88,7 @@ void GameScene::Draw() {
 	ground_->Draw(skyDomeTrans, *actorManager->SetCamera());
 
 	actorManager->Draw();
-	enemy_->Draw( *actorManager->SetCamera());
+	//enemy_->Draw( *actorManager->SetCamera());
 	//////////////////////////////
 	// Enemy
 	//Enemy_->Draw(*actorManager->SetCamera());

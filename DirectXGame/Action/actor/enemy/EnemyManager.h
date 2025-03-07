@@ -6,7 +6,7 @@
 using namespace KamataEngine;
 
 class ActorManager;
-//class PlayerFactory;
+class EnemyFactory;
 
 class EnemyManager
 {
@@ -30,7 +30,7 @@ public:
 	void Draw(Camera& camera);
 
 	//EnemyActor* GetEnemy() { return Manager_.get();}
-
+	void CreateEnemyTest();
 
 
 private:
@@ -40,6 +40,8 @@ private:
 
 	ActorManager* actorManager_;
 
+	float test = 1.0f;
+
 	std::list<std::shared_ptr<EnemyActor>> Manager_;
-	//EnemyFactory* factory_;
+	EnemyFactory* factory_;
 };

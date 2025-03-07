@@ -6,6 +6,8 @@ using namespace KamataEngine;
 class FollowCamera;
 class PlayerManager;
 class PlayerActor;
+class EnemyManager;
+class EnemyActor;
 class GameScene;
 
 class ActorManager
@@ -28,5 +30,6 @@ private:
 	GameScene* gameScene_;
 
 	PlayerManager* playerManager_;
+	EnemyManager* enemyManager_;
 };
 

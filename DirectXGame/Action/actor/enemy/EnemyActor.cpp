@@ -15,7 +15,7 @@ void EnemyActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos,
 
 	actorManager_ = actorManager;
 
-	move_ = Vector3{0.0f, 0.0f, 0.1f};
+	move_ = Vector3{0.0f, 0.0f, 0.0f};
 }
 
 void EnemyActor::Update() {

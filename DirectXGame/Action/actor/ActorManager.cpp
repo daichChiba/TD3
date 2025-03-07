@@ -29,6 +29,15 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
     playerManager_->CreatePlayerMain();
 
+    enemyManager_ = new EnemyManager();
+    enemyManager_->Initialize(enemyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
+	
+
+    for (int i = 0; i < 5; ++i)
+    {
+        enemyManager_->CreateEnemyTest();
+    }
+
     // PlayerActorのcamera_を設定
     playerManager_->GetPlayer()->camera_ = camera_;
 
@@ -43,6 +52,8 @@ void ActorManager::Update()
     playerManager_->GetPlayer()->a = 1;
 	playerManager_->Update();
 
+    enemyManager_->Update();
+
 	followCamera_->Update();
 	camera_->matView = followCamera_->GetCamera().matView;
 	camera_->matProjection = followCamera_->GetCamera().matProjection;
@@ -53,6 +64,7 @@ void ActorManager::Update()
 void ActorManager::Draw()
 {
 	playerManager_->Draw(*camera_);
+	enemyManager_->Draw(*camera_);
 }
 
 PlayerActor* ActorManager::GetPlayer()

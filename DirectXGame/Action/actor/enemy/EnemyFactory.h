@@ -8,7 +8,7 @@ class EnemyActor;
 
 class EnemyFactory {
 public:
-	std::unique_ptr<EnemyActor> CreateEnemy();
+	std::shared_ptr<EnemyActor> CreateEnemy();
 
 private:
 };

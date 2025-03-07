@@ -54,7 +54,7 @@ private:
 	ActorManager* actorManager_;
 	/*std::shared_ptr<EnemyActor> Enemy_;*/
 	//std::list<std::shared_ptr<EnemyActor>> Enemy;
-	EnemyManager* enemy_;
+	//EnemyManager* enemy_;
 
 	//////////////////////////////
 
