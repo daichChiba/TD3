@@ -16,6 +16,30 @@
     <Filter Include="シェーダー ファイル">
       <UniqueIdentifier>{718c7f4c-fc51-40ad-a221-b9456a7a1a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\puzzle">
+      <UniqueIdentifier>{925ed122-289b-4bf9-a3dd-b9e5d32d973a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle">
+      <UniqueIdentifier>{8c02c9d8-1458-40dd-a911-08308ad6984f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle">
+      <UniqueIdentifier>{e788e918-038b-49a8-94bc-3089b7bfbd34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles">
+      <UniqueIdentifier>{5f619d59-8bc5-4d74-beb6-b458648bde94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15">
+      <UniqueIdentifier>{649e5c36-3425-45df-9bae-f92bdeb33113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle">
+      <UniqueIdentifier>{b46b785e-7d50-4674-9f52-dcbfd96beef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles">
+      <UniqueIdentifier>{b088cd7a-5aa6-4d09-8120-9ae9bb63fc41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15">
+      <UniqueIdentifier>{d4c16796-4505-48b8-83e0-254b7d2a72df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -23,6 +47,18 @@
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\PuzzleManager.cpp">
+      <Filter>ソース ファイル\puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,8 +111,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameScene.h">
+    <ClInclude Include="Scene\GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\PuzzleManager.h">
+      <Filter>ヘッダー ファイル\puzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

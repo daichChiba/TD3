@@ -108,7 +108,12 @@
   <ItemGroup>
     <ClCompile Include="CircuitPuzzle.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="InputEX.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp" />
+    <ClCompile Include="Puzzule\PuzzleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -186,6 +191,11 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h" />
+    <ClInclude Include="Puzzule\PuzzleManager.h" />
+    <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="CircuitPuzzle.h" />
     <ClInclude Include="Scene\GameScene.h" />
   </ItemGroup>

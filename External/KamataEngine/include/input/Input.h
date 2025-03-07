@@ -66,6 +66,13 @@ public: // メンバ関数
 	bool PushKey(BYTE keyNumber) const;
 
 	/// <summary>
+	/// キーの押下をチェック
+	/// </summary>
+	/// <param name="keyNumber">キー番号( DIK_0等)</param>
+	/// <returns></returns>
+	bool ReleseKey(BYTE keyNumber) const;
+
+	/// <summary>
 	/// キーのトリガーをチェック
 	/// </summary>
 	/// <param name="keyNumber">キー番号( DIK_0 等)</param>
