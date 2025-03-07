@@ -27,12 +27,14 @@ public:
 	/// </summary>
 	virtual void Draw();
 
-private:
-	// パズルの種類が違っても生成するパネルは同じ
 
 protected:
 	//難易度
 	Level level_;
+	Vector2 mousePos;
+
+	Input* input_;
+
 
 	/// <summary>
 	/// ImGuiの描画

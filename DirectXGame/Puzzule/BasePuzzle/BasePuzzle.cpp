@@ -1,19 +1,13 @@
 #include "../BasePuzzle/BasePuzzle.h"
 
 void BasePuzzle::Initialize() {
-#ifdef _DEBUG
-
-#endif // _DEBUG
-
+	input_ = Input::GetInstance();
 }
 
 void BasePuzzle::Update() {
-
 
 }
 
 void BasePuzzle::Draw() {
 
 }
-
-
