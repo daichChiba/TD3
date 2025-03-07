@@ -29,7 +29,6 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
-	//EnemyActor* GetEnemy() { return Manager_.get();}
 	void CreateEnemyTest();
 
 

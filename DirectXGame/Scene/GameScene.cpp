@@ -25,21 +25,6 @@ void GameScene::Initialize() {
 	PlayerModel_ = Model::CreateFromOBJ("Player");
 	playerBulletModel_ = Model::CreateFromOBJ("cube");
 
-	//////////////////////////////
-	//Enemy
-	
-	//enemyModel_ = Model::CreateFromOBJ("Player");
-	/*enemy_ = new EnemyManager();
-	enemy_->Initialize(PlayerModel_, PlayerModel_, Vector3(0.0f, 0.0f, 0.0f), actorManager_);
-	*/
-	
-	// // 各敵の動きを異なる方向に設定
-	//Enemy[0]->SetMove(Vector3{0.1f, 0.0f, 0.0f});  // 右方向
-	//Enemy[1]->SetMove(Vector3{-0.1f, 0.0f, 0.0f}); // 左方向
-	//Enemy[2]->SetMove(Vector3{0.0f, 0.0f, -0.1f}); // 後ろ方向
-
-	//////////////////////////////
-
 	actorManager = new ActorManager();
 	actorManager->SetGeamScene(this);
 	actorManager->Initialize(PlayerModel_, playerBulletModel_, cubeModel_, cubeModel_);
@@ -50,12 +35,6 @@ void GameScene::Update() {
 	actorManager->Update();
 
 	skyDomeTrans.UpdateMatrix();
-
-	//////////////////////////////
-	// Enemy
-	/*Enemy_->Update();*/
-	//enemy_->Update();
-	//////////////////////////////
 
 }
 
@@ -88,12 +67,6 @@ void GameScene::Draw() {
 	ground_->Draw(skyDomeTrans, *actorManager->SetCamera());
 
 	actorManager->Draw();
-	//enemy_->Draw( *actorManager->SetCamera());
-	//////////////////////////////
-	// Enemy
-	//Enemy_->Draw(*actorManager->SetCamera());
-
-	//////////////////////////////
 
 
 

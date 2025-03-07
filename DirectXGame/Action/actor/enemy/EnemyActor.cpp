@@ -37,11 +37,3 @@ void EnemyActor::DrawImGui() {
 	ImGui::Text("move : %.3f,%.3f,%.3f", move_.x, move_.y, move_.z);
 	ImGui::End();
 }
-
-// void EnemyActor::Move() {
-//
-// }
-//
-// void EnemyActor::Attack() {
-//
-// }

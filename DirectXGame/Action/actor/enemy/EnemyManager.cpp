@@ -1,7 +1,6 @@
 #include "EnemyManager.h"
 #include "../ActorManager.h"
 
-//#include "EnemyTest.h"
 #include "EnemyFactory.h"
 
 void EnemyManager::Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager)
