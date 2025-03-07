@@ -107,6 +107,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="InputEX.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp" />
