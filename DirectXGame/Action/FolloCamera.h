@@ -28,8 +28,15 @@ private:
 	const WorldTransform* target_ = nullptr;
 
 	float Rx;
+	float Ry;
 
-	static inline const float kRotationSpeed = 0.01f;
-	static inline const float targetDistance = 1.0f;
+	bool moveCameraRotateXAdd;
+	bool moveCameraRotateXLower;
+
+	static inline const float kRotationSpeed = 0.008f;
+
+	static inline const float kTranslationSpeed = 0.005f;
+
+	static inline const float kDeadZone = 0.1f;
 };
 

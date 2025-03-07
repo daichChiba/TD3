@@ -25,7 +25,7 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 	enemyBulletModel_ = enemyBulletModel;
 
 	playerManager_ = new PlayerManager();
-	playerManager_->Initialize(PlayeModel_, PlayerBulletModel, Vector3{0.0f, 10.0f, 0.0f}, this);
+	playerManager_->Initialize(PlayeModel_, PlayerBulletModel, Vector3{0.0f, 0.0f, 0.0f}, this);
 
 	playerManager_->CreatePlayerMain();
 
@@ -35,9 +35,6 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 }
 
 void ActorManager::Update() {
-	
-	preCameraRot = followCamera_->GetCamera().rotation_;
-
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
 

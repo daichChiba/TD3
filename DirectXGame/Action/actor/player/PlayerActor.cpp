@@ -27,33 +27,35 @@ void PlayerActor::Update() {
 	lx = xinput_.Gamepad.sThumbLX / 32767.0f; // 正規化（-1.0 ～ 1.0）
 	ly = xinput_.Gamepad.sThumbLY / 32767.0f;
 
-	if (worldTransform_.translation_.y > kGroundHeight) {
-		worldTransform_.translation_.y += kFoalSpeed;
-	}
-	if (worldTransform_.translation_.y < kGroundHeight) {
-		worldTransform_.translation_.y = kGroundHeight;
-		onGround_ = true;
-	}
-
 	Move();
 
 	Attack();
 
+	// ジャンプ中の処理
+	if (isJumping_) {
+		worldTransform_.translation_.y += jumpSpeed_;
+		jumpSpeed_ += kGravity;
+
+		// 地面に着地した場合
+		if (worldTransform_.translation_.y <= kGroundHeight) {
+			worldTransform_.translation_.y = kGroundHeight;
+			isJumping_ = false;
+			jumpSpeed_ = 0.0f;
+			onGround_ = true;
+		}
+	}
+
+	move_ = Normalize(move_);
+
+	Matrix4x4 matRot = MakeRotateYMatrix(cameraRot_.y);
 	
-	//move_ = move_ * kSpeed_;
-	//move_ = Normalize(move_);
-
-	Matrix4x4 matRotX = MakeRotateXMatrix(cameraRot_.x);
-	Matrix4x4 matRotY = MakeRotateYMatrix(cameraRot_.y);
-	Matrix4x4 matRotZ = MakeRotateZMatrix(cameraRot_.z);
-
-	Matrix4x4 matRot = matRotX * matRotY * matRotZ;
-
-	//move_ = TransformNormal(move_, matRot);
-
+	move_ = TransformNormal(move_, matRot);
 	worldTransform_.translation_ += move_;
+	worldTransform_.rotation_.y = cameraRot_.y;
+	
 
 	DrawImGui();
+
 	move_ = Vector3{0.0f, 0.0f, 0.0f};
 
 	worldTransform_.UpdateMatrix();

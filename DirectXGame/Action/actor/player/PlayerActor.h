@@ -29,9 +29,9 @@ public:
 
 	void DrawImGui();
 
-	WorldTransform* GetWorldTransfrom() { return &worldTransform_;}
+	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
-	void SetCameraRot(Vector3 cameraRot){ cameraRot_ = cameraRot; }
+	void SetCameraRot(Vector3 cameraRot) { cameraRot_ = cameraRot; }
 
 protected:
 	virtual void Move() { return; }
@@ -51,8 +51,16 @@ protected:
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.05f;
 
+	float playerYSpeed;
+
 	bool onGround_;
 	static inline const float kGroundHeight = 0.5f;
+	static inline const float kGravity = -0.03f;
 
-	static inline const float kFoalSpeed = -0.05f;
+
+	bool isJumping_ = true;
+
+	bool isDush_ = true;
+	float jumpSpeed_ = 0.0f;
+	static inline const float kJumpForce = 0.5f;
 };

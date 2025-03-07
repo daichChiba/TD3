@@ -66,6 +66,9 @@
     <ClCompile Include="Action\FolloCamera.cpp">
       <Filter>ソース ファイル\action</Filter>
     </ClCompile>
+    <ClCompile Include="Action\actor\BulletActor.cpp">
+      <Filter>ソース ファイル\action\actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
@@ -132,11 +135,14 @@
     <ClInclude Include="Action\actor\player\PlayerFactory.h">
       <Filter>ヘッダー ファイル\action\actor\player</Filter>
     </ClInclude>
+    <ClInclude Include="Action\FolloCamera.h">
+      <Filter>ヘッダー ファイル\action</Filter>
+    </ClInclude>
     <ClInclude Include="Action\actor\ActorManager.h">
       <Filter>ヘッダー ファイル\action\actor</Filter>
     </ClInclude>
-    <ClInclude Include="Action\FolloCamera.h">
-      <Filter>ヘッダー ファイル\action</Filter>
+    <ClInclude Include="Action\actor\BulletActor.h">
+      <Filter>ヘッダー ファイル\action\actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
