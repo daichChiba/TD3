@@ -1,13 +1,12 @@
 #include "PuzzleManager.h"
-#include "PuzzleCollection/PuzzleCollection.h"
+#include "BasePuzzle/BasePuzzle.h"
+#include "../Puzzule/BasePuzzle/puzzles/PuzzleFactory.h"
 
-//
 void PuzzleManager::Initialize() {
 	camera_ = new Camera();
 	camera_->Initialize();
-
-	puzzleCollection_ = new PuzzleCollection();
-	puzzleCollection_->Initialize();
+	factory_ = std::make_unique<PuzzleFactory>();
+	CreatePuzzle();
 }
 
 void PuzzleManager::Update() {
@@ -15,11 +14,24 @@ void PuzzleManager::Update() {
 	// カメラの更新
 	camera_->TransferMatrix();
 
-	puzzleCollection_->Update();
+	puzzle_->Update();
 }
 
 void PuzzleManager::Draw() {
-	puzzleCollection_->Draw();
+	puzzle_->Draw();
+}
+
+void PuzzleManager::CreatePuzzle() {
+	puzzle_ = factory_->CreatePuzzle15();
+	puzzle_->Initialize();
+}
+
+void PuzzleManager::StartPuzzle() {
+	CreatePuzzle();
+}
+
+void PuzzleManager::EndPuzzle() {
+	puzzle_.reset();
 }
 
 void PuzzleManager::DrawImGui() {

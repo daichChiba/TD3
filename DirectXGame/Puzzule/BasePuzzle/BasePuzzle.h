@@ -1,7 +1,7 @@
 #pragma once
 #include <KamataEngine.h>
 using namespace KamataEngine;
-class PuzzleCollection {
+class BasePuzzle {
 public:
 	/// <summary>
 	/// 初期化
@@ -11,20 +11,17 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	virtual void Update();
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	virtual void Draw();
 
-private:
+protected:
 	/// <summary>
-	/// puzzleManagerのImGui描画
+	/// ImGuiの描画
 	/// </summary>
-	void DrawImGui() { return; };
-	/// <summary>
-	/// パズルが完成しているか確認
-	/// </summary>
-	void ChackPuzzle() { return; };
+	virtual void DrawImGui() { return; };
+
 };

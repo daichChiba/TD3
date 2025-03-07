@@ -19,25 +19,25 @@
     <Filter Include="ソース ファイル\puzzle">
       <UniqueIdentifier>{925ed122-289b-4bf9-a3dd-b9e5d32d973a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\puzzle\puzzleCollection">
-      <UniqueIdentifier>{e788e918-038b-49a8-94bc-3089b7bfbd34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\puzzle\puzzleCollection\puzzles">
-      <UniqueIdentifier>{5f619d59-8bc5-4d74-beb6-b458648bde94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\puzzle">
       <UniqueIdentifier>{8c02c9d8-1458-40dd-a911-08308ad6984f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\puzzle\puzzleCollection">
-      <UniqueIdentifier>{b46b785e-7d50-4674-9f52-dcbfd96beef4}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle">
+      <UniqueIdentifier>{e788e918-038b-49a8-94bc-3089b7bfbd34}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\puzzle\puzzleCollection\puzzles">
-      <UniqueIdentifier>{b088cd7a-5aa6-4d09-8120-9ae9bb63fc41}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles">
+      <UniqueIdentifier>{5f619d59-8bc5-4d74-beb6-b458648bde94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\puzzle\puzzleCollection\puzzles\puzzle15">
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15">
       <UniqueIdentifier>{649e5c36-3425-45df-9bae-f92bdeb33113}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\puzzle\puzzleCollection\puzzles\puzzle15">
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle">
+      <UniqueIdentifier>{b46b785e-7d50-4674-9f52-dcbfd96beef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles">
+      <UniqueIdentifier>{b088cd7a-5aa6-4d09-8120-9ae9bb63fc41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15">
       <UniqueIdentifier>{d4c16796-4505-48b8-83e0-254b7d2a72df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -51,14 +51,14 @@
     <ClCompile Include="Puzzule\PuzzleManager.cpp">
       <Filter>ソース ファイル\puzzle</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzule\PuzzleCollection\PuzzleCollection.cpp">
-      <Filter>ソース ファイル\puzzle\puzzleCollection</Filter>
+    <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzule\PuzzleCollection\puzzles\PuzzleFactory.cpp">
-      <Filter>ソース ファイル\puzzle\puzzleCollection\puzzles</Filter>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzule\PuzzleCollection\puzzles\Puzzle15\Puzzle15.cpp">
-      <Filter>ソース ファイル\puzzle\puzzleCollection\puzzles\puzzle15</Filter>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,14 +117,14 @@
     <ClInclude Include="Puzzule\PuzzleManager.h">
       <Filter>ヘッダー ファイル\puzzle</Filter>
     </ClInclude>
-    <ClInclude Include="Puzzule\PuzzleCollection\PuzzleCollection.h">
-      <Filter>ヘッダー ファイル\puzzle\puzzleCollection</Filter>
+    <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle</Filter>
     </ClInclude>
-    <ClInclude Include="Puzzule\PuzzleCollection\puzzles\PuzzleFactory.h">
-      <Filter>ヘッダー ファイル\puzzle\puzzleCollection\puzzles</Filter>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles</Filter>
     </ClInclude>
-    <ClInclude Include="Puzzule\PuzzleCollection\puzzles\Puzzle15\Puzzle15.h">
-      <Filter>ヘッダー ファイル\puzzle\puzzleCollection\puzzles\puzzle15</Filter>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

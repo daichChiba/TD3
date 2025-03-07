@@ -2,7 +2,8 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 
-class PuzzleCollection;
+class BasePuzzle;
+
 
 class PuzzleFactory {
 public:
@@ -10,5 +11,5 @@ public:
 	/// パズル15を作成
 	/// </summary>
 	/// <returns></returns>
-	std::unique_ptr<PuzzleCollection> CreatePuzzle15();
+	std::unique_ptr<BasePuzzle> CreatePuzzle15();
 };

@@ -11,9 +11,11 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	// パズルマネージャーの初期化
+	// パズルマネージャーの生成
 	puzzleManager_ = new PuzzleManager();
+	// ゲームシーンの設定
 	puzzleManager_->SetGameScene(this);
+	// パズルマネージャーの初期化
 	puzzleManager_->Initialize();
 }
 

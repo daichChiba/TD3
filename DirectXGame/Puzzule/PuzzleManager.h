@@ -1,7 +1,8 @@
 #pragma once
 #include "KamataEngine.h"
 using namespace KamataEngine;
-#include "../Puzzule/PuzzleCollection/PuzzleCollection.h"
+#include "../Puzzule/BasePuzzle/BasePuzzle.h"
+#include "../Puzzule/BasePuzzle/puzzles/PuzzleFactory.h"
 class GameScene;
 
 class PuzzleManager {
@@ -25,6 +26,20 @@ public:
 	/// <param name="gameScene"></param>
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 
+	/// <summary>
+	/// パズルの作成
+	/// </summary>
+	void CreatePuzzle();
+
+	/// <summary>
+	/// パズルの開始
+	/// </summary>
+	void StartPuzzle() ;
+	/// <summary>
+	/// パズルの終了
+	/// </summary>
+	void EndPuzzle();
+
 private:
 
 	GameScene* gameScene_ ;
@@ -34,5 +49,8 @@ private:
 	/// </summary>
 	void DrawImGui();
 
-	PuzzleCollection* puzzleCollection_;
+	// ベースパズル
+	std::unique_ptr<BasePuzzle> puzzle_;
+	// パズルファクトリー
+	std::unique_ptr<PuzzleFactory> factory_;
 };
