@@ -6,6 +6,7 @@ class Puzzle15 : public BasePuzzle{
 public:
 	Puzzle15();
 	~Puzzle15();
+	void Initialize() override;
 	void Update() override;	
 	void Draw() override;
 

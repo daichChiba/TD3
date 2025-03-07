@@ -4,6 +4,10 @@ Puzzle15::Puzzle15() {}
 
 Puzzle15::~Puzzle15() {}
 
+void Puzzle15::Initialize() {
+
+}
+
 void Puzzle15::Update() {
 	DrawImGui();
 }

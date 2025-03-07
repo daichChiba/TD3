@@ -9,6 +9,7 @@ void BasePuzzle::Initialize() {
 
 void BasePuzzle::Update() {
 
+
 }
 
 void BasePuzzle::Draw() {
