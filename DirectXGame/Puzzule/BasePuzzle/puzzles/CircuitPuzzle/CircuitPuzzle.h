@@ -1,6 +1,6 @@
 #pragma once
 #include "../../BasePuzzle.h"
-class CircuitPuzzle : BasePuzzle {
+class CircuitPuzzle :public BasePuzzle {
 public:
 	/// <summary>
 	/// コンストラクタ

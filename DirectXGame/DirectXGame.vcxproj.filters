@@ -40,6 +40,12 @@
     <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15">
       <UniqueIdentifier>{d4c16796-4505-48b8-83e0-254b7d2a72df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle">
+      <UniqueIdentifier>{953baa01-2d49-4a30-8367-f7f90e4dcaa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle">
+      <UniqueIdentifier>{6e6c2425-12da-415d-a582-fe93fc1169b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp">
       <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
+    </ClCompile>
+    <ClCompile Include="InputEX.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h">
       <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
