@@ -24,5 +24,5 @@ public:
 	void Draw() override;
 
 private:
-
+	void DrawImGui() override;
 };
