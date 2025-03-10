@@ -1,7 +1,7 @@
 #pragma once
 #include <KamataEngine.h>
 using namespace KamataEngine;
-
+#include <vector>
 #include "../Puzzle15.h"
 
 class GameScene {
@@ -32,7 +32,7 @@ public:
 	/// </summary>
 	void Draw();
 
-	void GenerateBlocks();
+	void GeneratePanels();
 
 private:
 	DirectXCommon* dxCommon_ = nullptr;
@@ -42,8 +42,10 @@ private:
 
 	std::vector<std::vector<WorldTransform*>> worldTransformPanels_;
 
+	//2D背景
+	Sprite* puzzle_ = nullptr;
+	uint32_t slidePuzzle15_ = 0;
+
 	Puzzle15* puzzle15_;
 
-	// タイルを配置するメソッド
-	void PlaceTiles();
 };

@@ -43,8 +43,11 @@ public:
 	Puzzle15Panel GetPuzzle15TypeByIndex(uint32_t xIndex, uint32_t yIndex);
 	Vector3 GetPuzzle15PositionByIndex(uint32_t xIndex, uint32_t yIndex);
 
+//	void Draw();
+
 private:
 	Puzzle15PanelData puzzle15PanelData_;
+	
 };
 
 //class Puzzle15 {

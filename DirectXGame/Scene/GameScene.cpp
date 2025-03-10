@@ -3,7 +3,10 @@
 
 GameScene::GameScene(){}
 
-GameScene::~GameScene() { delete puzzle15_; }
+GameScene::~GameScene() { 
+	delete puzzle15_;
+	
+}
 
 void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -13,8 +16,17 @@ void GameScene::Initialize() {
 	//ボードの数を設定し、初期値を割り当てる
 	//puzzle15_ = new Puzzle15(3, 3);
 	puzzle15_ = new Puzzle15;
-	puzzle15_->LoadPuzzle15Csv("Resources/panel.csv");
+	puzzle15_->LoadPuzzle15Csv("Resources/panels.csv");
+
+	GeneratePanels();
+
+	slidePuzzle15_ = TextureManager::Load("1.png");
+	puzzle_ = Sprite::Create(slidePuzzle15_, {0, 0});
 	
+	//// 2D背景
+	//puzzle_ = TextureManager::Load("badEndSkydome/badEndSkydome.png");
+	//slidePuzzle15_ = Sprite::Create(puzzle_, {0, 0});
+
 }
 
 void GameScene::Update() {
@@ -22,7 +34,7 @@ void GameScene::Update() {
 	//puzzle15_->ImGuiX();
 
 	//タイルを配置する
-	PlaceTiles();
+//	PlaceTiles();
 
 
 	//puzzle15_->Update();
@@ -36,6 +48,24 @@ void GameScene::Draw() {
 #pragma region 背景スプライト描画
 	// 背景スプライト描画前処理
 	Sprite::PreDraw(commandList);
+
+	//slidePuzzle15_->Draw();
+
+	/*for (std::vector<WorldTransform*>& worldTransformBlocksLine : worldTransformPanels_) {
+		for (WorldTransform* worldTransformBlock : worldTransformBlocksLine) {
+			if (!worldTransformBlock)*/
+			//	continue;
+			puzzle_->Draw();
+	/*	}
+	}*/
+
+		/*	for (std::vector<WorldTransform*>& worldTransformPanelsLine : worldTransformPanels_) {
+		        for (WorldTransform* worldTransformPanel : worldTransformPanelsLine) {
+			        if (!worldTransformPanel)
+				        continue;
+			        puzzle_->Draw(worldTransformPanel);
+		        }
+	        }*/
 
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
@@ -67,7 +97,7 @@ void GameScene::Draw() {
 	// 前景スプライト描画前処理
 	Sprite::PreDraw(commandList);
 
-	//puzzle15_->Draw();
+	//slidePuzzle15_->Draw();
 
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
@@ -79,7 +109,7 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::GenerateBlocks() {
+void GameScene::GeneratePanels() {
 	uint32_t numPanelVirtical = puzzle15_->GetNumPanelVirtical();
 	uint32_t numPanelHorizontal = puzzle15_->GetNumPanelHorizontal();
 
@@ -111,15 +141,15 @@ void GameScene::GenerateBlocks() {
 	}
 }
 
-void GameScene::PlaceTiles() {
-	// ImGuiを使用してタイルを配置する
-	ImGui::Begin("Place Tiles");
-
-	/*for (int i = 0; i < puzzle15_->row * puzzle15_->col; i++) {
-		int value = puzzle15_->tiles[i];
-		if (ImGui::InputInt(("Tile" + std::to_string(i)).c_str(), &value)) {
-			puzzle15_->PlaceTile(i, value);
-		}
-	}*/
-	ImGui::End();
-}
+//void GameScene::PlaceTiles() {
+//	// ImGuiを使用してタイルを配置する
+//	ImGui::Begin("Place Tiles");
+//
+//	/*for (int i = 0; i < puzzle15_->row * puzzle15_->col; i++) {
+//		int value = puzzle15_->tiles[i];
+//		if (ImGui::InputInt(("Tile" + std::to_string(i)).c_str(), &value)) {
+//			puzzle15_->PlaceTile(i, value);
+//		}
+//	}*/
+//	ImGui::End();
+//}
