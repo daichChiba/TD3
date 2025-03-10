@@ -1,100 +1,94 @@
 // FileJson.cpp
-#include "FileJson.h"
-#include <limits>
+#include "FileJson.h" // FileJson.hをインクルード
+#include <limits>     // 数値の限界値
 
-namespace FileJson {
+namespace FileJson { // FileJson名前空間を使用
 
-FileAccessor::FileAccessor(const std::string& filename) : filename_(filename), inputFile_(filename), outputFile_(filename) {
-	// ファイルを読み込みモードで開く
-	// inputFile_.open(filename_, std::ios::in);
+// コンストラクタ: ファイル名を指定して初期化し、JSONファイルをロード
+FileAccessor::FileAccessor(const std::string& filename) : filename_(filename) { LoadJsonFromFile(); }
 
-	// ファイルが開けたかどうかをチェック
-	if (inputFile_.is_open()) {
-		// JSONデータをファイルからロード
-		LoadJsonFromFile();
-		inputFile_.close(); // ファイルを閉じる
-	} else {
-		std::cerr << "Warning: Could not open file for reading: " << filename_ << std::endl;
-		// ファイルが存在しないか、開けない場合は、空のJSONオブジェクトで初期化
-		jsonData_ = json::object();
-	}
-}
+// デストラクタ
+FileAccessor::~FileAccessor() {}
 
-FileAccessor::~FileAccessor() {
-	SaveJsonToFile(); // デストラクタでJSONデータをファイルに保存
-}
-
+// ファイルからJSONデータをロードする
 void FileAccessor::LoadJsonFromFile() {
-	try {
-		// ファイルストリームからJSONデータを読み込む
-		inputFile_ >> jsonData_;
-	} catch (const nlohmann::json::parse_error& e) {
-		std::cerr << "Error: JSON parse error - " << e.what() << std::endl;
-		// パースエラーが発生した場合、jsonData_を空のJSONオブジェクトで初期化
-		jsonData_ = json::object();
-	} catch (const std::exception& e) {
-		std::cerr << "Error: Exception during JSON load - " << e.what() << std::endl;
-		// その他のエラーが発生した場合も、jsonData_を空のJSONオブジェクトで初期化
+	std::ifstream inputFile(filename_); // ファイルを開く
+	if (inputFile.is_open()) {          // ファイルが開けたか確認
+		try {
+			jsonData_ = json::parse(inputFile); // JSONファイルを解析してjsonData_に格納
+		} catch (const nlohmann::json::parse_error& e) {
+			// JSON解析エラーが発生した場合、エラーメッセージを出力して空のJSONオブジェクトを作成
+			std::cerr << "Error: JSON parse error - " << e.what() << std::endl;
+			jsonData_ = json::object();
+		} catch (const std::exception& e) {
+			// その他の例外が発生した場合、エラーメッセージを出力して空のJSONオブジェクトを作成
+			std::cerr << "Error: Exception during JSON load - " << e.what() << std::endl;
+			jsonData_ = json::object();
+		}
+		inputFile.close(); // ファイルを閉じる
+	} else {
+		// ファイルが開けなかった場合、警告メッセージを出力して空のJSONオブジェクトを作成
+		std::cerr << "Warning: Could not open file for reading: " << filename_ << std::endl;
 		jsonData_ = json::object();
 	}
-	/*finally {
-	    if (inputFile_.is_open()) {
-	        inputFile_.close(); // ファイルを閉じる
-	    }
-	}*/
 }
 
-void FileAccessor::SaveJsonToFile() {
-	// ファイルを書き込みモードで開く（上書き）
-	outputFile_.open(filename_, std::ios::out | std::ios::trunc); // ファイルをtruncateして開く
-
-	// ファイルが開けたかどうかをチェック
-	if (outputFile_.is_open()) {
+// JSONデータをファイルに保存する
+void FileAccessor::Save() {
+	std::ofstream outputFile(filename_); // ファイルを開く
+	if (outputFile.is_open()) {          // ファイルが開けたか確認
 		try {
-			// JSONデータをファイルストリームに書き込む（インデント付き）
-			outputFile_ << jsonData_.dump(4); // 4はインデントのスペース数
+			outputFile << jsonData_.dump(4); // JSONデータを整形してファイルに書き込む
 		} catch (const std::exception& e) {
+			// 例外が発生した場合、エラーメッセージを出力
 			std::cerr << "Error: Exception during JSON save - " << e.what() << std::endl;
 		}
-		/*finally {
-		    if (outputFile_.is_open()) {
-		        outputFile_.close(); // ファイルを閉じる
-		    }
-		}*/
+		outputFile.close(); // ファイルを閉じる
 	} else {
+		// ファイルが開けなかった場合、エラーメッセージを出力
 		std::cerr << "Error: Could not open file for writing: " << filename_ << std::endl;
 	}
 }
 
+// Vector3を読み込むための特殊化
 Vector3 FileAccessor::ReadVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& defaultValue) const {
 	try {
+		// 指定されたクラスと変数がJSONデータに存在するか確認
 		if (jsonData_.contains(desiredClass) && jsonData_[desiredClass].contains(variableName)) {
+			// 変数がオブジェクト（x, y, zを持つ）かどうか確認
 			if (jsonData_[desiredClass][variableName].is_object()) {
-				auto& vecData = jsonData_[desiredClass][variableName];
+				auto& vecData = jsonData_[desiredClass][variableName]; // JSONオブジェクトへの参照を取得
 				// x, y, z が存在するか確認
 				if (vecData.contains("x") && vecData.contains("y") && vecData.contains("z")) {
+					// JSONオブジェクトからx, y, zの値を取得してVector3を作成
 					return Vector3(vecData["x"].get<float>(), vecData["y"].get<float>(), vecData["z"].get<float>());
 				} else {
+					// x, y, z のいずれかが存在しない場合は警告メッセージを出力してデフォルト値を返す
 					std::cerr << "Warning: x, y, z keys not found in JSON, returning default value." << std::endl;
 					return defaultValue;
 				}
 			} else {
+				// 変数がオブジェクトでない場合は、単一の値として読み込んで全ての要素に適用
 				float value = jsonData_[desiredClass][variableName].get<float>();
 				return Vector3(value, value, value);
 			}
 		} else {
+			// クラスまたは変数がJSONデータに存在しない場合は警告メッセージを出力してデフォルト値を返す
 			std::cerr << "Warning: Class or variable not found in JSON, returning default value." << std::endl;
 			return defaultValue;
 		}
 	} catch (const nlohmann::json::type_error& e) {
+		// JSONの型が一致しない場合はエラーメッセージを出力してデフォルト値を返す
 		std::cerr << "Error: JSON type error - " << e.what() << " Returning default value." << std::endl;
 		return defaultValue;
 	} catch (const std::exception& e) {
+		// その他の例外が発生した場合はエラーメッセージを出力してデフォルト値を返す
 		std::cerr << "Error: Exception during JSON read - " << e.what() << " Returning default value." << std::endl;
 		return defaultValue;
 	}
 }
 
+// Vector3を書き込むための特殊化
 void FileAccessor::WriteVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& value) {
 	try {
 		// Vector3をJSONオブジェクトに書き込む
@@ -102,36 +96,7 @@ void FileAccessor::WriteVector3(const std::string& desiredClass, const std::stri
 		jsonData_[desiredClass][variableName]["y"] = value.y;
 		jsonData_[desiredClass][variableName]["z"] = value.z;
 	} catch (const std::exception& e) {
-		std::cerr << "Error: Exception during JSON write - " << e.what() << std::endl;
-	}
-}
-
-template<typename T> T FileAccessor::Read(const std::string& desiredClass, const std::string& variableName, const T& defaultValue) const {
-	try {
-		if (jsonData_.contains(desiredClass) && jsonData_[desiredClass].contains(variableName)) {
-			if (jsonData_[desiredClass][variableName].is_object()) {
-				return defaultValue;
-			} else {
-				return jsonData_[desiredClass][variableName].get<T>();
-			}
-
-		} else {
-			std::cerr << "Warning: Key not found in JSON, returning default value." << std::endl;
-			return defaultValue;
-		}
-	} catch (const nlohmann::json::type_error& e) {
-		std::cerr << "Error: JSON type error - " << e.what() << " Returning default value." << std::endl;
-		return defaultValue;
-	} catch (const std::exception& e) {
-		std::cerr << "Error: Exception during JSON read - " << e.what() << " Returning default value." << std::endl;
-		return defaultValue;
-	}
-}
-
-template<typename T> void FileAccessor::Write(const std::string& desiredClass, const std::string& variableName, const T& value) {
-	try {
-		jsonData_[desiredClass][variableName] = value;
-	} catch (const std::exception& e) {
+		// 例外が発生した場合、エラーメッセージを出力
 		std::cerr << "Error: Exception during JSON write - " << e.what() << std::endl;
 	}
 }

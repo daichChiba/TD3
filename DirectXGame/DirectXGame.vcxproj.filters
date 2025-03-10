@@ -130,6 +130,7 @@
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
+    <None Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\GameScene.h">
