@@ -19,6 +19,8 @@ private:
 
 	void SkillTimerMove();
 
+	Vector3 GetCameraForward() const;
+
 	Vector3 acceletion;
 
 	static inline const float kAcceletion = 0.3f;
@@ -29,7 +31,7 @@ private:
 	static inline const float deadZone = 0.1f;
 
 #pragma region スキルクールタイム
-	float kNormalAttackCoolTime_ = 0.8f;
+	float kNormalAttackCoolTime_ = 0.1f;
 	float kSubAttackCoolTime_ = 0.1f;
 #pragma endregion
 

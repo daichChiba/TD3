@@ -93,7 +93,10 @@ void PlayerMain::Attack() {
 	if(normalAttackKey && NormalAttackTimer_ < 0.0f){
 		std::shared_ptr<BulletActor> attack = std::make_shared<BulletPlayerSubAttack>();
 		attack->Initialize(BulletModel_, worldTransform_.translation_);
-		attack->SetMove(cameraRot_);
+		
+		Vector3 forward = GetCameraForward();
+        attack->SetMove(forward); // bulletSpeed は弾の速度
+
 		actorManager_->AddBullet(attack); // プレイヤーが持っているゲームシーンからゲームシーンにポインタを渡す
 
 		NormalAttackTimer_ = kNormalAttackCoolTime_;
@@ -136,4 +139,18 @@ void PlayerMain::CheckKey() {
 void PlayerMain::SkillTimerMove()
 {
 	NormalAttackTimer_ -= flameTime_;
+}
+
+inline Vector3 PlayerMain::GetCameraForward() const {
+	// カメラの回転情報を取得
+    float yaw = cameraRot_.y;
+    float pitch = cameraRot_.x;
+
+    // 前方ベクトルを計算
+    Vector3 forward;
+    forward.x = sin(yaw) * cos(pitch);
+    forward.y = sin(-pitch);
+    forward.z = cos(yaw) * cos(pitch);
+
+    return forward;
 }
