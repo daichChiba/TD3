@@ -1,7 +1,0 @@
-#pragma once
-#include "kamataEngine.h"
-#include ""
-using namespace KamataEngine;
-
-
-class EnemyTest : public EnemyActor {};

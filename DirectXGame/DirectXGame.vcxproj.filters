@@ -96,6 +96,15 @@
     <ClCompile Include="Action\actor\enemy\EnemyTest.cpp">
       <Filter>ソース ファイル\action\actor\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyShort.cpp">
+      <Filter>ソース ファイル\action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyFly.cpp">
+      <Filter>ソース ファイル\action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyLong.cpp">
+      <Filter>ソース ファイル\action\actor\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
@@ -184,6 +193,15 @@
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
     </ClInclude>
     <ClInclude Include="Action\actor\enemy\EnemyTest.h">
+      <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyFly.h">
+      <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyLong.h">
+      <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyShort.h">
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
     </ClInclude>
   </ItemGroup>

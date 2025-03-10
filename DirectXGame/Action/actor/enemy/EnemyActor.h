@@ -33,15 +33,7 @@ public:
 
 	void SetMove(Vector3 move) { move_ = move; }
 
-	/*/// <summary>
-	/// 動き
-	/// </summary>
-	void Move();
-
-	/// <summary>
-	/// 攻撃
-	/// </summary>
-	void Attack();*/
+	
 
 
 // 派生クラスでしか使わない関数はprotectedにする
