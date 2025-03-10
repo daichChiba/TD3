@@ -26,6 +26,8 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
+	void UpdateDirectionBasedOnMovement();
+
 	void DrawImGui();
 
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
@@ -57,7 +59,6 @@ protected:
 	bool onGround_;
 	static inline const float kGroundHeight = 0.5f;
 	static inline const float kGravity = -0.03f;
-
 
 	bool isJumping_ = true;
 

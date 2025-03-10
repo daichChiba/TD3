@@ -51,8 +51,8 @@ void PlayerActor::Update() {
 	
 	move_ = TransformNormal(move_, matRot);
 	worldTransform_.translation_ += move_;
-	worldTransform_.rotation_.y = cameraRot_.y;
-	
+
+	UpdateDirectionBasedOnMovement();
 
 	DrawImGui();
 
@@ -61,7 +61,19 @@ void PlayerActor::Update() {
 	worldTransform_.UpdateMatrix();
 }
 
-void PlayerActor::Draw(Camera& camera) { model_->Draw(worldTransform_, camera); }
+void PlayerActor::Draw(Camera& camera) { 
+	model_->Draw(worldTransform_, camera); 
+}
+
+void PlayerActor::UpdateDirectionBasedOnMovement()
+{
+
+    // 移動入力がある場合に向きを変更
+    if (move_.x != 0.0f || move_.z != 0.0f) {
+        float angle = atan2(move_.z, move_.x);
+        worldTransform_.rotation_.y = angle;
+    }
+}
 
 void PlayerActor::DrawImGui() {
 	ImGui::Begin("player");

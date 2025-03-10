@@ -33,10 +33,15 @@ private:
 	bool moveCameraRotateXAdd;
 	bool moveCameraRotateXLower;
 
+	Vector3 offset_ = {0.0f, 2.0f, -10.0f};
+
 	static inline const float kRotationSpeed = 0.008f;
 
 	static inline const float kTranslationSpeed = 0.005f;
 
 	static inline const float kDeadZone = 0.1f;
+
+	static inline const float kMinCameraHeight = 0.5f;
+	static inline const float kMaxCameraHeight = 7.0f;
 };
 
