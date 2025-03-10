@@ -2,6 +2,7 @@
 using namespace KamataEngine;
 #include "Scene/GameScene.h"
 
+
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;

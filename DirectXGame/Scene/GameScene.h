@@ -32,11 +32,15 @@ public:
 	/// </summary>
 	void Draw();
 
+	void GenerateBlocks();
+
 private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 
 	Audio* audio_ = nullptr;
+
+	std::vector<std::vector<WorldTransform*>> worldTransformPanels_;
 
 	Puzzle15* puzzle15_;
 
