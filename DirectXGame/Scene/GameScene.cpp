@@ -20,8 +20,14 @@ void GameScene::Initialize() {
 
 	GeneratePanels();
 
-	slidePuzzle15_ = TextureManager::Load("1.png");
-	puzzle_ = Sprite::Create(slidePuzzle15_, {0, 0});
+	for (uint32_t i = 0; i < 3; ++i) {
+		for (uint32_t j = 0; j < 3; ++j) {
+			slidePuzzle15_[i][j] = TextureManager::Load("puzzle15_Tile");
+			puzzle_[i][j] = Sprite::Create(slidePuzzle15_[i][j], {0, 0});
+		}
+	}
+
+	
 	
 	//// 2D背景
 	//puzzle_ = TextureManager::Load("badEndSkydome/badEndSkydome.png");

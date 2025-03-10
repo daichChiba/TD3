@@ -43,8 +43,8 @@ private:
 	std::vector<std::vector<WorldTransform*>> worldTransformPanels_;
 
 	//2D背景
-	Sprite* puzzle_ = nullptr;
-	uint32_t slidePuzzle15_ = 0;
+	std::vector<std::vector<Sprite>> puzzle_;
+	std::vector<std::vector<uint32_t>> slidePuzzle15_;
 
 	Puzzle15* puzzle15_;
 
