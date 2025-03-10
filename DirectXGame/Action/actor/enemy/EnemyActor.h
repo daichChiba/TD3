@@ -4,7 +4,6 @@
 
 using namespace KamataEngine;
 
-class GameScene;
 class ActorManager;
 
 class EnemyActor {
@@ -32,8 +31,6 @@ public:
 
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
-	Camera* camera_ = nullptr;
-
 	void SetMove(Vector3 move) { move_ = move; }
 
 	/*/// <summary>
@@ -58,10 +55,7 @@ protected:
 
 	ActorManager* actorManager_;
 
-
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.3f;
-
-	
 
 };

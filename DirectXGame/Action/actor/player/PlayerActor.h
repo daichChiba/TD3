@@ -4,7 +4,6 @@
 
 using namespace KamataEngine;
 
-class GameScene;
 class ActorManager;
 
 class PlayerActor {

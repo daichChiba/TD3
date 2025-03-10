@@ -10,4 +10,6 @@ void EnemyTest::Move() {
 //worldTransform_.translation_ += move_;
 }
 
-void EnemyTest::Attack() {}
+void EnemyTest::Attack() {
+
+}
