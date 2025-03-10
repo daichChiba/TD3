@@ -21,7 +21,9 @@ void CircuitPuzzle::Draw() {
 }
 
 void CircuitPuzzle::DrawImGui() {
+#ifdef _DEBUG
 	ImGui::Begin("CircuitPuzzle");
 	ImGui::Text("CircuitPuzzle,UpDate,OK");
 	ImGui::End();
+#endif // _DEBUG
 }

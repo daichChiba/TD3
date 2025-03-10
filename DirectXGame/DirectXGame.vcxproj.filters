@@ -46,6 +46,12 @@
     <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle">
       <UniqueIdentifier>{6e6c2425-12da-415d-a582-fe93fc1169b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\puzzle\FileJson">
+      <UniqueIdentifier>{9274024c-d553-44aa-8ba4-f1178d835c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\FileJson">
+      <UniqueIdentifier>{4aba07c0-0113-4fc0-9205-757aa17cc194}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp">
       <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp">
+      <Filter>ソース ファイル\puzzle\FileJson</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +149,12 @@
     </ClInclude>
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h">
       <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h">
+      <Filter>ヘッダー ファイル\puzzle\FileJson</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\LoadJsonFile\nlohmann\json.hpp">
+      <Filter>ヘッダー ファイル\puzzle\FileJson</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

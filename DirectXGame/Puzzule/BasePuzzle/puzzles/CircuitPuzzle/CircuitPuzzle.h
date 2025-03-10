@@ -1,6 +1,20 @@
 #pragma once
 #include "../../BasePuzzle.h"
-class CircuitPuzzle :public BasePuzzle {
+#include <iostream>
+#include <map>
+#include <string>
+#include <vector>
+
+enum class PanelType {
+	Block,
+	Panel,
+};
+
+struct PanelData {
+	std::vector<std::vector<PanelType>> date;
+};
+
+class CircuitPuzzle : public BasePuzzle {
 public:
 	/// <summary>
 	/// コンストラクタ
@@ -25,4 +39,9 @@ public:
 
 private:
 	void DrawImGui() override;
+
+private:
+	PanelData panelData_;
+
+
 };

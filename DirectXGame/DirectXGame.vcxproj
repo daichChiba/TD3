@@ -106,6 +106,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InputEX.cpp" />
@@ -191,6 +192,8 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h" />
+    <ClInclude Include="Puzzule\LoadJsonFile\nlohmann\json.hpp" />
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h" />
     <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h" />
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h" />
