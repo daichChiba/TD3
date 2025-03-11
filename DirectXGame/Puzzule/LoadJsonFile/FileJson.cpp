@@ -5,8 +5,17 @@
 namespace FileJson { // FileJson名前空間を使用
 
 // コンストラクタ: ファイル名を指定して初期化し、JSONファイルをロード
-FileAccessor::FileAccessor(const std::string& filename) : filename_(filename) { LoadJsonFromFile(); }
-
+FileAccessor::FileAccessor(const std::string& filename) : filename_(filename) {
+	// ファイルを開く
+	std::ifstream inputFile(filename_);
+	// ファイルが開けなかった場合
+	if (!inputFile.is_open()) {
+		// ファイルが存在しない場合
+		throw std::runtime_error("Error: Could not open file for reading: " + filename_);
+	}
+	inputFile.close();  // ファイルが存在することを確認したら閉じる
+	LoadJsonFromFile(); // ファイルが存在する場合のみロード
+}
 // デストラクタ
 FileAccessor::~FileAccessor() {}
 
@@ -53,43 +62,50 @@ void FileAccessor::Save() {
 }
 
 // Vector3を読み込むための特殊化
-Vector3 FileAccessor::ReadVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& defaultValue) const {
+Vector3 FileAccessor::ReadVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& /*defaultValue*/) const {
 	try {
-		// 指定されたクラスと変数がJSONデータに存在するか確認
+		// 指定されたクラスと変数から値を読み込む
 		if (jsonData_.contains(desiredClass) && jsonData_[desiredClass].contains(variableName)) {
-			// 変数がオブジェクト（x, y, zを持つ）かどうか確認
+			// 値を返す
 			if (jsonData_[desiredClass][variableName].is_object()) {
-				auto& vecData = jsonData_[desiredClass][variableName]; // JSONオブジェクトへの参照を取得
+				auto& vecData = jsonData_[desiredClass][variableName];
 				// x, y, z が存在するか確認
 				if (vecData.contains("x") && vecData.contains("y") && vecData.contains("z")) {
-					// JSONオブジェクトからx, y, zの値を取得してVector3を作成
+					// x, y, z の値を取得
 					return Vector3(vecData["x"].get<float>(), vecData["y"].get<float>(), vecData["z"].get<float>());
+					// キーが見つからない場合
 				} else {
-					// x, y, z のいずれかが存在しない場合は警告メッセージを出力してデフォルト値を返す
-					std::cerr << "Warning: x, y, z keys not found in JSON, returning default value." << std::endl;
-					return defaultValue;
+					// 例外が発生した場合、エラーメッセージを出力
+					std::stringstream ss;
+					ss << "Error: x, y, z keys not found in JSON - Class: " << desiredClass << ", Variable: " << variableName;
+					throw std::runtime_error(ss.str());
 				}
+				// オブジェクトでない場合
 			} else {
-				// 変数がオブジェクトでない場合は、単一の値として読み込んで全ての要素に適用
 				float value = jsonData_[desiredClass][variableName].get<float>();
 				return Vector3(value, value, value);
 			}
 		} else {
-			// クラスまたは変数がJSONデータに存在しない場合は警告メッセージを出力してデフォルト値を返す
-			std::cerr << "Warning: Class or variable not found in JSON, returning default value." << std::endl;
-			return defaultValue;
+			// キーが見つからない場合
+			std::stringstream ss;
+			// 例外が発生した場合、エラーメッセージを出力
+			ss << "Error: Class or variable not found in JSON - Class: " << desiredClass << ", Variable: " << variableName;
+			// 例外をスローする
+			throw std::runtime_error(ss.str());
 		}
+		// 例外が発生した場合
 	} catch (const nlohmann::json::type_error& e) {
-		// JSONの型が一致しない場合はエラーメッセージを出力してデフォルト値を返す
-		std::cerr << "Error: JSON type error - " << e.what() << " Returning default value." << std::endl;
-		return defaultValue;
+		std::stringstream ss;
+		ss << "Error: JSON type error - " << e.what() << " Class: " << desiredClass << ", Variable: " << variableName;
+		// 例外をスローする
+		throw std::runtime_error(ss.str());
 	} catch (const std::exception& e) {
-		// その他の例外が発生した場合はエラーメッセージを出力してデフォルト値を返す
-		std::cerr << "Error: Exception during JSON read - " << e.what() << " Returning default value." << std::endl;
-		return defaultValue;
+		std::stringstream ss;
+		ss << "Error: Exception during JSON read - " << e.what() << " Class: " << desiredClass << ", Variable: " << variableName;
+		// 例外をスローする
+		throw std::runtime_error(ss.str());
 	}
 }
-
 // Vector3を書き込むための特殊化
 void FileAccessor::WriteVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& value) {
 	try {

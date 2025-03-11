@@ -67,7 +67,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		if (win->ProcessMessage()) {
 			break;
 		}
-
+		if (input->ReleseKey(DIK_ESCAPE)) {
+			break;
+		}
 		// ImGui受付開始
 		imguiManager->Begin();
 		// 入力関連の毎フレーム処理

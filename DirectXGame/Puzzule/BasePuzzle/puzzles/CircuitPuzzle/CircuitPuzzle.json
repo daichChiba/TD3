@@ -3,9 +3,9 @@
         "Pos": {
             "x": 1.0,
             "y": 2.0,
-            "z": 632145.0
+            "z": 1.0
         },
-        "isComplete": false,
-        "timer": 5
+        "isComplete": true,
+        "time": 5
     }
 }

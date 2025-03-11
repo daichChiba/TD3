@@ -86,20 +86,31 @@ private:
 /// <returns></returns>
 template<typename T> T FileAccessor::Read(const std::string& desiredClass, const std::string& variableName, const T& /*defaultValue*/) const {
 	try {
+		// 指定されたクラスと変数から値を読み込む
 		if (jsonData_.contains(desiredClass) && jsonData_[desiredClass].contains(variableName)) {
+			// 値を返す
 			return jsonData_[desiredClass][variableName].get<T>();
+			// キーが見つからない場合
 		} else {
+			// エラーメッセージを出力
 			std::stringstream ss;
 			ss << "Error: Key not found in JSON - Class: " << desiredClass << ", Variable: " << variableName;
+			// 例外をスローする
 			throw std::runtime_error(ss.str());
 		}
+		// 例外が発生した場合
 	} catch (const nlohmann::json::type_error& e) {
+		// エラーメッセージを出力
 		std::stringstream ss;
 		ss << "Error: JSON type error - " << e.what() << " Class: " << desiredClass << ", Variable: " << variableName;
+		// 例外をスローする
 		throw std::runtime_error(ss.str());
+		// 例外が発生した場合
 	} catch (const std::exception& e) {
+		// エラーメッセージを出力
 		std::stringstream ss;
 		ss << "Error: Exception during JSON read - " << e.what() << " Class: " << desiredClass << ", Variable: " << variableName;
+		// 例外をスローする
 		throw std::runtime_error(ss.str());
 	}
 }
