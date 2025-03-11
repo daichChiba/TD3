@@ -12,27 +12,29 @@ FileAccessor::~FileAccessor() {}
 
 // ファイルからJSONデータをロードする
 void FileAccessor::LoadJsonFromFile() {
-	std::ifstream inputFile(filename_); // ファイルを開く
-	if (inputFile.is_open()) {          // ファイルが開けたか確認
-		try {
-			jsonData_ = json::parse(inputFile); // JSONファイルを解析してjsonData_に格納
-		} catch (const nlohmann::json::parse_error& e) {
-			// JSON解析エラーが発生した場合、エラーメッセージを出力して空のJSONオブジェクトを作成
-			std::cerr << "Error: JSON parse error - " << e.what() << std::endl;
-			jsonData_ = json::object();
-		} catch (const std::exception& e) {
-			// その他の例外が発生した場合、エラーメッセージを出力して空のJSONオブジェクトを作成
-			std::cerr << "Error: Exception during JSON load - " << e.what() << std::endl;
-			jsonData_ = json::object();
+	std::ifstream inputFile(filename_);
+	if (inputFile.is_open()) {
+		// ファイルは存在する
+		if (inputFile.peek() == std::ifstream::traits_type::eof()) {
+			// ファイルが空の場合
+			inputFile.close();
+			throw std::runtime_error("Error: JSON file is empty: " + filename_);
 		}
-		inputFile.close(); // ファイルを閉じる
+		try {
+			jsonData_ = json::parse(inputFile);
+		} catch (const nlohmann::json::parse_error& e) {
+			std::cerr << "Error: JSON parse error - " << e.what() << std::endl;
+			throw; // 例外を再スローする
+		} catch (const std::exception& e) {
+			std::cerr << "Error: Exception during JSON load - " << e.what() << std::endl;
+			throw; // 例外を再スローする
+		}
+		inputFile.close();
 	} else {
-		// ファイルが開けなかった場合、警告メッセージを出力して空のJSONオブジェクトを作成
-		std::cerr << "Warning: Could not open file for reading: " << filename_ << std::endl;
-		jsonData_ = json::object();
+		// ファイルが存在しない場合
+		throw std::runtime_error("Error: Could not open file for reading: " + filename_);
 	}
 }
-
 // JSONデータをファイルに保存する
 void FileAccessor::Save() {
 	std::ofstream outputFile(filename_); // ファイルを開く

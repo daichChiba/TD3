@@ -23,6 +23,7 @@ void CircuitPuzzle::Initialize() {
 
 	// JSONからisPanelを読み込む
 	isComplete_ = fileAccessor_->Read("Circuit", "isComplete", bool());
+	time_ = fileAccessor_->Read("Circuit", "time", int());
 }
 
 // 更新
@@ -50,6 +51,8 @@ void CircuitPuzzle::DrawImGui() {
 	if (ImGui::Checkbox("isComplete", &isComplete_)) {             // 値が変更されたら
 		fileAccessor_->Write("Circuit", "isComplete", isComplete_); // bool値を書き込む
 	}
+	ImGui::DragInt("time", &time_, 1); // int値をImGuiで編集
+	fileAccessor_->Write("Circuit", "time", time_); // int値を書き込む
 
 	fileAccessor_->Save(); // JSONファイルを保存
 

@@ -44,4 +44,5 @@ private:
 
 	Vector3 panelSize_; // パネルサイズ
 	bool isComplete_;      // パネルフラグ
+	int time_;
 };
