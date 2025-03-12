@@ -22,7 +22,7 @@ void GameScene::Initialize() {
 
 	for (uint32_t i = 0; i < 3; ++i) {
 		for (uint32_t j = 0; j < 3; ++j) {
-			slidePuzzle15_[i][j] = TextureManager::Load("puzzle15_Tile");
+			slidePuzzle15_[i][j] = TextureManager::Load("1.png");
 			puzzle_[i][j] = Sprite::Create(slidePuzzle15_[i][j], {0, 0});
 		}
 	}
