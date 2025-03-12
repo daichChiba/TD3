@@ -36,7 +36,7 @@ public:
 	
 
 
-// 派生クラスでしか使わない関数はprotectedにする
+// このクラスと派生クラスでしか使わない関数はprotectedにする
 protected:
 	virtual void Move() { return; }
 	virtual void Attack() { return; }
