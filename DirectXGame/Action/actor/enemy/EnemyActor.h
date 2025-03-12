@@ -48,6 +48,6 @@ protected:
 	ActorManager* actorManager_;
 
 	Vector3 move_;
-	static inline const float kSpeed_ = 0.3f;
+	static inline const float kSpeed_ = 0.1f;
 
 };

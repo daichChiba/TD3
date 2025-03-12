@@ -39,7 +39,10 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
     for (int i = 0; i < 5; ++i)
     {
         enemyManager_->CreateEnemyTest();
+	
     }
+
+	enemyManager_->CreateEnemyShort();
 
     followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 }
