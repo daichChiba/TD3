@@ -7,9 +7,6 @@ using namespace KamataEngine;
 // 歩く近距離攻撃する敵
 class EnemyShort : public EnemyActor {
 public:
-
-	std::shared_ptr<EnemyActor> CreateEnemy();
-
 	/// <summary>
 	/// 初期化
 	/// </summary>

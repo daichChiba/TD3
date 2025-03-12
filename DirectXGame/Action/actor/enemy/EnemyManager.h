@@ -34,6 +34,8 @@ public:
 
 	void CreateEnemyShort();
 
+	void CreateEnemyFly();
+
 private:
 	Model* model_ = nullptr;
 	Model* bulletModel_ = nullptr;

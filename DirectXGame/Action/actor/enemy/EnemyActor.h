@@ -31,7 +31,7 @@ public:
 
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
-	void SetMove(Vector3 move) { move_ = move; }
+	virtual void SetMove(Vector3 move) { move_ = move; }
 
 	
 
