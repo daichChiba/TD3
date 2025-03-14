@@ -61,8 +61,6 @@ protected:
 	static inline const float kGravity = -0.03f;
 
 	bool isJumping_ = true;
-
-	bool isDush_ = true;
 	float jumpSpeed_ = 0.0f;
 	static inline const float kJumpForce = 0.5f;
 };

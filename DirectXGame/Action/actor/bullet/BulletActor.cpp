@@ -22,7 +22,7 @@ void BulletActor::Initialize(Model* model, Vector3 pos)
 
 void BulletActor::Update()
 {
-	
+	deleteTimer_ += 1.0f / 60.0f;
 
 	Move();
 
@@ -49,8 +49,12 @@ void BulletActor::OnCollision()
 
 void BulletActor::Move()
 {
-	deleteTimer_ += 1.0f / 60.0f;
-	if (deleteTimer_ > kDeleteTime_)
+	
+}
+
+void BulletActor::DeleteTimerCheck()
+{
+	if (deleteTimer_ > 0.0f)
 	{
 		isDelete_ = true;
 	}

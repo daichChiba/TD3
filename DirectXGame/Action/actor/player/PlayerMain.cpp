@@ -5,6 +5,7 @@
 
 #include "../bullet/BulletActor.h"
 #include "../bullet/BulletPlayerSubAttack.h"
+#include "../bullet/BulletPlayerNormalAttack.h"
 
 
 using namespace MathUtility;
@@ -90,7 +91,17 @@ void PlayerMain::Attack() {
 
 	SkillTimerMove();
 
-	if(normalAttackKey && NormalAttackTimer_ < 0.0f){
+	if(normalAttackKey && normalAttackTimer_ < 0.0f){
+		std::shared_ptr<BulletActor> attack = std::make_shared<BulletPlayerNormalAttack>();
+		attack->Initialize(BulletModel_, worldTransform_.translation_);
+		
+		attack->SetScale(Vector3( 0.5f, 0.5f, 0.5f));
+		
+		actorManager_->AddBullet(attack); // プレイヤーが持っているゲームシーンからゲームシーンにポインタを渡す
+
+		normalAttackTimer_ = kNormalAttackCoolTime_;
+	}
+	if(subAttackKey && subAttackTimer_ < 0.0f){
 		std::shared_ptr<BulletActor> attack = std::make_shared<BulletPlayerSubAttack>();
 		attack->Initialize(BulletModel_, worldTransform_.translation_);
 		
@@ -99,7 +110,7 @@ void PlayerMain::Attack() {
 
 		actorManager_->AddBullet(attack); // プレイヤーが持っているゲームシーンからゲームシーンにポインタを渡す
 
-		NormalAttackTimer_ = kNormalAttackCoolTime_;
+		subAttackTimer_ = kSubAttackCoolTime_;
 	}
 }
 
@@ -129,16 +140,27 @@ void PlayerMain::CheckKey() {
 	} else {
 		jumpKey = false;
 	}
+	if (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_B || Input::GetInstance()->PushKey(DIK_LSHIFT)) {
+		dushKey = true;
+	} else {
+		dushKey = false;
+	}
 	if (xinput_.Gamepad.bRightTrigger >= 100 || Input::GetInstance()->PushKey(DIK_Q)) {
 		normalAttackKey = true;
 	} else {
 		normalAttackKey = false;
 	}
+	if (Input::GetInstance()->PushKey(DIK_E)) {
+		subAttackKey = true;
+	} else {
+		subAttackKey = false;
+	}
 }
 
 void PlayerMain::SkillTimerMove()
 {
-	NormalAttackTimer_ -= flameTime_;
+	normalAttackTimer_ -= flameTime_;
+	subAttackTimer_ -= flameTime_;
 }
 
 inline Vector3 PlayerMain::GetCameraForward() const {
