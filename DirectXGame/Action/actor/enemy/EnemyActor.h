@@ -33,9 +33,6 @@ public:
 
 	virtual void SetMove(Vector3 move) { move_ = move; }
 
-	
-
-
 // このクラスと派生クラスでしか使わない関数はprotectedにする
 protected:
 	virtual void Move() { return; }
@@ -48,6 +45,6 @@ protected:
 	ActorManager* actorManager_;
 
 	Vector3 move_;
-	static inline const float kSpeed_ = 0.1f;
+	static inline const float kSpeed_ = 0.05f;
 
 };

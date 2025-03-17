@@ -9,24 +9,26 @@ void EnemyFly::Initialize() {
 }
 
 void EnemyFly::Move() {
-	//// 動きのコード
-	//move_.z += kSpeed_;
-	//move_.y += 10.0f;
+	//タイマーを更新
+	moveTimer_ += kSpeed_;
 
-	//worldTransform_.translation_.z += move_.z;
-	//worldTransform_.rotation_.z += move_.z;
-	//worldTransform_.translation_.y = move_.y;
+	//一定間隔でランダムな値を生成して移動ベクトルに適応
+	if (moveTimer_ >= kMoveInterval_) {
 
-	//move_.z = 0.0f;
-	//move_.y = 0.0f;
+	   // ランダムな値を生成して移動ベクトルに適用
+	   move_.x = randomDist_(random_) * kSpeed_;
+	   move_.y = randomDist_(random_) * kSpeed_;
+	   move_.z = randomDist_(random_) * kSpeed_;
 
-	  // ランダムな値を生成して移動ベクトルに適用
-	move_.x = randomDist_(random_) * kSpeed_;
-	move_.y = randomDist_(random_) * kSpeed_;
-	move_.z = randomDist_(random_) * kSpeed_;
+	   //タイマーをリセット
+	   moveTimer_ = 0.0f;
+	}
+
 
 	// 移動をワールド変換に反映
+	worldTransform_.translation_.x += move_.x;
 	worldTransform_.translation_.y += move_.y;
+	worldTransform_.translation_.z += move_.z;
 
 	// 移動ベクトルをリセット
 	move_ = {0.0f, 0.0f, 0.0f};
