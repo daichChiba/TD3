@@ -13,7 +13,7 @@ public:
 private:
 	void Move() override;
 	
-	bool start_ = true;
+	bool start_ = false;
 
 	float speed_ = 1.0f;
 };

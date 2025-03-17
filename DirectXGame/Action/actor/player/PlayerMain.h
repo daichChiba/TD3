@@ -33,11 +33,14 @@ private:
 #pragma region スキルクールタイム
 	float kDushCoolTime_ = 2.0f;
 	float kNormalAttackCoolTime_ = 1.4f;
+	float kActionLockCoolTime_ = 0.2f;
 	float kSubAttackCoolTime_ = 0.5f;
 #pragma endregion
 
 #pragma region スキルタイマー
+	float dushTimer_ = 0.0f;
 	float normalAttackTimer_ = 0.0f;
+	float actionLockTimer_ = 0.0f;
 	float subAttackTimer_ = 0.0f;
 #pragma endregion  
 

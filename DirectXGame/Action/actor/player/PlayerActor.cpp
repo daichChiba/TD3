@@ -45,11 +45,17 @@ void PlayerActor::Update() {
 		}
 	}
 
-	move_ = Normalize(move_);
+	move_ = Normalize(move_) * kSpeed_;
 
 	Matrix4x4 matRot = MakeRotateYMatrix(cameraRot_.y);
 	
 	move_ = TransformNormal(move_, matRot);
+
+	if (isDush_)
+	{
+		move_ *= dushSpeed_;
+	}
+
 	worldTransform_.translation_ += move_;
 
 	UpdateDirectionBasedOnMovement();

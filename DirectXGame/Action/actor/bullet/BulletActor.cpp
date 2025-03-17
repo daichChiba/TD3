@@ -54,7 +54,7 @@ void BulletActor::Move()
 
 void BulletActor::DeleteTimerCheck()
 {
-	if (deleteTimer_ > 0.0f)
+	if (deleteTimer_ > kDeleteDefaltTime_)
 	{
 		isDelete_ = true;
 	}
