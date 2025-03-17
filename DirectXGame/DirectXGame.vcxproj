@@ -112,7 +112,10 @@
     <ClCompile Include="Action\actor\bullet\BulletPlayerSubAttack.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyActor.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyFactory.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyFly.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyLong.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyManager.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyShort.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyTest.cpp" />
     <ClCompile Include="Action\actor\player\PlayerActor.cpp" />
     <ClCompile Include="Action\actor\player\PlayerFactory.cpp" />
@@ -206,7 +209,10 @@
     <ClInclude Include="Action\actor\bullet\BulletPlayerSubAttack.h" />
     <ClInclude Include="Action\actor\enemy\EnemyActor.h" />
     <ClInclude Include="Action\actor\enemy\EnemyFactory.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyFly.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyLong.h" />
     <ClInclude Include="Action\actor\enemy\EnemyManager.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyShort.h" />
     <ClInclude Include="Action\actor\enemy\EnemyTest.h" />
     <ClInclude Include="Action\actor\player\PlayerActor.h" />
     <ClInclude Include="Action\actor\player\PlayerFactory.h" />

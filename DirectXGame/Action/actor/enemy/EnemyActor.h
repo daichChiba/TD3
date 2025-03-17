@@ -31,20 +31,12 @@ public:
 
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
-	void SetMove(Vector3 move) { move_ = move; }
+	virtual void SetMove(Vector3 move) { move_ = move; }
 
-	/*/// <summary>
-	/// 動き
-	/// </summary>
-	void Move();
-
-	/// <summary>
-	/// 攻撃
-	/// </summary>
-	void Attack();*/
+	
 
 
-// 派生クラスでしか使わない関数はprotectedにする
+// このクラスと派生クラスでしか使わない関数はprotectedにする
 protected:
 	virtual void Move() { return; }
 	virtual void Attack() { return; }
@@ -56,6 +48,6 @@ protected:
 	ActorManager* actorManager_;
 
 	Vector3 move_;
-	static inline const float kSpeed_ = 0.3f;
+	static inline const float kSpeed_ = 0.1f;
 
 };

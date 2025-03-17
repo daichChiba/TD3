@@ -7,6 +7,7 @@ using namespace KamataEngine;
 
 class ActorManager;
 class EnemyFactory;
+class EnemyShort;
 
 class EnemyManager
 {
@@ -31,6 +32,9 @@ public:
 
 	void CreateEnemyTest();
 
+	void CreateEnemyShort();
+
+	void CreateEnemyFly();
 
 private:
 	Model* model_ = nullptr;
@@ -43,4 +47,5 @@ private:
 
 	std::list<std::shared_ptr<EnemyActor>> Manager_;
 	EnemyFactory* factory_;
+	
 };

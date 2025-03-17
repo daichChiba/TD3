@@ -2,6 +2,8 @@
 #include "../ActorManager.h"
 
 #include "EnemyFactory.h"
+#include "EnemyShort.h"
+#include "EnemyFly.h"
 
 void EnemyManager::Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager)
 {
@@ -43,6 +45,22 @@ void EnemyManager::CreateEnemyTest()
 	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
 	Manager_.push_back(newEnemy);
 
+}
+
+void EnemyManager::CreateEnemyShort() { 
+	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateShort();
+	test++;
+	Startpos_.x = test;
+	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+	Manager_.push_back(newEnemy);
+}
+
+void EnemyManager::CreateEnemyFly() {
+	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateFly();
+	test++;
+	Startpos_.z = test;
+	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+	Manager_.push_back(newEnemy);
 }
 
 
