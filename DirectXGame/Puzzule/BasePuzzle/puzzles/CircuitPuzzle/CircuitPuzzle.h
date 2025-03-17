@@ -31,6 +31,8 @@ public:
 	void Update() override;
 	// 描画
 	void Draw() override;
+	// Sprite描画
+	void SpriteDraw() override;
 
 private:
 	// ImGui描画
@@ -41,6 +43,10 @@ private:
 	PanelData panelData_;
 	// Json読み書き用のファイルアクセサ
 	FileJson::FileAccessor* fileAccessor_;
+
+	uint32_t panelTexture_; // パネルのテクスチャ
+	std::vector<Sprite*> panelSprites_; // パネルのスプライト
+
 
 	Vector3 panelSize_; // パネルサイズ
 	bool isComplete_;      // パネルフラグ

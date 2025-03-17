@@ -27,6 +27,11 @@ public:
 	/// </summary>
 	virtual void Draw();
 
+	/// <summary>
+	/// sprite描画
+	/// </summary>
+	virtual void SpriteDraw();
+
 
 protected:
 	//難易度

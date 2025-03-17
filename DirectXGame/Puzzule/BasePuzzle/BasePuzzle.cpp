@@ -11,3 +11,7 @@ void BasePuzzle::Update() {
 void BasePuzzle::Draw() {
 
 }
+
+void BasePuzzle::SpriteDraw() {
+
+}

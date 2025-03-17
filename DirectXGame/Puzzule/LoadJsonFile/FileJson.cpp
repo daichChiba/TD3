@@ -4,7 +4,10 @@
 
 namespace FileJson { // FileJson名前空間を使用
 
-// コンストラクタ: ファイル名を指定して初期化し、JSONファイルをロード
+/// <summary>
+/// コンストラクタ: ファイル名を指定して初期化し、JSONファイルをロード
+/// </summary>
+/// <param name="filename">ファイル名</param>
 FileAccessor::FileAccessor(const std::string& filename) : filename_(filename) {
 	// ファイルを開く
 	std::ifstream inputFile(filename_);
@@ -16,10 +19,13 @@ FileAccessor::FileAccessor(const std::string& filename) : filename_(filename) {
 	inputFile.close();  // ファイルが存在することを確認したら閉じる
 	LoadJsonFromFile(); // ファイルが存在する場合のみロード
 }
+
 // デストラクタ
 FileAccessor::~FileAccessor() {}
 
-// ファイルからJSONデータをロードする
+/// <summary>
+/// ファイルからJSONデータをロードする
+/// </summary>
 void FileAccessor::LoadJsonFromFile() {
 	std::ifstream inputFile(filename_);
 	if (inputFile.is_open()) {
@@ -44,7 +50,10 @@ void FileAccessor::LoadJsonFromFile() {
 		throw std::runtime_error("Error: Could not open file for reading: " + filename_);
 	}
 }
-// JSONデータをファイルに保存する
+
+/// <summary>
+/// JSONデータをファイルに保存する
+/// </summary>
 void FileAccessor::Save() {
 	std::ofstream outputFile(filename_); // ファイルを開く
 	if (outputFile.is_open()) {          // ファイルが開けたか確認
@@ -61,7 +70,13 @@ void FileAccessor::Save() {
 	}
 }
 
-// Vector3を読み込むための特殊化
+/// <summary>
+/// Vector3を読み込むための特殊化
+/// </summary>
+/// <param name="desiredClass">JSONファイルのクラス名</param>
+/// <param name="variableName">JSONファイルの変数名</param>
+/// <param name="defaultValue">値が存在しない場合のデフォルト値</param>
+/// <returns>読み込んだVector3型の値</returns>
 Vector3 FileAccessor::ReadVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& /*defaultValue*/) const {
 	try {
 		// 指定されたクラスと変数から値を読み込む
@@ -106,7 +121,67 @@ Vector3 FileAccessor::ReadVector3(const std::string& desiredClass, const std::st
 		throw std::runtime_error(ss.str());
 	}
 }
-// Vector3を書き込むための特殊化
+
+/// <summary>
+/// CSVデータを読み込むための関数
+/// </summary>
+/// <param name="desiredClass">JSONファイルのクラス名</param>
+/// <param name="variableName">JSONファイルの変数名</param>
+/// <returns>読み込んだCSVデータ</returns>
+std::vector<std::vector<int>> FileAccessor::ReadCsvData(const std::string& desiredClass, const std::string& variableName) const {
+	std::vector<std::vector<int>> csvData;
+	try {
+		// 指定されたクラスと変数から値を読み込む
+		if (jsonData_.contains(desiredClass) && jsonData_[desiredClass].contains(variableName)) {
+			auto& jsonArray = jsonData_[desiredClass][variableName];
+			// JSON配列であるか確認
+			if (jsonArray.is_array()) {
+				// 行ごとに処理
+				for (auto& row : jsonArray) {
+					// 行が配列であるか確認
+					if (row.is_array()) {
+						std::vector<int> csvRow;
+						// セルごとに処理
+						for (auto& cell : row) {
+							// セルが数値であるか確認
+							if (cell.is_number()) {
+								// 数値をint型に変換して格納
+								csvRow.push_back(cell.get<int>());
+							} else {
+								// 数値でなかった場合、警告メッセージを出力
+								std::cerr << "Warning: Non-numeric value found in CSV data, skipping." << std::endl;
+							}
+						}
+						// 処理した行をCSVデータに追加
+						csvData.push_back(csvRow);
+					} else {
+						// 配列でなかった場合、警告メッセージを出力
+						std::cerr << "Warning: Non-array value found in CSV data, skipping." << std::endl;
+					}
+				}
+			} else {
+				// JSON配列でなかった場合、警告メッセージを出力
+				std::cerr << "Warning: CSV data is not an array, returning empty data." << std::endl;
+			}
+		} else {
+			// 指定されたクラスまたは変数がなかった場合、警告メッセージを出力
+			std::cerr << "Warning: CSV data not found, returning empty data." << std::endl;
+		}
+		// 例外が発生した場合
+	} catch (const std::exception& e) {
+		// エラーメッセージを出力
+		std::cerr << "Error: Exception during CSV data read - " << e.what() << std::endl;
+	}
+	// CSVデータを返す
+	return csvData;
+}
+
+/// <summary>
+/// Vector3を書き込むための特殊化
+/// </summary>
+/// <param name="desiredClass">JSONファイルのクラス名</param>
+/// <param name="variableName">JSONファイルの変数名</param>
+/// <param name="value">書き込むVector3型の値</param>
 void FileAccessor::WriteVector3(const std::string& desiredClass, const std::string& variableName, const Vector3& value) {
 	try {
 		// Vector3をJSONオブジェクトに書き込む

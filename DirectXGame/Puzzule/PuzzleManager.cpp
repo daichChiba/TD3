@@ -18,7 +18,10 @@ void PuzzleManager::Update() {
 }
 
 void PuzzleManager::Draw() {
-	puzzle_->Draw();
+	puzzle_->Draw(); }
+
+void PuzzleManager::SpriteDraw() {
+	puzzle_->SpriteDraw();
 }
 
 void PuzzleManager::CreatePuzzle() {

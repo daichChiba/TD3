@@ -20,6 +20,8 @@ public:
 	/// </summary>
 	void Draw();
 
+	void SpriteDraw();
+
 	/// <summary>
 	/// ゲームシーンの設定
 	/// </summary>
