@@ -4,9 +4,10 @@ using namespace MathUtility;
 
 void BulletPlayerSubAttack::Move()
 {
-	if (!start_)
+	if (start_)
 	{
-		start_ = true;
+		move_ *= speed_;
+		start_ = false;
 
 	}
 
