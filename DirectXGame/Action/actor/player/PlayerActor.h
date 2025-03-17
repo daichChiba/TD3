@@ -52,7 +52,7 @@ protected:
 	static inline const float flameTime_ = 1.0f / 60.0f;
 
 	Vector3 move_;
-	static inline const float kSpeed_ = 0.3f;
+	static inline const float kSpeed_ = 0.05f;
 
 	float playerYSpeed;
 
@@ -63,10 +63,4 @@ protected:
 	bool isJumping_ = true;
 	float jumpSpeed_ = 0.0f;
 	static inline const float kJumpForce = 0.5f;
-	
-	bool isDush_ = false;
-	float dushSpeed_ = 0.0f;
-	static inline const float kDushForce = 20.0f;
-
-
 };
