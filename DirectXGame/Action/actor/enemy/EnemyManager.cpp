@@ -23,6 +23,7 @@ void EnemyManager::Initialize(Model* model, Model* bulletModel, const Vector3 po
 	//factory_ = new PlayerFactory();
 }
 
+
 void EnemyManager::Update()
 {
 	for (const auto& enemy : Manager_) {
