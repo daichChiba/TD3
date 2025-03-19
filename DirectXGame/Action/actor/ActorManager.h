@@ -37,5 +37,7 @@ private:
 	PlayerManager* playerManager_;
 	EnemyManager* enemyManager_;
 	std::list<std::shared_ptr<BulletActor>> attack_;
+
+	Vector3 preCameraRot;
 };
 

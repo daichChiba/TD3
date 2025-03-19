@@ -40,8 +40,6 @@ void EnemyManager::Draw(Camera& camera)
 void EnemyManager::CreateEnemyTest()
 {
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateEnemy();
-	test++;
-	Startpos_ .x = test;
 	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
 	Manager_.push_back(newEnemy);
 
@@ -49,16 +47,12 @@ void EnemyManager::CreateEnemyTest()
 
 void EnemyManager::CreateEnemyShort() { 
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateShort();
-	test++;
-	Startpos_.x = test;
 	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
 	Manager_.push_back(newEnemy);
 }
 
 void EnemyManager::CreateEnemyFly() {
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateFly();
-	test++;
-	Startpos_.z = test;
 	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
 	Manager_.push_back(newEnemy);
 }

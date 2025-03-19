@@ -61,8 +61,8 @@ void ActorManager::Update() {
 
     enemyManager_->Update();
 
-	followCamera_->DrawImgui();
 	followCamera_->Update();
+	followCamera_->DrawImgui();
 	
 	camera_->matView = followCamera_->GetCamera().matView;
 	camera_->matProjection = followCamera_->GetCamera().matProjection;
