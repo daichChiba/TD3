@@ -31,5 +31,8 @@ private:
 	//ランダム
 	std::mt19937 random_;
 	std::uniform_real_distribution<float> randomDist_;
+	float moveTimer_;
+	//ランダムな動きを生成する感覚(秒)
+	static constexpr float kMoveInterval_ = 1.0f;
 
 };
