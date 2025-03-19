@@ -63,7 +63,11 @@ void EnemyActor::ApproachPlayer()
 
     direction = Normalize(direction);
 	
-	
-	move_ = direction * kSpeed_;
+	if(distance > 3.0f)
+	{
+		move_ = direction * kSpeed_;
+		return;
+	}
+	return;
     
 }
