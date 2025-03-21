@@ -11,6 +11,14 @@ public :
 
 	EnemyFly();
 	~EnemyFly();
+
+	/*/// <summary>
+	/// アップデート
+	/// </summary>
+	void Update();
+
+	void FlyImGui();*/
+
 private:
 	/// <summary>
 	/// 動き
