@@ -37,5 +37,5 @@ public:
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	// シーンの状態
-	PuzzleManager* puzzleManager_;
+	PuzzleManager* puzzleManager_=nullptr;
 };

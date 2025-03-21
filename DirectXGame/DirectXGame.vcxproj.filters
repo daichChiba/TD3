@@ -130,7 +130,7 @@
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
-    <None Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.json" />
+    <None Include="Resources\CircuitPuzzle\CircuitPuzzle.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\GameScene.h">
@@ -156,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="Puzzule\LoadJsonFile\nlohmann\json.hpp">
       <Filter>ヘッダー ファイル\puzzle\FileJson</Filter>
+    </ClInclude>
+    <ClInclude Include="IntVector2.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -51,6 +51,9 @@ void FileAccessor::LoadJsonFromFile() {
 	}
 }
 
+
+
+
 /// <summary>
 /// JSONデータをファイルに保存する
 /// </summary>
@@ -175,7 +178,35 @@ std::vector<std::vector<int>> FileAccessor::ReadCsvData(const std::string& desir
 	// CSVデータを返す
 	return csvData;
 }
-
+/// <summary>
+/// CSVデータをJSONに書き込む関数
+/// </summary>
+/// <param name="desiredClass"></param>
+/// <param name="variableName"></param>
+/// <param name="csvData"></param>
+void FileAccessor::WriteCsvData(const std::string& desiredClass, const std::string& variableName, const std::vector<std::vector<int>>& csvData) {
+	try {
+		// JSON配列を作成
+		json jsonArray = json::array();
+		// 行ごとに処理
+		for (const auto& row : csvData) {
+			// 行が配列であるか確認
+			json jsonRow = json::array();
+			// セルごとに処理
+			for (auto& cell : row) {
+				// データをint型に変換して格納
+				jsonRow.push_back(cell);
+			}
+			// 処理した行をJSONデータに追加
+			jsonArray.push_back(jsonRow);
+		}
+		// JSONデータに書き込む
+		jsonData_[desiredClass][variableName] = jsonArray;
+	} catch (const std::exception& e) {
+		// 例外が発生した場合、エラーメッセージを出力
+		std::cerr << "Error: Exception during CSV data write - " << e.what() << std::endl;
+	}
+}
 /// <summary>
 /// Vector3を書き込むための特殊化
 /// </summary>

@@ -5,11 +5,13 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "../../../../IntVector2.h"
 
 // パネルの種類を定義するenumクラス
 enum class PanelType {
 	Block, // ブロック
 	Panel, // パネル
+	Panel2 // パネル2
 };
 
 // パネルのデータを保持する構造体
@@ -37,6 +39,8 @@ public:
 private:
 	// ImGui描画
 	void DrawImGui() override;
+	// パネルデータの更新
+	void UpdatePanelData();
 
 private:
 	// パネルデータ
@@ -44,11 +48,24 @@ private:
 	// Json読み書き用のファイルアクセサ
 	FileJson::FileAccessor* fileAccessor_;
 
-	uint32_t panelTexture_; // パネルのテクスチャ
-	std::vector<Sprite*> panelSprites_; // パネルのスプライト
+	// クリックされたパネルのインデックスを保持する変数
+	int selectedSpriteIndex = -1;
+	// パネルのテクスチャ
+	uint32_t panelTexture_;
+	// パネルのスプライト
+	std::vector<Sprite*> panelSprites_;
 
-
-	Vector3 panelSize_; // パネルサイズ
-	bool isComplete_;      // パネルフラグ
+	// パネルサイズ
+	Vector3 panelSize_;
+	// パネルフラグ
+	bool isComplete_;
+	// 時間
 	int time_;
+	// Csvデータ
+	std::vector<std::vector<int>> csvData;
+	// パネルホールド位置
+	IntVector2 holdPos_;
+
+	// 初期位置を保存
+	std::vector<Vector2> initialPositions;
 };

@@ -69,6 +69,15 @@ public:
 	std::vector<std::vector<int>> ReadCsvData(const std::string& desiredClass, const std::string& variableName) const;
 
 	/// <summary>
+	/// CSVデータをJSONに書き込む関数
+	/// </summary>
+	/// <param name="desiredClass">SONファイルのクラス名</param>
+	/// <param name="variableName">JSONファイルの変数名</param>
+	/// <param name="csvData">CSVデータ</param>
+	/// <returns>書き込むCSVデータ</returns>
+	void WriteCsvData(const std::string& desiredClass, const std::string& variableName, const std::vector<std::vector<int>>& csvData);
+
+	/// <summary>
 	/// JSONデータをファイルに保存する
 	/// </summary>
 	void Save();
