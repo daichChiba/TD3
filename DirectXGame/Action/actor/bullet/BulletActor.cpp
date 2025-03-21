@@ -27,13 +27,13 @@ void BulletActor::Update()
 	Move();
 
 	worldTransform_.translation_ += move_;
-
+	#ifdef  _DEBUG
 	ImGui::Begin("bullet");
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("move", &move_.x);
 	ImGui::Text("deleteTimer : %.2f", deleteTimer_);
 	ImGui::End();
-
+#endif
 	worldTransform_.UpdateMatrix();
 }
 

@@ -28,6 +28,8 @@ public:
 	void AddBullet(std::shared_ptr<BulletActor> attack) { attack_.push_back(attack); }
 
 private:
+	void CheckAllCollisions();
+
 	Model* PlayeModel_,* PlayerBulletModel_,* enemyModel_,* enemyBulletModel_;
 
 	Camera* camera_;
@@ -37,5 +39,7 @@ private:
 	PlayerManager* playerManager_;
 	EnemyManager* enemyManager_;
 	std::list<std::shared_ptr<BulletActor>> attack_;
+
+	Vector3 preCameraRot;
 };
 

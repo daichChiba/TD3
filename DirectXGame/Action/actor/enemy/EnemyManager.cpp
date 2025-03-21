@@ -29,6 +29,7 @@ void EnemyManager::Update()
 	for (const auto& enemy : Manager_) {
 		enemy->Update();
 	}
+	Manager_.remove_if([](std::shared_ptr<EnemyActor> a) { return a->IsDelete(); });
 }
 
 void EnemyManager::Draw(Camera& camera)
@@ -39,29 +40,24 @@ void EnemyManager::Draw(Camera& camera)
 }
 
 void EnemyManager::CreateEnemyTest() {
-	// 新しい敵を生成する
+	// �V�����G�𐶐�����
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateEnemy();
-	test++;
-	Startpos_.x = test;                                                   // 敵の開始位置を更新
-	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_); // 敵を初期化
-	Manager_.push_back(newEnemy);                                         // 敵を管理リストに追加
+	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+	Manager_.push_back(newEnemy);
+
 }
 
 void EnemyManager::CreateEnemyShort() {
-	// 新しい近距離攻撃の敵を生成する
+	// �V�����ߋ����U���̓G�𐶐�����
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateShort();
-	test++;
-	Startpos_.x = test;                                                   // 敵の開始位置を更新
-	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_); // 敵を初期化
-	Manager_.push_back(newEnemy);                                         // 敵を管理リストに追加
+	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+	Manager_.push_back(newEnemy);
 }
 
 void EnemyManager::CreateEnemyFly() {
-	// 新しい飛行する敵を生成する
+	// �V������s����G�𐶐�����
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateFly();
-	test++;
-	Startpos_.z = test;                                                   // 敵の開始位置を更新
-	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_); // 敵を初期化
-	Manager_.push_back(newEnemy);                                         // 敵を管理リストに追加
+	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+	Manager_.push_back(newEnemy);
 }
 

@@ -17,7 +17,8 @@ public:
 	bool IsDelete() const { return isDelete_; }
 
 	virtual void OnCollision();
-	float GetRadius() { return worldTransform_.scale_.x * radius_; }
+	Vector3 GetWorldPosition(){ return worldTransform_.translation_; }
+	float GetRadius() { return radius_; }
 protected:
 	virtual void Move();
 	virtual void DeleteTimerCheck();

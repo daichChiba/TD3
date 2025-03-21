@@ -69,19 +69,25 @@ void FollowCamera::Update() {
 }
 
 void FollowCamera::DrawImgui() {
+#ifdef  _DEBUG
 	ImGui::Begin("followCamera");
 	ImGui::DragFloat3("pos", &followCamera.translation_.x);
 	ImGui::DragFloat3("rot", &followCamera.rotation_.x);
 	ImGui::DragFloat3("offset", &offset_.x);
 	ImGui::End();
+#endif //  _DEBUG
+
+	
 	// followCamera.UpdateViewMatrix();
 }
 
 void FollowCamera::DrowImgui() {
+	#ifdef  _DEBUG
 	ImGui::Begin("followCamera");
 	ImGui::Text("pos : %.3f,%.3f,%.3f", followCamera.translation_.x, followCamera.translation_.y, followCamera.translation_.z);
 	ImGui::Text("rot : %.3f,%.3f,%.3f", followCamera.rotation_.x, followCamera.rotation_.y, followCamera.rotation_.z);
 	ImGui::Text("conX : %f", Rx);
 
 	ImGui::End();
+#endif
 }

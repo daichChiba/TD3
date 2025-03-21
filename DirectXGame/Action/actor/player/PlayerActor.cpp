@@ -82,10 +82,12 @@ void PlayerActor::UpdateDirectionBasedOnMovement()
 }
 
 void PlayerActor::DrawImGui() {
+	#ifdef  _DEBUG
 	ImGui::Begin("player");
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x, 0.01f);
 	ImGui::DragFloat3("rot", &worldTransform_.rotation_.x, 0.01f);
 	ImGui::DragFloat3("move", &move_.x, 0.1f);
 	ImGui::DragFloat3("cameraRot", &cameraRot_.x, 0.1f);
 	ImGui::End();
+	#endif
 }
