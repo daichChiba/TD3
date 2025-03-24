@@ -58,19 +58,15 @@ void EnemyActor::ApproachPlayer() {
 
 	// プレイヤーに向かうベクトルを計算（Y軸方向の移動を無視）
 	Vector3 direction = playerPos - enemyPos;
-	direction.y = 0.0f; // Y軸方向の移動を無視
 	float distance = Length(direction);
 
-	// プレイヤーの真上に到達したら動きを止める
-	if (fabs(playerPos.y - enemyPos.y) < minDistanceY_ && distance < 3.0f) {
-		move_ = Vector3{0.0f, 0.0f, 0.0f};
-		return;
-	}
 
 	 // プレイヤーが一定距離以上離れたら再び動き出す
 	if (distance >= 3.0f) {
 		direction = Normalize(direction);
 		move_ = direction * kSpeed_;
+	} else {
+		move_ = Vector3{0.0f, 0.0f, 0.0f};
 	}
 
 	direction = Normalize(direction);

@@ -30,7 +30,7 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
-	void CreateEnemyTest();
+	void CreateEnemyLong();
 
 	void CreateEnemyShort();
 

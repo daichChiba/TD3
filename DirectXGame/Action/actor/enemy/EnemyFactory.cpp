@@ -4,9 +4,16 @@
 #include "EnemyTest.h"
 #include "EnemyShort.h"
 #include "EnemyFly.h"
+#include "EnemyLong.h"
 
-std::shared_ptr<EnemyActor> EnemyFactory::CreateEnemy() {
-	std::shared_ptr<EnemyActor> player = std::make_unique<EnemyTest>();
+//std::shared_ptr<EnemyActor> EnemyFactory::CreateEnemy() {
+//	std::shared_ptr<EnemyActor> player = std::make_unique<EnemyTest>();
+//
+//	return player;
+//}
+
+std::shared_ptr<EnemyActor> EnemyFactory::CreateLong() {
+	std::shared_ptr<EnemyActor> player = std::make_unique<EnemyLong>();
 
 	return player;
 }

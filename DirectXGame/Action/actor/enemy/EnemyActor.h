@@ -27,7 +27,7 @@ public:
 	void Draw(Camera& camera);
 
 
-	void DrawImGui();
+	virtual void DrawImGui();
 
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
@@ -52,6 +52,9 @@ protected:
 	Vector3 enemyStartPos;
 	Vector3 distance_ = {1.0f, 0.0f, 1.0f};
 	float minDistanceY_ = 0.0f;
+
+ // プレイヤーとの距離を測る変数
+	float distanceToPlayer_ = 1.0f;
 
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.1f;

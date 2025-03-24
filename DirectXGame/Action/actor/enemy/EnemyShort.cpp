@@ -1,7 +1,6 @@
 #include "EnemyShort.h"
 #include "../ActorManager.h"
 
-void EnemyShort::Initialize() {}
 
 void EnemyShort::Move() {
 	 move_.x += kSpeed_;

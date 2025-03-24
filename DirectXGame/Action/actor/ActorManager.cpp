@@ -36,15 +36,18 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
     enemyManager_->Initialize(enemyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
 	
 
-    for (int i = 0; i < 5; ++i)
+  /*  for (int i = 0; i < 5; ++i)
     {
         enemyManager_->CreateEnemyTest();
 	
-    }
+    }*/
 
 	enemyManager_->CreateEnemyShort();
 
 	enemyManager_->CreateEnemyFly();
+
+	enemyManager_->CreateEnemyLong();
+	
 
     followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 }
