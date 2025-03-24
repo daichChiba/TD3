@@ -1,17 +1,23 @@
 #pragma once
+#include "../../../../IntVector2.h"
 #include "../../../LoadJsonFile/FileJson.h"
 #include "../../BasePuzzle.h"
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
-#include "../../../../IntVector2.h"
 
 // パネルの種類を定義するenumクラス
 enum class PanelType {
-	Blank, // 空白
-	Panel, // パネル
-	Panel2 // パネル2
+	Blank,            // 空白
+	StartPanel,       // Startパネル
+	TPanel,           // T型パネル
+	LPanel,           // L型パネル
+	InvertedL,        // 逆L型パネル
+	IPanel,           // I型パネル
+	UpReverseLPanel,  // 「型パネル
+	UpInvertedLPanel, // 」型パネル
+	GoalPanel         // Goalパネル
 };
 
 // パネルのデータを保持する構造体
@@ -45,7 +51,7 @@ private:
 
 private:
 	// パネルデータ
-	 std::vector<std::vector<PanelData>> panelData_;
+	std::vector<std::vector<PanelData>> panelData_;
 	// パネルホールド位置
 	IntVector2 holdPos_;
 	// Csvデータ
@@ -59,9 +65,9 @@ private:
 	int selectedSpriteIndex = -1;
 	// パネルのテクスチャ
 	uint32_t panelTexture_;
-	uint32_t whiteTexture_;
-	// パネルのスプライト
 
+	// パネルのスプライト
+	std::vector<uint32_t> panelTextures_;
 
 	// パネルサイズ
 	Vector3 panelSize_;
@@ -71,7 +77,4 @@ private:
 	int time_;
 	// ホールドしているか
 	bool isHold_ = false;
-
-
-
 };

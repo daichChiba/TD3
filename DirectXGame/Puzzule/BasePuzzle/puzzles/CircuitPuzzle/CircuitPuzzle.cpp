@@ -32,7 +32,10 @@ void CircuitPuzzle::Initialize() {
 	answerData_ = fileAccessor_->ReadCsvData("Circuit", "answer");
 	// パネルのテクスチャを読み込む
 	panelTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/panel.png");
-	whiteTexture_ = TextureManager::Load("white1x1.png");
+	for (size_t i = 0; i < 9; i++) {
+		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/panel" + std::to_string(i) + ".png"));
+	}
+	
 
 	// CSVデータをPanelDataに変換
 	panelData_.resize(csvData_.size());
@@ -44,16 +47,16 @@ void CircuitPuzzle::Initialize() {
 			if (csvData_[i][j] == 0) {
 				// ブロックの場合
 				panelData_[i][j].date = PanelType::Blank;
-				Sprite* sprite = Sprite::Create(whiteTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f};
 				sprite->SetPosition(position);
 				panelData_[i][j].sprite = sprite;
 			} else if (csvData_[i][j] == 1) {
 				// パネルの場合
-				panelData_[i][j].date = PanelType::Panel;
+				panelData_[i][j].date = PanelType::StartPanel;
 				// スプライト生成
-				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				Sprite* sprite = Sprite::Create(panelTextures_[0], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 				// アンカーポイントを中心に設定
 				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
 
@@ -67,7 +70,7 @@ void CircuitPuzzle::Initialize() {
 				panelData_[i][j].sprite = sprite;
 			} else if (csvData_[i][j] == 2) {
 				// パネルの場合
-				panelData_[i][j].date = PanelType::Panel2;
+				panelData_[i][j].date = PanelType::TPanel;
 				// スプライト生成
 				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 				// アンカーポイントを中心に設定
@@ -143,9 +146,9 @@ void CircuitPuzzle::Update() {
 					if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
 						if (mousePos.y >= spritePos.y - spriteSize.y / 2 && mousePos.y <= spritePos.y + spriteSize.y / 2) {
 							// 選択されたスプライトのインデックスを保存
-							if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::Panel) {
+							if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::StartPanel) {
 								// パネルの場合
-								if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::Panel) {
+								if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::StartPanel) {
 									// パネルの交換
 									PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
 									panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
@@ -162,9 +165,9 @@ void CircuitPuzzle::Update() {
 									fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
 								}
 								// パネル2の場合
-							} else if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::Panel2) {
+							} else if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::TPanel) {
 								// 空白かパネル2以外の場合
-								if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::Panel2) {
+								if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::TPanel) {
 									// パネルの交換
 									PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
 									panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
