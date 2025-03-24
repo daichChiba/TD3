@@ -54,10 +54,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	primitiveDrawer->Initialize();
 
 #pragma endregion
-#ifdef _DEBUG
 	gameScene = new GameScene;
 	gameScene->Initialize();
-#endif // _DEBUG
+
 	
 
 

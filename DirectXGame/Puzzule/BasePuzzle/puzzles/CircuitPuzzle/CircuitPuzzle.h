@@ -9,7 +9,7 @@
 
 // パネルの種類を定義するenumクラス
 enum class PanelType {
-	Block, // ブロック
+	Blank, // 空白
 	Panel, // パネル
 	Panel2 // パネル2
 };
@@ -17,7 +17,8 @@ enum class PanelType {
 // パネルのデータを保持する構造体
 struct PanelData {
 	// パネルの配置データ
-	std::vector<std::vector<PanelType>> date;
+	PanelType date;
+	Sprite* sprite;
 };
 
 // 回路パズルクラス
@@ -37,14 +38,20 @@ public:
 	void SpriteDraw() override;
 
 private:
+	// answerDataと比較してクリアしているか判定
+	void CheckClear();
 	// ImGui描画
 	void DrawImGui() override;
-	// パネルデータの更新
-	void UpdatePanelData();
 
 private:
 	// パネルデータ
-	PanelData panelData_;
+	 std::vector<std::vector<PanelData>> panelData_;
+	// パネルホールド位置
+	IntVector2 holdPos_;
+	// Csvデータ
+	std::vector<std::vector<int>> csvData_;
+	std::vector<std::vector<int>> answerData_;
+
 	// Json読み書き用のファイルアクセサ
 	FileJson::FileAccessor* fileAccessor_;
 
@@ -52,20 +59,19 @@ private:
 	int selectedSpriteIndex = -1;
 	// パネルのテクスチャ
 	uint32_t panelTexture_;
+	uint32_t whiteTexture_;
 	// パネルのスプライト
-	std::vector<Sprite*> panelSprites_;
+
 
 	// パネルサイズ
 	Vector3 panelSize_;
-	// パネルフラグ
-	bool isComplete_;
+	// クリアフラグ
+	bool isClear_;
 	// 時間
 	int time_;
-	// Csvデータ
-	std::vector<std::vector<int>> csvData;
-	// パネルホールド位置
-	IntVector2 holdPos_;
+	// ホールドしているか
+	bool isHold_ = false;
 
-	// 初期位置を保存
-	std::vector<Vector2> initialPositions;
+
+
 };

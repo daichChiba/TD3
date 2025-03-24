@@ -186,25 +186,10 @@ std::vector<std::vector<int>> FileAccessor::ReadCsvData(const std::string& desir
 /// <param name="csvData"></param>
 void FileAccessor::WriteCsvData(const std::string& desiredClass, const std::string& variableName, const std::vector<std::vector<int>>& csvData) {
 	try {
-		// JSON配列を作成
-		json jsonArray = json::array();
-		// 行ごとに処理
-		for (const auto& row : csvData) {
-			// 行が配列であるか確認
-			json jsonRow = json::array();
-			// セルごとに処理
-			for (auto& cell : row) {
-				// データをint型に変換して格納
-				jsonRow.push_back(cell);
-			}
-			// 処理した行をJSONデータに追加
-			jsonArray.push_back(jsonRow);
-		}
-		// JSONデータに書き込む
-		jsonData_[desiredClass][variableName] = jsonArray;
+		// 2次元配列としてJSONに書き込む
+		jsonData_[desiredClass][variableName] = csvData;
 	} catch (const std::exception& e) {
-		// 例外が発生した場合、エラーメッセージを出力
-		std::cerr << "Error: Exception during CSV data write - " << e.what() << std::endl;
+		std::cerr << "Error: Exception during CSV write - " << e.what() << std::endl;
 	}
 }
 /// <summary>
