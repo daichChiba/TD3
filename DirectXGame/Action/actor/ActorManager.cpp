@@ -5,6 +5,8 @@
 #include "../../Scene/GameScene.h"
 #include "player/PlayerManager.h"
 
+using namespace MathUtility;
+
 void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model* enemyModel, Model* enemyBulletModel) {
 #ifdef _DEBUG
 	assert(PlayeModel);
@@ -46,11 +48,12 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 	enemyManager_->CreateEnemyFly();
 
-    followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
+    //followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 }
 
 void ActorManager::Update() {
-	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
+	Vector3 cameraRot = followCamera_->GetCamera().rotation_;
+	playerManager_->GetPlayer()->SetCameraRot(cameraRot);
 	playerManager_->Update();
 
 	for (std::shared_ptr<BulletActor> bullet : attack_)
@@ -61,15 +64,15 @@ void ActorManager::Update() {
 
     enemyManager_->Update();
 
-	followCamera_->DrawImgui();
 	followCamera_->Update();
+	followCamera_->DrawImgui();
 	
 	camera_->matView = followCamera_->GetCamera().matView;
 	camera_->matProjection = followCamera_->GetCamera().matProjection;
 
 	camera_->TransferMatrix();
 
-	
+	CheckAllCollisions();
 
 	
 	
@@ -86,3 +89,23 @@ void ActorManager::Draw() {
 }
 
 PlayerActor* ActorManager::GetPlayer() { return playerManager_->GetPlayer(); }
+
+void ActorManager::CheckAllCollisions()
+{
+	
+#pragma region
+	 for (auto& bullet : attack_) {
+        for (auto& enemy : enemyManager_->GetEnemy()) {
+            // 距離を計算して当たり判定を行う
+            Vector3 diff = enemy->GetWorldPosition() - bullet->GetWorldPosition();
+            float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
+
+            if (distance < (bullet->GetRadius() + enemy->GetRadius())) {
+                // 当たった場合の処理
+                bullet->OnCollision();
+                enemy->OnCollision();
+            }
+        }
+    }
+#pragma endregion
+}

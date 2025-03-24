@@ -11,27 +11,25 @@ void FollowCamera::Update() {
 	moveCameraRotateXLower = true;
 
 	if (target_) {
-		Vector3 offset = {0.0f, 2.0f, -10.0f};
+		offset_ = {0.0f, 2.0f, -10.0f};
 
 		Matrix4x4 rotationXMatrix = MakeRotateXMatrix(followCamera.rotation_.x);
 		Matrix4x4 rotationYMatrix = MakeRotateYMatrix(followCamera.rotation_.y);
-		// Matrix4x4 rotationZMatrix = MakeRotateYMatrix(followCamera.rotation_.z);
+		//Matrix4x4 rotationZMatrix = MakeRotateYMatrix(followCamera.rotation_.z);
 
 		Matrix4x4 rotationMatrix = rotationXMatrix * rotationYMatrix;
 
-		offset = TransformNormal(offset, rotationMatrix);
+		offset_ = TransformNormal(offset_, rotationMatrix);
 
-		followCamera.translation_ = target_->translation_ + offset;
+		followCamera.translation_ = target_->translation_ + offset_;
 	}
 
-	if (followCamera.translation_.y < 0.5f)
+	if (followCamera.translation_.y < kMinCameraHeight)
 	{
-		followCamera.translation_.y = 0.5f;
 		moveCameraRotateXAdd = false;
 	}
-	if (followCamera.translation_.y > 7.0f)
+	if (followCamera.translation_.y > kMaxCameraHeight)
 	{
-		followCamera.translation_.y = 7.0f;
 		moveCameraRotateXLower = false;
 	}
 
@@ -59,6 +57,7 @@ void FollowCamera::Update() {
 	else if (Input::GetInstance()->PushKey(DIK_K)) {
 		if (moveCameraRotateXAdd)
 		followCamera.rotation_.x -= kRotationSpeed;
+		
 	} 
 
 	if (followCamera.rotation_.y > 6.28f || followCamera.rotation_.y < -6.28f)
@@ -70,18 +69,25 @@ void FollowCamera::Update() {
 }
 
 void FollowCamera::DrawImgui() {
+#ifdef  _DEBUG
 	ImGui::Begin("followCamera");
 	ImGui::DragFloat3("pos", &followCamera.translation_.x);
 	ImGui::DragFloat3("rot", &followCamera.rotation_.x);
+	ImGui::DragFloat3("offset", &offset_.x);
 	ImGui::End();
+#endif //  _DEBUG
+
+	
 	// followCamera.UpdateViewMatrix();
 }
 
 void FollowCamera::DrowImgui() {
+	#ifdef  _DEBUG
 	ImGui::Begin("followCamera");
 	ImGui::Text("pos : %.3f,%.3f,%.3f", followCamera.translation_.x, followCamera.translation_.y, followCamera.translation_.z);
 	ImGui::Text("rot : %.3f,%.3f,%.3f", followCamera.rotation_.x, followCamera.rotation_.y, followCamera.rotation_.z);
 	ImGui::Text("conX : %f", Rx);
 
 	ImGui::End();
+#endif
 }

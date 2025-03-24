@@ -22,18 +22,18 @@ void BulletActor::Initialize(Model* model, Vector3 pos)
 
 void BulletActor::Update()
 {
-	
+	deleteTimer_ += 1.0f / 60.0f;
 
 	Move();
 
 	worldTransform_.translation_ += move_;
-
+	#ifdef  _DEBUG
 	ImGui::Begin("bullet");
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("move", &move_.x);
 	ImGui::Text("deleteTimer : %.2f", deleteTimer_);
 	ImGui::End();
-
+#endif
 	worldTransform_.UpdateMatrix();
 }
 
@@ -49,8 +49,12 @@ void BulletActor::OnCollision()
 
 void BulletActor::Move()
 {
-	deleteTimer_ += 1.0f / 60.0f;
-	if (deleteTimer_ > kDeleteTime_)
+	
+}
+
+void BulletActor::DeleteTimerCheck()
+{
+	if (deleteTimer_ > kDeleteDefaltTime_)
 	{
 		isDelete_ = true;
 	}

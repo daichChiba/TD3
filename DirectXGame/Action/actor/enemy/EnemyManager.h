@@ -30,6 +30,8 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
+	std::list<std::shared_ptr<EnemyActor>> GetEnemy(){ return Manager_; }
+
 	void CreateEnemyTest();
 
 	void CreateEnemyShort();

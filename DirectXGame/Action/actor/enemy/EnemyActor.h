@@ -33,16 +33,31 @@ public:
 
 	virtual void SetMove(Vector3 move) { move_ = move; }
 
+	Vector3 GetWorldPosition(){ return worldTransform_.translation_; }
+	float GetRadius() { return radius_; }
+	void OnCollision(); 
+	bool IsDelete() {return isDelete_;} 
+
 // このクラスと派生クラスでしか使わない関数はprotectedにする
 protected:
 	virtual void Move() { return; }
 	virtual void Attack() { return; }
 
+	virtual void ApproachPlayer();
+
 	Model* model_;
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
+	const WorldTransform* PlayerWorldTransform_;
 
 	ActorManager* actorManager_;
+
+	Vector3 enemyStartPos;
+	Vector3 distance_ = {1.0f, 0.0f, 1.0f};
+	float minDistanceY_ = 0.0f;
+	float radius_ = 1.0f;
+
+	bool isDelete_ = false;
 
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.05f;
