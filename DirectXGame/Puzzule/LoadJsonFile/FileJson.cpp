@@ -36,6 +36,7 @@ void FileAccessor::LoadJsonFromFile() {
 			throw std::runtime_error("Error: JSON file is empty: " + filename_);
 		}
 		try {
+			// JSONデータをパース
 			jsonData_ = json::parse(inputFile);
 		} catch (const nlohmann::json::parse_error& e) {
 			std::cerr << "Error: JSON parse error - " << e.what() << std::endl;

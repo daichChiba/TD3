@@ -9,15 +9,16 @@
 
 // パネルの種類を定義するenumクラス
 enum class PanelType {
-	Blank,            // 空白
-	StartPanel,       // Startパネル
-	TPanel,           // T型パネル
-	LPanel,           // L型パネル
-	InvertedL,        // 逆L型パネル
-	IPanel,           // I型パネル
-	UpReverseLPanel,  // 「型パネル
-	UpInvertedLPanel, // 」型パネル
-	GoalPanel         // Goalパネル
+	Blank,            // 空白0
+	StartPanel,       // Startパネル1
+	TPanel,           // T型パネル2
+	LPanel,           // L型パネル3
+	InvertedL,        // 上下逆L型パネル4
+	IPanel,           // I型パネル5
+	UpReverseLPanel,  // 「型パネル6
+	UpInvertedLPanel, // 」型パネル7
+	UpReverseTPanel,  // 逆T型パネル8
+	GoalPanel         // Goalパネル9
 };
 
 // パネルのデータを保持する構造体
@@ -49,6 +50,11 @@ private:
 	// ImGui描画
 	void DrawImGui() override;
 
+	// パネルデータの変更
+	void ChangePanelData();
+
+	void UpdatePanelData();
+
 private:
 	// パネルデータ
 	std::vector<std::vector<PanelData>> panelData_;
@@ -65,9 +71,8 @@ private:
 	int selectedSpriteIndex = -1;
 	// パネルのテクスチャ
 	uint32_t panelTexture_;
-
-	// パネルのスプライト
 	std::vector<uint32_t> panelTextures_;
+	// パネルのスプライト
 
 	// パネルサイズ
 	Vector3 panelSize_;

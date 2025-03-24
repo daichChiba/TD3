@@ -32,63 +32,11 @@ void CircuitPuzzle::Initialize() {
 	answerData_ = fileAccessor_->ReadCsvData("Circuit", "answer");
 	// パネルのテクスチャを読み込む
 	panelTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/panel.png");
-	for (size_t i = 0; i < 9; i++) {
-		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/panel" + std::to_string(i) + ".png"));
+	for (int i = 1; i <= 9; i++) {
+		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/circuitPuzzle_" + std::to_string(i) + ".png"));
 	}
-	
 
-	// CSVデータをPanelDataに変換
-	panelData_.resize(csvData_.size());
-	// スプライト生成
-	for (size_t i = 0; i < csvData_.size(); ++i) {
-		panelData_[i].resize(csvData_[i].size());
-		for (size_t j = 0; j < csvData_[i].size(); ++j) {
-			// CSVデータをPanelTypeに変換
-			if (csvData_[i][j] == 0) {
-				// ブロックの場合
-				panelData_[i][j].date = PanelType::Blank;
-				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
-				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f};
-				sprite->SetPosition(position);
-				panelData_[i][j].sprite = sprite;
-			} else if (csvData_[i][j] == 1) {
-				// パネルの場合
-				panelData_[i][j].date = PanelType::StartPanel;
-				// スプライト生成
-				Sprite* sprite = Sprite::Create(panelTextures_[0], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
-				// アンカーポイントを中心に設定
-				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-
-				// 初期位置
-				float cellSize = 64.0f;
-				// スプライトの位置を設定
-				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
-				// スプライトの位置を設定
-				sprite->SetPosition(position);
-				// スプライトを追加
-				panelData_[i][j].sprite = sprite;
-			} else if (csvData_[i][j] == 2) {
-				// パネルの場合
-				panelData_[i][j].date = PanelType::TPanel;
-				// スプライト生成
-				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
-				// アンカーポイントを中心に設定
-				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-
-				sprite->SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-
-				// 初期位置
-				float cellSize = 64.0f;
-				// スプライトの位置を設定
-				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
-				// スプライトの位置を設定
-				sprite->SetPosition(position);
-				// スプライトを追加
-				panelData_[i][j].sprite = sprite;
-			}
-		}
-	}
+	ChangePanelData();
 
 	BasePuzzle::Initialize();
 }
@@ -136,60 +84,7 @@ void CircuitPuzzle::Update() {
 		}
 		// マウスの左ボタンが離された場合
 		if (input_->IsReleseMouse(0)) {
-			for (size_t y = 0; y < panelData_.size(); y++) {
-				for (size_t x = 0; x < panelData_[y].size(); x++) {
-					// スプライトの位置を取得
-					Vector2 spritePos = panelData_[y][x].sprite->GetPosition();
-					// スプライトのサイズを取得
-					Vector2 spriteSize = {panelSize_.x, panelSize_.y};
-					// マウス座標がスプライトの範囲内にあるかチェック
-					if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
-						if (mousePos.y >= spritePos.y - spriteSize.y / 2 && mousePos.y <= spritePos.y + spriteSize.y / 2) {
-							// 選択されたスプライトのインデックスを保存
-							if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::StartPanel) {
-								// パネルの場合
-								if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::StartPanel) {
-									// パネルの交換
-									PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
-									panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
-									panelData_[y][x].date = temp;
-									// スプライトの交換
-									Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
-									panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
-									panelData_[y][x].sprite = tempSprite;
-									// csvDataの入れ替え
-									int tempData = csvData_[holdPos_.y][holdPos_.x];
-									csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
-									csvData_[y][x] = tempData;
-									// jsonファイルに書き込む
-									fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
-								}
-								// パネル2の場合
-							} else if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::TPanel) {
-								// 空白かパネル2以外の場合
-								if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::TPanel) {
-									// パネルの交換
-									PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
-									panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
-									panelData_[y][x].date = temp;
-									// スプライトの交換
-									Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
-									panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
-									panelData_[y][x].sprite = tempSprite;
-									// csvDataの入れ替え
-									int tempData = csvData_[holdPos_.y][holdPos_.x];
-									csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
-									csvData_[y][x] = tempData;
-									// jsonファイルに書き込む
-									fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
-								}
-							}
-						}
-					}
-				}
-			}
-
-			isHold_ = false;
+			UpdatePanelData();
 		}
 	}
 	fileAccessor_->Save();
@@ -245,3 +140,407 @@ void CircuitPuzzle::DrawImGui() {
 #endif
 }
 
+void CircuitPuzzle::ChangePanelData() {
+	// CSVデータをPanelDataに変換
+	panelData_.resize(csvData_.size());
+	// スプライト生成
+	for (size_t i = 0; i < csvData_.size(); ++i) {
+		panelData_[i].resize(csvData_[i].size());
+		for (size_t j = 0; j < csvData_[i].size(); ++j) {
+#pragma region BlankPanelの生成
+			// CSVデータをPanelTypeに変換
+			if (csvData_[i][j] == 0) {
+				// ブロックの場合
+				panelData_[i][j].date = PanelType::Blank;
+				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f};
+				sprite->SetPosition(position);
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region StartPanelの生成
+			if (csvData_[i][j] == 1) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::StartPanel;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[0], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region TPanelの生成
+			if (csvData_[i][j] == 2) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::TPanel;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[1], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+
+				sprite->SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region LPanelの生成
+			if (csvData_[i][j] == 3) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::LPanel;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[2], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				sprite->SetColor(Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region InvertedLの生成
+			if (csvData_[i][j] == 4) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::InvertedL;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[3], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				sprite->SetColor(Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region IPanelの生成
+			if (csvData_[i][j] == 5) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::IPanel;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[4], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				sprite->SetColor(Vector4(1.0f, 1.0f, 0.0f, 1.0f));
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region UpReverseLPanelの生成
+			if (csvData_[i][j] == 6) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::UpReverseLPanel;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[5], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				sprite->SetColor(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region UpInvertedLPanelの生成
+			if (csvData_[i][j] == 7) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::UpInvertedLPanel;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[6], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				sprite->SetColor(Vector4(0.0f, 1.0f, 1.0f, 1.0f));
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region UpREverseTPanelの生成
+			if (csvData_[i][j] == 8) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::UpReverseTPanel;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[7], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				sprite->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+#pragma region GoalPanelの生成
+			if (csvData_[i][j]==9) {
+				// パネルの場合
+				panelData_[i][j].date = PanelType::GoalPanel;
+				// スプライト生成
+				Sprite* sprite = Sprite::Create(panelTextures_[8], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+				// アンカーポイントを中心に設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				sprite->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+				// 初期位置
+				float cellSize = 64.0f;
+				// スプライトの位置を設定
+				Vector2 position = {static_cast<float>(j * cellSize) + panelSize_.x * 0.5f, static_cast<float>(i * cellSize) + panelSize_.y * 0.5f};
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトを追加
+				panelData_[i][j].sprite = sprite;
+			}
+#pragma endregion
+
+		}
+	}
+}
+
+void CircuitPuzzle::UpdatePanelData() {
+	for (size_t y = 0; y < panelData_.size(); y++) {
+		for (size_t x = 0; x < panelData_[y].size(); x++) {
+			// スプライトの位置を取得
+			Vector2 spritePos = panelData_[y][x].sprite->GetPosition();
+			// スプライトのサイズを取得
+			Vector2 spriteSize = {panelSize_.x, panelSize_.y};
+			// マウス座標がスプライトの範囲内にあるかチェック
+			if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
+				if (mousePos.y >= spritePos.y - spriteSize.y / 2 && mousePos.y <= spritePos.y + spriteSize.y / 2) {
+#pragma region startPanelの場合
+					// 選択されたスプライトのインデックスを保存
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::StartPanel) {
+						// パネルの場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::StartPanel) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+#pragma region TPanelの場合
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::TPanel) {
+						// 空白かパネル2以外の場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::TPanel) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+#pragma region LPanelの場合
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::LPanel) {
+						// 空白かパネル3以外の場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::LPanel) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+#pragma region InvertedLの場合
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::InvertedL) {
+						// 空白かパネル4以外の場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::InvertedL) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+#pragma region IPanelの場合
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::IPanel) {
+						// 空白かパネル5以外の場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::IPanel) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+#pragma region UpReverseLPanelの場合
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::UpReverseLPanel) {
+						// 空白かパネル6以外の場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::UpReverseLPanel) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+#pragma region UpInvertedLPanelの場合
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::UpInvertedLPanel) {
+						// 空白かパネル7以外の場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::UpInvertedLPanel) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+#pragma region UpReverseTPanelの場合
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::UpReverseTPanel) {
+						// 空白かパネル8以外の場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::UpReverseTPanel) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+#pragma region GoalPanelの場合
+					if (panelData_[holdPos_.y][holdPos_.x].date == PanelType::GoalPanel) {
+						// 空白かパネル9以外の場合
+						if (panelData_[y][x].date != PanelType::Blank && panelData_[y][x].date != PanelType::GoalPanel) {
+							// パネルの交換
+							PanelType temp = panelData_[holdPos_.y][holdPos_.x].date;
+							panelData_[holdPos_.y][holdPos_.x].date = panelData_[y][x].date;
+							panelData_[y][x].date = temp;
+							// スプライトの交換
+							Sprite* tempSprite = panelData_[holdPos_.y][holdPos_.x].sprite;
+							panelData_[holdPos_.y][holdPos_.x].sprite = panelData_[y][x].sprite;
+							panelData_[y][x].sprite = tempSprite;
+							// csvDataの入れ替え
+							int tempData = csvData_[holdPos_.y][holdPos_.x];
+							csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
+							csvData_[y][x] = tempData;
+							// jsonファイルに書き込む
+							fileAccessor_->WriteCsvData("Circuit", "panel", csvData_);
+						}
+					}
+#pragma endregion
+				}
+			}
+		}
+	}
+
+	isHold_ = false;
+}
