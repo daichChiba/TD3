@@ -27,6 +27,16 @@ public:
 	/// <param name="num"></param>
 	void SetNumber(int num);
 
+	/// <summary>
+	/// スプライトのゲッター
+	/// </summary>
+	/// <param name="num">アクセスしたい番号</param>
+	/// <returns></returns>
+	Sprite GetSprite(int num);
+
+	// posのセッター
+	void SetPos(Vector2 pos);
+
 private:
 	/// <summary>
 	/// スプライトの生成

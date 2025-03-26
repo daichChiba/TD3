@@ -3,8 +3,8 @@
 using namespace KamataEngine;
 #include "../../../LoadJsonFile/FileJson.h"
 #include "../../BasePuzzle.h"
-#include "NumberSprite.h"
 #include "../../../../IntVector2.h"
+#include "NumberSprite.h"
 // パネルの種類を定義するenumクラス
 enum class PanelType {
 	Blank,   // 空白0
@@ -54,10 +54,10 @@ private:
 
 	// パネルデータの変更
 	void ChangePanelData();
+	// パネルデータの再生成
+	void ReCreateCsvData();
 
 private:
-	// spriteの描画
-	std::vector<NumberSprite> numberSprite;
 	// 空白のスプライト
 	Sprite* blankSprite;
 	// パネルのサイズ
@@ -76,6 +76,9 @@ private:
 	FileJson::FileAccessor* fileAccessor_;
 	// クリックされたパネルのインデックスを保持する変数
 	int selectedSpriteIndex = -1;
+
+	// 数字スプライト
+	std::vector<NumberSprite> numberSprite;
 
 	// クリアフラグ
 	bool isClear_;

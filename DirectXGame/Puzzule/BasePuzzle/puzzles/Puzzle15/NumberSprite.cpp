@@ -64,6 +64,11 @@ void NumberSprite::SetNumber(int num) {
 	}
 }
 
+Sprite NumberSprite::GetSprite(int num) {
+	return sprite[num]; }
+
+void NumberSprite::SetPos(Vector2 pos) { pos_ = pos; }
+
 Sprite NumberSprite::CreateSprite(int num) {
 	Sprite sprite_;
 	sprite_.Initialize();
