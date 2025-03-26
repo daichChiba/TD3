@@ -1,10 +1,8 @@
 #include "GameScene.h"
-#include <iostream>
 
 GameScene::GameScene(){}
 
-GameScene::~GameScene() { 
-	delete puzzle15_;
+GameScene::~GameScene() {
 	
 }
 
@@ -13,38 +11,15 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	//ボードの数を設定し、初期値を割り当てる
-	//puzzle15_ = new Puzzle15(3, 3);
-	puzzle15_ = new Puzzle15;
-	puzzle15_->LoadPuzzle15Csv("Resources/panels.csv");
-
-	GeneratePanels();
-
-	for (uint32_t i = 0; i < 3; ++i) {
-		for (uint32_t j = 0; j < 3; ++j) {
-			slidePuzzle15_[i][j] = TextureManager::Load("1.png");
-			puzzle_[i][j] = Sprite::Create(slidePuzzle15_[i][j], {0, 0});
-		}
-	}
-
-	
-	
-	//// 2D背景
-	//puzzle_ = TextureManager::Load("badEndSkydome/badEndSkydome.png");
-	//slidePuzzle15_ = Sprite::Create(puzzle_, {0, 0});
-
+	puzzleManager_ = new PuzzleManager();
+	puzzleManager_->SetGameScene(this);
+	puzzleManager_->Initialize();
 }
 
 void GameScene::Update() {
+	puzzleManager_->Update();
 
-	//puzzle15_->ImGuiX();
-
-	//タイルを配置する
-//	PlaceTiles();
-
-
-	//puzzle15_->Update();
-
+	
 }
 
 void GameScene::Draw() {
@@ -92,6 +67,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	puzzleManager_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

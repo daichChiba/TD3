@@ -52,7 +52,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\External\DirectXTex\include;$(ProjectDir)..\External\imgui;$(ProjectDir)..\External\KamataEngine\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\External\DirectXTex\include;$(ProjectDir)..\External\imgui;$(ProjectDir)..\External\KamataEngine\include;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\External\KamataEngine\lib\$(Configuration);$(ProjectDir)..\External\DirectXTex\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
@@ -106,12 +106,15 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InputEX.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MathUtilityEX.cpp" />
-    <ClCompile Include="Puzzle15.cpp" />
-    <ClCompile Include="Scene\GameScene.cpp" />
-    <ClCompile Include="worldTransfromEX.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp" />
+    <ClCompile Include="Puzzule\PuzzleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -126,6 +129,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
+    <None Include="Resources\CircuitPuzzle\CircuitPuzzle.json" />
     <None Include="Resources\shaders\Obj.hlsli" />
     <None Include="Resources\shaders\Primitive.hlsli" />
     <None Include="Resources\shaders\Shape.hlsli">
@@ -189,7 +193,14 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Puzzle15.h" />
+    <ClInclude Include="IntVector2.h" />
+    <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h" />
+    <ClInclude Include="Puzzule\LoadJsonFile\nlohmann\json.hpp" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h" />
+    <ClInclude Include="Puzzule\PuzzleManager.h" />
     <ClInclude Include="Scene\GameScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

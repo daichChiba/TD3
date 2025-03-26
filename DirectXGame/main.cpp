@@ -15,9 +15,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	GameScene* gameScene = new GameScene;
 
+
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
-	win->CreateGameWindow();
+	win->CreateGameWindow(L"3165_ぱずすれ!!");
 
 	// DirectX初期化処理
 	dxCommon = DirectXCommon::GetInstance();
@@ -54,10 +55,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	primitiveDrawer->Initialize();
 
 #pragma endregion
-#ifdef _DEBUG
 	gameScene = new GameScene;
 	gameScene->Initialize();
-#endif // _DEBUG
+
+	
+
 
 	// メインループ
 	while (true) {
@@ -65,9 +67,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		if (win->ProcessMessage()) {
 			break;
 		}
-
-
-
+		if (input->ReleseKey(DIK_ESCAPE)) {
+			break;
+		}
 		// ImGui受付開始
 		imguiManager->Begin();
 		// 入力関連の毎フレーム処理

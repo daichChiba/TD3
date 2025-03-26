@@ -16,37 +16,70 @@
     <Filter Include="シェーダー ファイル">
       <UniqueIdentifier>{718c7f4c-fc51-40ad-a221-b9456a7a1a3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\action">
-      <UniqueIdentifier>{1ed69199-be59-4930-b1b6-96fbd3973b3c}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\puzzle">
+      <UniqueIdentifier>{925ed122-289b-4bf9-a3dd-b9e5d32d973a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\action\actor">
-      <UniqueIdentifier>{9bc7b939-a2c1-4046-ba63-faefeae5c873}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\puzzle">
+      <UniqueIdentifier>{8c02c9d8-1458-40dd-a911-08308ad6984f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\action\actor\player">
-      <UniqueIdentifier>{c54f0418-ff3b-4ed3-be18-1fe034750290}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle">
+      <UniqueIdentifier>{e788e918-038b-49a8-94bc-3089b7bfbd34}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\action">
-      <UniqueIdentifier>{3b9b8686-8847-4e51-add1-42bfd23c6653}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles">
+      <UniqueIdentifier>{5f619d59-8bc5-4d74-beb6-b458648bde94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\action\actor">
-      <UniqueIdentifier>{eb61bba2-770c-40d8-b2ec-d86d4c9843ba}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15">
+      <UniqueIdentifier>{649e5c36-3425-45df-9bae-f92bdeb33113}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\action\actor\player">
-      <UniqueIdentifier>{ebd47147-2195-4328-ae38-52391ee9b458}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle">
+      <UniqueIdentifier>{b46b785e-7d50-4674-9f52-dcbfd96beef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles">
+      <UniqueIdentifier>{b088cd7a-5aa6-4d09-8120-9ae9bb63fc41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15">
+      <UniqueIdentifier>{d4c16796-4505-48b8-83e0-254b7d2a72df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle">
+      <UniqueIdentifier>{953baa01-2d49-4a30-8367-f7f90e4dcaa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle">
+      <UniqueIdentifier>{6e6c2425-12da-415d-a582-fe93fc1169b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\puzzle\FileJson">
+      <UniqueIdentifier>{9274024c-d553-44aa-8ba4-f1178d835c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\FileJson">
+      <UniqueIdentifier>{4aba07c0-0113-4fc0-9205-757aa17cc194}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\GameScene.cpp">
+    <ClCompile Include="GameScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="worldTransfromEX.cpp">
+    <ClCompile Include="Puzzule\PuzzleManager.cpp">
+      <Filter>ソース ファイル\puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
+    </ClCompile>
+    <ClCompile Include="InputEX.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="MathUtilityEX.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp">
+      <Filter>ソース ファイル\puzzle\FileJson</Filter>
     </ClCompile>
     <ClCompile Include="InputEX.cpp">
       <Filter>ソース ファイル</Filter>
@@ -103,12 +136,34 @@
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
+    <None Include="Resources\CircuitPuzzle\CircuitPuzzle.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Puzzle15.h">
+    <ClInclude Include="Puzzule\PuzzleManager.h">
+      <Filter>ヘッダー ファイル\puzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\CircuitPuzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h">
+      <Filter>ヘッダー ファイル\puzzle\FileJson</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\LoadJsonFile\nlohmann\json.hpp">
+      <Filter>ヘッダー ファイル\puzzle\FileJson</Filter>
+    </ClInclude>
+    <ClInclude Include="IntVector2.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

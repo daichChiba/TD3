@@ -1,8 +1,8 @@
 #pragma once
 #include <KamataEngine.h>
 using namespace KamataEngine;
-#include <vector>
-#include "../Puzzle15.h"
+
+#include "../Puzzule/PuzzleManager.h"
 
 class GameScene {
 public:
@@ -37,15 +37,7 @@ public:
 private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
-
 	Audio* audio_ = nullptr;
-
-	std::vector<std::vector<WorldTransform*>> worldTransformPanels_;
-
-	//2D背景
-	std::vector<std::vector<Sprite>> puzzle_;
-	std::vector<std::vector<uint32_t>> slidePuzzle15_;
-
-	Puzzle15* puzzle15_;
-
+	// シーンの状態
+	PuzzleManager* puzzleManager_=nullptr;
 };
