@@ -7,7 +7,8 @@ using namespace KamataEngine;
 // 歩く近距離攻撃する敵
 class EnemyShort : public EnemyActor {
 public:
-	
+	EnemyShort();
+	~EnemyShort();
 
 private:
 
@@ -20,5 +21,10 @@ private:
 	/// 攻撃
 	/// </summary>
 	void Attack() override;
+
+	/// <summary>
+	/// プレイヤーに接近する
+	/// </summary>
+	void ApproachPlayer() override;
 
 };

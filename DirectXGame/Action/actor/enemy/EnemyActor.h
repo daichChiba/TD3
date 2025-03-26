@@ -57,6 +57,6 @@ protected:
 	float distanceToPlayer_ = 1.0f;
 
 	Vector3 move_;
-	static inline const float kSpeed_ = 0.1f;
+	static inline const float kSpeed_ = 0.05f;
 
 };

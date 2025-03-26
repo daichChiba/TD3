@@ -5,8 +5,7 @@ using namespace MathUtility;
 EnemyLong::EnemyLong() {
 	// 最初の位置
 	enemyStartPos = {1.0f, 1.0f, 15.0f};
-	// プレイヤーとの高さを測る変数
-	minDistanceY_ = 5.0f;
+	
 	// プレイヤーとの距離を測る変数
 	distanceToPlayer_ = 20.0f;
 }
