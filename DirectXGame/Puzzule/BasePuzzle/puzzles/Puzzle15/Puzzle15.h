@@ -1,7 +1,10 @@
 #pragma once
 #include <KamataEngine.h>
 using namespace KamataEngine;
+#include "../../../LoadJsonFile/FileJson.h"
 #include "../../BasePuzzle.h"
+#include "NumberSprite.h"
+#include "../../../../IntVector2.h"
 // パネルの種類を定義するenumクラス
 enum class PanelType {
 	Blank,   // 空白0
@@ -49,5 +52,35 @@ private:
 	/// </summary>
 	void DrawImGui() override;
 
+	// パネルデータの変更
+	void ChangePanelData();
+
 private:
+	// spriteの描画
+	std::vector<NumberSprite> numberSprite;
+	// 空白のスプライト
+	Sprite* blankSprite;
+	// パネルのサイズ
+	Vector3 panelSize_;
+	// パネルのテクスチャ
+	uint32_t panelTexture_;
+	// パネルのデータ
+	std::vector<std::vector<PanelData>> panelData_;
+	// CSVデータ
+	std::vector<std::vector<int>> csvData_;
+	std::vector<std::vector<int>> answerData_;
+	// holdしているパネルの位置
+	IntVector2 holdPos_;
+	
+	// Json読み書き用のファイルアクセサ
+	FileJson::FileAccessor* fileAccessor_;
+	// クリックされたパネルのインデックスを保持する変数
+	int selectedSpriteIndex = -1;
+
+	// クリアフラグ
+	bool isClear_;
+	//　ホールドしているか
+	bool isHold_;
+
+
 };
