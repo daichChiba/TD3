@@ -8,6 +8,7 @@ CircuitPuzzle::CircuitPuzzle() {}
 
 // デストラクタ
 CircuitPuzzle::~CircuitPuzzle() {
+	// FileAccessorの解放
 	if (fileAccessor_) {
 		delete fileAccessor_;
 		fileAccessor_ = nullptr;
@@ -28,7 +29,7 @@ void CircuitPuzzle::Initialize() {
 	isClear_ = fileAccessor_->Read("Circuit", "isClear", bool());
 	time_ = fileAccessor_->Read("Circuit", "time", int());
 	// JSONからCSVデータを読み込む
-	csvData_ = fileAccessor_->ReadCsvData("Circuit", "panel");
+	csvData_ = fileAccessor_->ReadCsvData("Circuit", "start");
 	answerData_ = fileAccessor_->ReadCsvData("Circuit", "answer");
 	// パネルのテクスチャを読み込む
 	panelTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/panel.png");
