@@ -7,7 +7,7 @@ using namespace KamataEngine;
 class BulletActor
 {
 public:
-	void Initialize(Model* model, Vector3 pos);
+	virtual void Initialize(Model* model, Vector3 pos);
 	void Update();
 	virtual void Draw(Camera& camera);
 

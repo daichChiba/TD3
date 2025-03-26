@@ -30,6 +30,8 @@ public:
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
 
+	void RandomCreate();
+
 	std::list<std::shared_ptr<EnemyActor>> GetEnemy(){ return Manager_; }
 
 	void CreateEnemyTest();
@@ -49,5 +51,13 @@ private:
 
 	std::list<std::shared_ptr<EnemyActor>> Manager_;
 	EnemyFactory* factory_;
+	
+	float createTimer_ = 0.0f;
+	static inline const float createCoolTime_ = 3.0f;
+
+	static inline const int fluEnemy = 40;
+	static inline const int longEnemy = 60;
+	static inline const int shortEnemy = 100;
+
 	
 };

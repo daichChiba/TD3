@@ -38,22 +38,17 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
     enemyManager_->Initialize(enemyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
 	
 
-    for (int i = 0; i < 5; ++i)
-    {
-        enemyManager_->CreateEnemyTest();
+   enemyManager_->CreateEnemyFly();
 	
-    }
+   /*enemyManager_->CreateEnemyShort();
 
-	enemyManager_->CreateEnemyShort();
-
-	enemyManager_->CreateEnemyFly();
-
-    //followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
+	enemyManager_->CreateEnemyFly();*/
 }
 
 void ActorManager::Update() {
-	Vector3 cameraRot = followCamera_->GetCamera().rotation_;
-	playerManager_->GetPlayer()->SetCameraRot(cameraRot);
+	enemyManager_->RandomCreate();
+	
+	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
 
 	for (std::shared_ptr<BulletActor> bullet : attack_)

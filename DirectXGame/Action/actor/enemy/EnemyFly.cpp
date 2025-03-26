@@ -1,4 +1,5 @@
 #include "EnemyFly.h"
+#include "../bullet/BulletActor.h"
 
 EnemyFly::EnemyFly(){
 	enemyStartPos = {1.0f, 5.0f, 1.0f};
@@ -25,4 +26,11 @@ void EnemyFly::Move() {
 
 void EnemyFly::Attack() {
 	// 攻撃のコード
+
+	if (move_.x < 0.0f && move_.z < 0.0f)
+	{
+		std::shared_ptr<BulletActor> attack = std::make_shared<BulletPlayerNormalAttack>();
+		attack->Initialize(BulletModel_, worldTransform_.translation_);
+		
+	}
 }
