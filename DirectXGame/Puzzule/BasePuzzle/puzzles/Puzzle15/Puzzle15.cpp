@@ -17,6 +17,9 @@ void Puzzle15::Draw() {
 
 }
 
+void Puzzle15::SpriteDraw() {
+
+}
 
 
 void Puzzle15::DrawImGui() {
