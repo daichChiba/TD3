@@ -13,7 +13,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">モデルの座標</param>
-	void Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager);
+	void Initialize(Model* longModel, Model* shortModel, Model* flyModel, Model* bulletModel, const Vector3 pos, ActorManager* actorManager);
 
 	/// <summary>
 	/// アップデート
@@ -42,7 +42,9 @@ protected:
 
 	virtual void ApproachPlayer();
 
-	Model* model_;
+	Model* longModel_;
+	Model* shortModel_;
+	Model* flyModel_;
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
 	const WorldTransform* PlayerWorldTransform_;

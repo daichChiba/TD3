@@ -15,7 +15,7 @@ class GameScene;
 class ActorManager
 {
 public:
-	void Initialize(Model*  PlayeModel,Model*  PlayerBulletModel,Model*  enemyModel,Model*  enemyBulletModel);
+	void Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model* longModel, Model* shortModel, Model* flyModel, Model* enemyBulletModel);
 	void Update();
 	void Draw();
 
@@ -28,7 +28,7 @@ public:
 	void AddBullet(std::shared_ptr<BulletActor> attack) { attack_.push_back(attack); }
 
 private:
-	Model* PlayeModel_,* PlayerBulletModel_,* enemyModel_,* enemyBulletModel_;
+	Model* PlayeModel_,* PlayerBulletModel_,* longModel_,*shortModel_,*flyModel_,* enemyBulletModel_;
 
 	Camera* camera_;
 	FollowCamera* followCamera_;

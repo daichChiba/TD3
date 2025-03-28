@@ -33,16 +33,16 @@ void EnemyShort::ApproachPlayer() {
 	Vector3 direction = playerPos - enemyPos;
 	float distance = Length(direction);
 
-	// プレイヤーの真上に到達したら動きを止める
-	if (fabs(playerPos.y - enemyPos.y) < minDistanceY_ && distance < distanceToPlayer_) {
-		move_ = Vector3{0.0f, 0.0f, 0.0f};
-		return;
-	}
+	// モデルの向きをプレイヤーの方向に合わせる
+	float angle = atan2(-direction.x, -direction.z);
+	worldTransform_.rotation_.y = angle;
 
-	// プレイヤーが一定距離以上離れたら再び動き出す
-	if (distance >= distanceToPlayer_) {
+	  // プレイヤーに近づく処理
+	if (distance > distanceToPlayer_) {
 		direction = Normalize(direction);
 		move_ = direction * kSpeed_;
+
+		
 	} else {
 		move_ = Vector3{0.0f, 0.0f, 0.0f};
 	}

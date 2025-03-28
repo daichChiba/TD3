@@ -17,7 +17,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">モデルの座標</param>
-	void Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager);
+	void Initialize(Model* longModel, Model* shortModel, Model* flyModel, Model* bulletModel, const Vector3 pos, ActorManager* actorManager);
 
 	/// <summary>
 	/// アップデート
@@ -37,7 +37,9 @@ public:
 	void CreateEnemyFly();
 
 private:
-	Model* model_ = nullptr;
+	Model* longModel_ = nullptr;
+	Model* shortModel_ = nullptr;
+	Model* flyModel_ = nullptr;
 	Model* bulletModel_ = nullptr;
 	Vector3 Startpos_;
 

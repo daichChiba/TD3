@@ -5,11 +5,13 @@
 #include "../../Scene/GameScene.h"
 #include "player/PlayerManager.h"
 
-void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model* enemyModel, Model* enemyBulletModel) {
+void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model* longModel, Model* shortModel, Model* flyModel, Model* enemyBulletModel) {
 #ifdef _DEBUG
 	assert(PlayeModel);
 	assert(PlayerBulletModel);
-	assert(enemyModel);
+	assert(longModel);
+	assert(shortModel);
+	assert(flyModel);
 	assert(enemyBulletModel);
 #endif
 
@@ -21,7 +23,9 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 	PlayeModel_ = PlayeModel;
 	PlayerBulletModel_ = PlayerBulletModel;
-	enemyModel_ = enemyModel;
+	longModel_ = longModel;
+	shortModel_ = shortModel;
+	flyModel_ = flyModel;
 	enemyBulletModel_ = enemyBulletModel;
 
 	playerManager_ = new PlayerManager();
@@ -33,7 +37,7 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 
     enemyManager_ = new EnemyManager();
-    enemyManager_->Initialize(enemyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
+	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
 	
 
   /*  for (int i = 0; i < 5; ++i)

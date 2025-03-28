@@ -5,13 +5,17 @@
 
 using namespace MathUtility;
 
-void EnemyActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager) {
+void EnemyActor::Initialize(Model* longModel, Model* shortModel, Model* flyModel, Model* bulletModel, const Vector3 pos, ActorManager* actorManager) {
 #ifdef _DEBUG
-	assert(model);
+	assert(longModel);
+	assert(shortModel);
+	assert(flyModel);
 	assert(bulletModel);
 #endif
 
-	model_ = model;
+	longModel_ = longModel;
+	shortModel_ = shortModel;
+	flyModel_ = flyModel;
 	BulletModel_ = bulletModel;
 
 	worldTransform_.Initialize();
@@ -35,7 +39,11 @@ void EnemyActor::Update() {
 	worldTransform_.UpdateMatrix();
 }
 
-void EnemyActor::Draw(Camera& camera) { model_->Draw(worldTransform_, camera); }
+void EnemyActor::Draw(Camera& camera) {
+	longModel_->Draw(worldTransform_, camera); 
+	shortModel_->Draw(worldTransform_, camera);
+	flyModel_->Draw(worldTransform_, camera);
+}
 
 void EnemyActor::DrawImGui() {
 	ImGui::Begin("enemy");

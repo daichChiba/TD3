@@ -39,6 +39,10 @@ void EnemyFly::ApproachPlayer() {
 	direction.y = 0.0f; // Y軸方向の移動を無視
 	float distance = Length(direction);
 
+	// モデルの向きをプレイヤーの方向に合わせる
+	float angle = atan2(-direction.x, -direction.z);
+	worldTransform_.rotation_.y = angle;
+
 	// プレイヤーの真上に到達したら動きを止める
 	if (fabs(playerPos.y - enemyPos.y) < minDistanceY_ && distance < distanceToPlayer_) {
 		move_ = Vector3{0.0f, 0.0f, 0.0f};
@@ -49,6 +53,8 @@ void EnemyFly::ApproachPlayer() {
 	if (distance >= distanceToPlayer_) {
 		direction = Normalize(direction);
 		move_ = direction * kSpeed_;
+
+		
 	} else {
 		move_ = Vector3{0.0f, 0.0f, 0.0f};
 	}

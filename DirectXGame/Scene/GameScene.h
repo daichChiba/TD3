@@ -48,6 +48,10 @@ private:
 	Model* PlayerModel_;
 	Model* playerBulletModel_;
 
+	Model* longModel_;
+	Model* shortModel;
+	Model* flyModel;
+
 	//////////////////////////////
 	// Enemy
 	Model* enemyModel_;
