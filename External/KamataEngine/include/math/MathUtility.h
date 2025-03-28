@@ -44,6 +44,8 @@ const Vector3 operator*(const Vector3& v, float s);
 const Vector3 operator*(float s, const Vector3& v);
 const Vector3 operator/(const Vector3& v, float s);
 
+const Vector2 operator*(const Vector2& v,float s);
+
 // 零ベクトルを返す
 const Vector3 Vector3Zero();
 
@@ -103,6 +105,8 @@ Vector3 operator*(const Vector3& v, const Matrix4x4& m);
 
 // 線形補間
 float Lerp(float a, float b, float t);
+
+Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
 
 } // namespace MathUtility
 

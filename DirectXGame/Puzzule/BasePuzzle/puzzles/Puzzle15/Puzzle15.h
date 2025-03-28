@@ -5,6 +5,7 @@ using namespace KamataEngine;
 #include "../../BasePuzzle.h"
 #include "../../../../IntVector2.h"
 #include "NumberSprite.h"
+#include <random>
 // パネルの種類を定義するenumクラス
 
 
@@ -87,5 +88,5 @@ private:
 	//　ホールドしているか
 	bool isHold_;
 
-
+	std::mt19937 randomSeed;
 };

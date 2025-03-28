@@ -106,6 +106,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MathUtilityEX.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberSprite.cpp" />
     <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp" />

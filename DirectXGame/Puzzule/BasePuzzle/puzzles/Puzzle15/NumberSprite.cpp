@@ -1,82 +1,94 @@
 #include "NumberSprite.h"
 using namespace MathUtility;
+
+// 初期化処理
 void NumberSprite::Initialize(Vector2 pos, float size, const Center centor) {
-	pos_ = pos;
-	size_ = size;
-	centor_ = centor;
+	pos_ = pos;       // 位置をメンバ変数にコピー
+	size_ = size;     // サイズをメンバ変数にコピー
+	centor_ = centor; // 中心点をメンバ変数にコピー
 }
 
+// 描画処理
 void NumberSprite::Draw() {
-	// spriteの描画
-	for (Sprite sprite_ : sprite) {
-		sprite_.Draw();
+	// 保持している全てのSpriteを描画する
+	for (Sprite s : sprite) {
+		s.Draw(); // 各Spriteの描画処理を呼び出す
 	}
 }
 
+// 表示する数値を設定する処理
 void NumberSprite::SetNumber(int num) {
-	// 数字の設定
-	bool is = false;
-	// 負の数か？
+	bool is = false; // 負の数かどうかを判定するフラグ
+
+	// 数値が負の数であるかを判定
 	if (num < 0) {
-		is = true;
+		is = true; // 負の数であればフラグを立てる
 	}
 
-	// 絶対値を取得
+	sprite.clear(); // 既存のSpriteをクリアする
+
+	// 絶対値を求める。ゼロ以下なら絶対値化。
 	int index = num <= 0 ? -num : num;
-	// 100の位
-	int index2 = 0;
-	// スプライトのクリア
-	sprite.clear();
-	// 100の位があるか？
-	if (index >= 100) {
-		index2 = index / 100;
-		index = index % 100;
-		sprite.push_back(CreateSprite(index2));
-	}
-	// 10の位があるか？
-	if (index >= 10) {
-		index2 = index / 10;
-		index = index % 10;
-		sprite.push_back(CreateSprite(index2));
-	}
-	// 1の位
-	index2 = index;
-	// スプライトの追加
-	sprite.push_back(CreateSprite(index2));
 
+	// 数値からSpriteを生成する
+	Number(index);
+
+	// 中心点の設定に応じて位置を調整する
 	switch (centor_) {
-		// 左揃え
 	case Center::Left:
+		// 左寄せの場合は何もしない
 		break;
-		// 中央揃え
 	case Center::Central:
+		// 中央寄せの場合
 		for (int i = 0; i < sprite.size(); i++) {
-			Vector2 pos = {pos_.x - ((cSize.x * size_) * ((sprite.size() - 1) / 2.0f - i)), pos_.y};
+			// 各Spriteの位置を計算する
+			Vector2 pos = {pos_.x - ((cSize.x * size_) * ((sprite.size() - 1) / 2.0f - i)), pos_.y}; // 中心から左右にずらす量を計算
+
+			// Spriteの位置を設定する
 			sprite[i].SetPosition(pos);
+
+			// 負の数の場合は色を変更する
 			if (is) {
-				sprite[i].SetColor({1.0f, 0.0f, 0.0f, 1.0f});
+				sprite[i].SetColor({1.0f, 0.0f, 0.0f, 1.0f}); // 赤色にする
 			}
 		}
 		break;
-		// 右揃え
 	case Center::Right:
+		// 右寄せの場合は何もしない
 		break;
 	}
 }
 
-Sprite NumberSprite::GetSprite(int num) {
-	return sprite[num]; }
+// 数値からSpriteを生成する再帰関数
+int NumberSprite::Number(int num, int num2) {
+	int i = num;
+	// 再帰処理で各桁の数字を取り出す
+	if (num >= num2 * 10) {
+		// 次の桁を処理する
+		i = Number(num, num2 * 10);
+		i = i / num2; // 整数除算で桁の値を抽出
+	} else {
+		// 最上位桁の場合
+		i = num / num2; // 整数除算で桁の値を抽出
+	}
 
-void NumberSprite::SetPos(Vector2 pos) { pos_ = pos; }
+	// Spriteを生成して追加する
+	sprite.push_back(CreateSprite(i));
 
+	// 残りの桁を返す
+	return num % num2; // 剰余を返す
+}
+
+// 数値に対応するSpriteを生成する
 Sprite NumberSprite::CreateSprite(int num) {
-	Sprite sprite_;
-	sprite_.Initialize();
+	Sprite s;
+	s.Initialize(); // Spriteの初期化
 
-	TH = TextureManager::GetInstance()->Load("../../../../Resources/Puzzle15/number.png");
-	sprite_.SetTextureHandle(TH);
-	sprite_.SetAnchorPoint({0.5f, 0.5f});
-	sprite_.SetSize(cSize * size_);
-	sprite_.SetTextureRect({cSize.x * num, 0.0f}, cSize);
-	return sprite_;
+	// テクスチャをロードする
+	TH = TextureManager::GetInstance()->Load("Puzzle15/number.png");
+	s.SetTextureHandle(TH);                         // テクスチャハンドルを設定
+	s.SetAnchorPoint({0.5f, 0.5f});                 // アンカーポイントを設定（中心）
+	s.SetSize(cSize * size_);                       // サイズを設定
+	s.SetTextureRect({cSize.x * num, 0.0f}, cSize); // テクスチャの矩形範囲を設定（数字に対応する部分）
+	return s;                                       // 生成したSpriteを返す
 }
