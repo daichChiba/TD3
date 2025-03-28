@@ -43,7 +43,17 @@ void Puzzle15::Update() {
 
 void Puzzle15::Draw() {}
 
-void Puzzle15::SpriteDraw() {}
+void Puzzle15::SpriteDraw() {
+	// CSVデータに基づいて画像を描画
+	for (size_t y = 0; y < panelData_.size(); y++) {
+		for (size_t x = 0; x < panelData_[y].size(); x++) {
+			if (panelData_[y][x].date != PanelType::Blank) {
+				// スプライト描画
+				panelData_[y][x].sprite->Draw();
+			}
+		}
+	}
+}
 
 void Puzzle15::DrawImGui() {
 #ifdef _DEBUG
@@ -59,53 +69,35 @@ void Puzzle15::ChangePanelData() {
 	panelData_.resize(csvData_.size());
 	// NumberSpriteを初期化
 	numberSprite.resize(15);
+
 	for (int y = 0; y < panelData_.size(); y++) {
 		panelData_[y].resize(csvData_[y].size());
 		for (int x = 0; x < panelData_[y].size(); x++) {
-#pragma region BlancPanelの生成
-			if (csvData_[y][x] == 0) {
+			int panelNumber = csvData_[y][x];
+
+			Vector2 position = {static_cast<float>(x * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(y * panelSize_.y) + panelSize_.y * 0.5f};
+
+			if (panelNumber == 0) {
+				// 空白パネル
 				panelData_[y][x].date = PanelType::Blank;
 				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-				Vector2 position = {static_cast<float>(x * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(y * panelSize_.y) + panelSize_.y * 0.5f};
 				sprite->SetPosition(position);
 				panelData_[y][x].sprite = sprite;
+			} else {
+				// 数字パネル
+				panelData_[y][x].date = static_cast<PanelType>(panelNumber); // PanelTypeにキャスト
+				numberSprite[panelNumber - 1].Initialize(Vector2(0.0f, 0.0f));
+				numberSprite[panelNumber - 1].SetNumber(panelNumber);
+				numberSprite[panelNumber - 1].SetPos(position);
+				panelData_[y][x].sprite = &numberSprite[panelNumber - 1].GetSprite(panelNumber); // 0番決めうちなのは気になる
+
+				// TODO : GetSpriteで指定している番号が常に0で良いか確認
+				//  (numberSprite[i]が常に1つのスプライトしか保持していないなら問題ない)
 			}
-#pragma endregion
-#pragma region Panel1
-			if (csvData_[y][x] == 1) {
-				panelData_[y][x].date = PanelType::Panle1;
-				numberSprite[0].Initialize(Vector2(0.0f, 0.0f));
-				numberSprite[0].SetNumber(1);
-				Vector2 position = {static_cast<float>(x * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(y * panelSize_.y) + panelSize_.y * 0.5f};
-				numberSprite[0].SetPos(position);
-				panelData_[y][x].sprite = &numberSprite[0].GetSprite(0);
-			}
-#pragma endregion
-#pragma region Panel2
-			if (csvData_[y][x] == 2) {
-				panelData_[y][x].date = PanelType::Panle1;
-				numberSprite[1].Initialize(Vector2(0.0f, 0.0f));
-				numberSprite[1].SetNumber(2);
-				Vector2 position = {static_cast<float>(x * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(y * panelSize_.y) + panelSize_.y * 0.5f};
-				numberSprite[1].SetPos(position);
-				panelData_[y][x].sprite = &numberSprite[1].GetSprite(1);
-			}
-#pragma endregion
-#pragma region Panel3
-			if (csvData_[y][x] == 3) {
-				panelData_[y][x].date = PanelType::Panle1;
-				numberSprite[2].Initialize(Vector2(0.0f, 0.0f));
-				numberSprite[2].SetNumber(3);
-				Vector2 position = {static_cast<float>(x * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(y * panelSize_.y) + panelSize_.y * 0.5f};
-				numberSprite[2].SetPos(position);
-				panelData_[y][x].sprite = &numberSprite[2].GetSprite(2);
-			}
-#pragma endregion
 		}
 	}
 }
-
 void Puzzle15::ReCreateCsvData() {
 	csvData_.resize(4);
 	// パネルの配置データを初期化し0~15までの数字をランダムに配置
