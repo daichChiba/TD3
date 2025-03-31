@@ -44,9 +44,9 @@ void FollowCamera::Update() {
 		if(moveCameraRotateXLower && Ry > 0.0f)
 			followCamera.rotation_.x += Ry * kRotationSpeed;
 	} 
-	else if (Input::GetInstance()->PushKey(DIK_L)) {
+	else if (Input::GetInstance()->PushKey(DIK_J)) {
 		followCamera.rotation_.y -= kRotationSpeed;
-	} else if (Input::GetInstance()->PushKey(DIK_J)) {
+	} else if (Input::GetInstance()->PushKey(DIK_L)) {
 		followCamera.rotation_.y += kRotationSpeed;
 	}
 	else if (Input::GetInstance()->PushKey(DIK_I)) {

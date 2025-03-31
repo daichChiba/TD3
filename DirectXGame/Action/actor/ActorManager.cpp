@@ -38,13 +38,6 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
     enemyManager_ = new EnemyManager();
 	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
-	
-
-  /*  for (int i = 0; i < 5; ++i)
-    {
-        enemyManager_->CreateEnemyTest();
-	
-    }*/
 
 	enemyManager_->CreateEnemyShort();
 
@@ -60,13 +53,14 @@ void ActorManager::Update() {
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
 
+    enemyManager_->Update();
+
 	for (std::shared_ptr<BulletActor> bullet : attack_)
 	{
 		bullet->Update();
 	}
 	attack_.remove_if([](std::shared_ptr<BulletActor> a) { return a->IsDelete(); });
 
-    enemyManager_->Update();
 
 	followCamera_->Update();
 	followCamera_->DrawImgui();
@@ -75,11 +69,6 @@ void ActorManager::Update() {
 	camera_->matProjection = followCamera_->GetCamera().matProjection;
 
 	camera_->TransferMatrix();
-
-	
-
-	
-	
 }
 
 void ActorManager::Draw() { 

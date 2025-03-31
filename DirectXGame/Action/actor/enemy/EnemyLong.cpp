@@ -32,12 +32,8 @@ void EnemyLong::ApproachPlayer() {
 	Vector3 enemyPos = worldTransform_.translation_;
 
 	// プレイヤーに向かうベクトルを計算
-	Vector3 direction = playerPos - enemyPos;
+	direction = playerPos - enemyPos;
 	float distance = Length(direction);
-
-	// モデルの向きをプレイヤーの方向に合わせる
-	float angle = atan2(-direction.x, -direction.z);
-	worldTransform_.rotation_.y = angle;
 
 	  // プレイヤーに近づく処理
 	if (distance > distanceToPlayer_) {

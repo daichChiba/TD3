@@ -5,17 +5,13 @@
 
 using namespace MathUtility;
 
-void EnemyActor::Initialize(Model* longModel, Model* shortModel, Model* flyModel, Model* bulletModel, const Vector3 pos, ActorManager* actorManager) {
+void EnemyActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager) {
 #ifdef _DEBUG
-	assert(longModel);
-	assert(shortModel);
-	assert(flyModel);
+	assert(model);
 	assert(bulletModel);
 #endif
 
-	longModel_ = longModel;
-	shortModel_ = shortModel;
-	flyModel_ = flyModel;
+	model_ = model;
 	BulletModel_ = bulletModel;
 
 	worldTransform_.Initialize();
@@ -34,15 +30,18 @@ void EnemyActor::Update() {
 
 	worldTransform_.translation_ += move_;
 
+	// モデルの向きをプレイヤーの方向に合わせる
+	float angle = atan2(-direction.x, -direction.z);
+	worldTransform_.rotation_.y = angle;
+
+
 	DrawImGui();
 
 	worldTransform_.UpdateMatrix();
 }
 
 void EnemyActor::Draw(Camera& camera) {
-	longModel_->Draw(worldTransform_, camera); 
-	shortModel_->Draw(worldTransform_, camera);
-	flyModel_->Draw(worldTransform_, camera);
+	model_->Draw(worldTransform_, camera);
 }
 
 void EnemyActor::DrawImGui() {
@@ -65,7 +64,7 @@ void EnemyActor::ApproachPlayer() {
 	Vector3 enemyPos = worldTransform_.translation_;
 
 	// プレイヤーに向かうベクトルを計算（Y軸方向の移動を無視）
-	Vector3 direction = playerPos - enemyPos;
+	direction = playerPos - enemyPos;
 	float distance = Length(direction);
 
 

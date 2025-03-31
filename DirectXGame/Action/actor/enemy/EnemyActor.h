@@ -13,7 +13,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="position">モデルの座標</param>
-	void Initialize(Model* longModel, Model* shortModel, Model* flyModel, Model* bulletModel, const Vector3 pos, ActorManager* actorManager);
+	void Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager);
 
 	/// <summary>
 	/// アップデート
@@ -42,9 +42,7 @@ protected:
 
 	virtual void ApproachPlayer();
 
-	Model* longModel_;
-	Model* shortModel_;
-	Model* flyModel_;
+	Model* model_;
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
 	const WorldTransform* PlayerWorldTransform_;
@@ -54,6 +52,8 @@ protected:
 	Vector3 enemyStartPos;
 	Vector3 distance_ = {1.0f, 0.0f, 1.0f};
 	float minDistanceY_ = 0.0f;
+
+	Vector3 direction;
 
  // プレイヤーとの距離を測る変数
 	float distanceToPlayer_ = 1.0f;

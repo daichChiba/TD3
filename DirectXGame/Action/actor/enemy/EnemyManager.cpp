@@ -44,7 +44,7 @@ void EnemyManager::CreateEnemyLong() {
 	// 新しいEnemyLongを作成
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateLong();
 	// 初期化
-	newEnemy->Initialize(longModel_,shortModel_,flyModel_, bulletModel_, Startpos_, actorManager_);
+	newEnemy->Initialize(longModel_, bulletModel_, Startpos_, actorManager_);
 	// 管理リストに追加
 	Manager_.push_back(newEnemy);
 }
@@ -53,7 +53,7 @@ void EnemyManager::CreateEnemyShort() {
 	// 新しいEnemyShortを作成
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateShort();
 	// 初期化
-	newEnemy->Initialize(longModel_, shortModel_, flyModel_, bulletModel_, Startpos_, actorManager_);
+	newEnemy->Initialize(shortModel_, bulletModel_, Startpos_, actorManager_);
 	// 管理リストに追加
 	Manager_.push_back(newEnemy);
 }
@@ -62,7 +62,7 @@ void EnemyManager::CreateEnemyFly() {
 	// 新しいEnemyFlyを作成
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateFly();
 	// 初期化
-	newEnemy->Initialize(longModel_, shortModel_, flyModel_, bulletModel_, Startpos_, actorManager_);
+	newEnemy->Initialize(flyModel_, bulletModel_, Startpos_, actorManager_);
 	// 管理リストに追加
 	Manager_.push_back(newEnemy);
 }

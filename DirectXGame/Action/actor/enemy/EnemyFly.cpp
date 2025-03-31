@@ -35,13 +35,9 @@ void EnemyFly::ApproachPlayer() {
 	Vector3 enemyPos = worldTransform_.translation_;
 
 	// プレイヤーに向かうベクトルを計算（Y軸方向の移動を無視）
-	Vector3 direction = playerPos - enemyPos;
+	direction = playerPos - enemyPos;
 	direction.y = 0.0f; // Y軸方向の移動を無視
 	float distance = Length(direction);
-
-	// モデルの向きをプレイヤーの方向に合わせる
-	float angle = atan2(-direction.x, -direction.z);
-	worldTransform_.rotation_.y = angle;
 
 	// プレイヤーの真上に到達したら動きを止める
 	if (fabs(playerPos.y - enemyPos.y) < minDistanceY_ && distance < distanceToPlayer_) {
