@@ -25,11 +25,13 @@ void GameScene::Initialize() {
 	PlayerModel_ = Model::CreateFromOBJ("Remu");
 	playerBulletModel_ = Model::CreateFromOBJ("cube");
 
-	enemyModel_ = Model::CreateFromOBJ("Fairy");
+	longModel_ = Model::CreateFromOBJ("Enemy");
+	shortModel = Model::CreateFromOBJ("Enemy");
+	flyModel = Model::CreateFromOBJ("Enemy");
 
 	actorManager = new ActorManager();
 	actorManager->SetGeamScene(this);
-	actorManager->Initialize(PlayerModel_, playerBulletModel_, enemyModel_, cubeModel_);
+	actorManager->Initialize(PlayerModel_, playerBulletModel_, longModel_,shortModel,flyModel, cubeModel_);
 	
 }
 

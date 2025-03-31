@@ -12,12 +12,7 @@ public :
 	EnemyFly();
 	~EnemyFly();
 
-	/*/// <summary>
-	/// アップデート
-	/// </summary>
-	void Update();
-
-	void FlyImGui();*/
+	
 
 private:
 	/// <summary>
@@ -30,6 +25,11 @@ private:
 	/// </summary>
 	void Attack() override;
 
+	/// <summary>
+	/// プレイヤーに接近する
+	/// </summary>
+	void ApproachPlayer() override;
+	
 	float attackTiemr= 1.0f;
 	static inline const float kAttackTiem= 3.0f;
 	static inline const float kFlameTime = 1.0f / 60.0f;

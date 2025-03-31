@@ -7,11 +7,10 @@ using namespace KamataEngine;
 // 歩く遠距離攻撃する敵
 class EnemyLong : public EnemyActor {
 public:
-	/// <summary>
-	/// 初期化
-	/// </summary>
-	void Initialize();
+	EnemyLong();
+	~EnemyLong();
 
+	
 private:
 
 	/// <summary>
@@ -24,5 +23,9 @@ private:
 	/// </summary>
 	void Attack() override;
 
+	/// <summary>
+	/// プレイヤーに接近する
+	/// </summary>
+	void ApproachPlayer() override;
 
 };

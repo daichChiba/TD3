@@ -30,12 +30,19 @@ void EnemyActor::Update() {
 
 	worldTransform_.translation_ += move_;
 
+	// モデルの向きをプレイヤーの方向に合わせる
+	float angle = atan2(-direction.x, -direction.z);
+	worldTransform_.rotation_.y = angle;
+
+
 	DrawImGui();
 
 	worldTransform_.UpdateMatrix();
 }
 
-void EnemyActor::Draw(Camera& camera) { model_->Draw(worldTransform_, camera); }
+void EnemyActor::Draw(Camera& camera) {
+	model_->Draw(worldTransform_, camera);
+}
 
 void EnemyActor::DrawImGui() {
 	#ifdef  _DEBUG
@@ -63,10 +70,9 @@ void EnemyActor::ApproachPlayer() {
     // 敵の位置を取得
     Vector3 enemyPos = worldTransform_.translation_;
 
-    // プレイヤーに向かうベクトルを計算（Y軸方向の移動を無視）
-    Vector3 direction = playerPos - enemyPos;
-    direction.y = 0.0f; // Y軸方向の移動を無視
-    float distance = Length(direction);
+	// プレイヤーに向かうベクトルを計算（Y軸方向の移動を無視）
+	direction = playerPos - enemyPos;
+	float distance = Length(direction);
 
     // プレイヤーの真上に到達したら動きを止める
     if (fabs(playerPos.y - enemyPos.y) < kMinDistanceY_ && distance < kMinDistanceX_) {
@@ -74,11 +80,13 @@ void EnemyActor::ApproachPlayer() {
         return;
     }
 
-    // プレイヤーが一定距離以上離れたら再び動き出す
-    if (distance >= kMaxDistance_) {
-        direction = Normalize(direction);
-        move_ = direction * kSpeed_;
-    }
+	 // プレイヤーが一定距離以上離れたら再び動き出す
+	if (distance >= 3.0f) {
+		direction = Normalize(direction);
+		move_ = direction * kSpeed_;
+	} else {
+		move_ = Vector3{0.0f, 0.0f, 0.0f};
+	}
 
     direction = Normalize(direction);
 

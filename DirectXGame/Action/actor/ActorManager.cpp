@@ -11,7 +11,9 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 #ifdef _DEBUG
 	assert(PlayeModel);
 	assert(PlayerBulletModel);
-	assert(enemyModel);
+	assert(longModel);
+	assert(shortModel);
+	assert(flyModel);
 	assert(enemyBulletModel);
 #endif
 
@@ -23,7 +25,9 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 	PlayeModel_ = PlayeModel;
 	PlayerBulletModel_ = PlayerBulletModel;
-	enemyModel_ = enemyModel;
+	longModel_ = longModel;
+	shortModel_ = shortModel;
+	flyModel_ = flyModel;
 	enemyBulletModel_ = enemyBulletModel;
 
 	playerManager_ = new PlayerManager();
@@ -33,14 +37,18 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 
-	enemyManager_ = new EnemyManager();
-	enemyManager_->Initialize(enemyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
+
+    enemyManager_ = new EnemyManager();
+	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
+
+	enemyManager_->CreateEnemyShort();
 
 	enemyManager_->CreateEnemyFly();
 
-	/*enemyManager_->CreateEnemyShort();
+	enemyManager_->CreateEnemyLong();
+	
 
-	 enemyManager_->CreateEnemyFly();*/
+    followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 }
 
 void ActorManager::Update() {
@@ -49,12 +57,14 @@ void ActorManager::Update() {
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
 
-	for (std::shared_ptr<BulletActor> bullet : attack_) {
+    enemyManager_->Update();
+
+	for (std::shared_ptr<BulletActor> bullet : attack_)
+	{
 		bullet->Update();
 	}
 	attack_.remove_if([](std::shared_ptr<BulletActor> a) { return a->IsDelete(); });
 
-	enemyManager_->Update();
 
 	followCamera_->Update();
 	followCamera_->DrawImgui();
@@ -84,24 +94,24 @@ void ActorManager::CheckAllCollisions() {
 	for (auto& bullet : attack_) {
 		if (bullet->GetBulletType() == BulletType::enemy) {
 
-			// 距離を計算して当たり判定を行う
+			// ������v�Z���ē����蔻���s��
 			Vector3 diff = playerManager_->GetPlayer()->GetWorldTransfrom()->translation_ - bullet->GetWorldPosition();
 			float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
 
 			if (distance < (bullet->GetRadius() + playerManager_->GetPlayer()->GetRadius())) {
-				// 当たった場合の処理
+				// ���������ꍇ�̏���
 				bullet->OnCollision();
 				playerManager_->GetPlayer()->OnCollision();
 			}
 		} else if (bullet->GetBulletType() == BulletType::player) {
 
 			for (auto& enemy : enemyManager_->GetEnemy()) {
-				// 距離を計算して当たり判定を行う
+				// ������v�Z���ē����蔻���s��
 				Vector3 diff = enemy->GetWorldPosition() - bullet->GetWorldPosition();
 				float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
 
 				if (distance < (bullet->GetRadius() + enemy->GetRadius())) {
-					// 当たった場合の処理
+					// ���������ꍇ�̏���
 					bullet->OnCollision();
 					enemy->OnCollision();
 				}

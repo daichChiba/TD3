@@ -10,11 +10,15 @@ using namespace MathUtility;
 
 void EnemyManager::Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager) {
 #ifdef _DEBUG
-	assert(model);
+	assert(longModel);
+	assert(shortModel);
+	assert(flyModel);
 	assert(bulletModel);
 #endif // _DEBUG
 
-	model_ = model;
+	longModel_ = longModel;
+	shortModel_ = shortModel;
+	flyModel_ = flyModel;
 	bulletModel_ = bulletModel;
 
 	Startpos_ = pos;
@@ -72,12 +76,17 @@ void EnemyManager::CreateEnemyTest() {
 
 void EnemyManager::CreateEnemyShort() {
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateShort();
-	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+	// 初期化
+	newEnemy->Initialize(shortModel_, bulletModel_, Startpos_, actorManager_);
+	// 管理リストに追加
 	Manager_.push_back(newEnemy);
 }
 
 void EnemyManager::CreateEnemyFly() {
+	// 新しいEnemyFlyを作成
 	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateFly();
-	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+	// 初期化
+	newEnemy->Initialize(flyModel_, bulletModel_, Startpos_, actorManager_);
+	// 管理リストに追加
 	Manager_.push_back(newEnemy);
 }

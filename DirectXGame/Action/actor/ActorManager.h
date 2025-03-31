@@ -15,7 +15,7 @@ class GameScene;
 class ActorManager
 {
 public:
-	void Initialize(Model*  PlayeModel,Model*  PlayerBulletModel,Model*  enemyModel,Model*  enemyBulletModel);
+	void Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model* longModel, Model* shortModel, Model* flyModel, Model* enemyBulletModel);
 	void Update();
 	void Draw();
 
