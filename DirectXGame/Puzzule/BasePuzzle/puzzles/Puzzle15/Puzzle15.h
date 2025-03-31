@@ -1,13 +1,12 @@
 #pragma once
 #include <KamataEngine.h>
 using namespace KamataEngine;
+#include "../../../../IntVector2.h"
 #include "../../../LoadJsonFile/FileJson.h"
 #include "../../BasePuzzle.h"
-#include "../../../../IntVector2.h"
 #include "NumberSprite.h"
 #include <random>
 // パネルの種類を定義するenumクラス
-
 
 class Puzzle15 : public BasePuzzle {
 
@@ -60,6 +59,10 @@ private:
 	// パネルデータの再生成
 	void ReCreateCsvData();
 
+	void UpdatePanelData();
+
+	void CheckClear();
+
 private:
 	// 空白のスプライト
 	Sprite* blankSprite;
@@ -74,19 +77,21 @@ private:
 	std::vector<std::vector<int>> answerData_;
 	// holdしているパネルの位置
 	IntVector2 holdPos_;
-	
+
+	std::vector<uint32_t> panelTextures_;
+
 	// Json読み書き用のファイルアクセサ
 	FileJson::FileAccessor* fileAccessor_;
 	// クリックされたパネルのインデックスを保持する変数
 	int selectedSpriteIndex = -1;
 
 	// 数字スプライト
-	std::vector<NumberSprite> numberSprite;
+	//std::vector<NumberSprite> numberSprite;
 
 	// クリアフラグ
 	bool isClear_;
-	//　ホールドしているか
-	bool isHold_;
+	// ホールドしているか
+	bool isHold_ = false;
 
 	std::mt19937 randomSeed;
 };

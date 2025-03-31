@@ -3,9 +3,12 @@ using namespace MathUtility;
 
 // 初期化処理
 void NumberSprite::Initialize(Vector2 pos, float size, const Center centor) {
-	pos_ = pos;       // 位置をメンバ変数にコピー
-	size_ = size;     // サイズをメンバ変数にコピー
-	centor_ = centor; // 中心点をメンバ変数にコピー
+	// 位置をメンバ変数にコピー
+	pos_ = pos;
+	// サイズをメンバ変数にコピー
+	size_ = size;
+	// 中心点をメンバ変数にコピー
+	centor_ = centor;
 }
 
 // 描画処理
@@ -86,9 +89,14 @@ Sprite NumberSprite::CreateSprite(int num) {
 
 	// テクスチャをロードする
 	TH = TextureManager::GetInstance()->Load("Puzzle15/number.png");
-	s.SetTextureHandle(TH);                         // テクスチャハンドルを設定
-	s.SetAnchorPoint({0.5f, 0.5f});                 // アンカーポイントを設定（中心）
-	s.SetSize(cSize * size_);                       // サイズを設定
-	s.SetTextureRect({cSize.x * num, 0.0f}, cSize); // テクスチャの矩形範囲を設定（数字に対応する部分）
-	return s;                                       // 生成したSpriteを返す
+	// テクスチャハンドルを設定
+	s.SetTextureHandle(TH);
+	// アンカーポイントを設定（中心）
+	s.SetAnchorPoint({0.5f, 0.5f});
+	// サイズを設定
+	s.SetSize(cSize * size_);
+	// テクスチャの矩形範囲を設定（数字に対応する部分）
+	s.SetTextureRect({cSize.x * num, 0.0f}, cSize);
+	// 生成したSpriteを返す
+	return s;
 }

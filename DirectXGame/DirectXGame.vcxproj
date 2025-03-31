@@ -107,6 +107,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MathUtilityEX.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberPanel.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberSprite.cpp" />
     <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp" />
@@ -197,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IntVector2.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberPanel.h" />
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberSprite.h" />
     <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h" />
     <ClInclude Include="Puzzule\LoadJsonFile\nlohmann\json.hpp" />
