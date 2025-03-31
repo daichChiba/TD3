@@ -111,7 +111,7 @@ void ActorManager::CheckAllCollisions() {
 				if (distance < (bullet->GetRadius() + enemy->GetRadius())) {
 					
 					bullet->OnCollision();
-					enemy->OnCollision();
+					enemy->OnCollision(bullet->GetDamage());
 				}
 			}
 		}
