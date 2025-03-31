@@ -31,7 +31,7 @@ void EnemyFly::Attack() {
 
 	attackTiemr -= kFlameTime;
 
-	if ((std::fabs(move_.x) <= 0.0f && fabs(move_.z) <= 0.0f) && attackTiemr < 0.0f) {
+	if ((fabs(move_.x) <= 0.0f && fabs(move_.z) <= 0.0f) && attackTiemr < 0.0f) {
 		std::shared_ptr<BulletActor> attack = std::make_shared<BulletFlyEnemy>();
 		attack->Initialize(BulletModel_, worldTransform_.translation_);
 

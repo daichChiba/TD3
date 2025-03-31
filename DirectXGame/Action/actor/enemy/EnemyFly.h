@@ -31,7 +31,7 @@ private:
 	void Attack() override;
 
 	float attackTiemr= 1.0f;
-	static inline const float kAttackTiem= 1.0f;
+	static inline const float kAttackTiem= 3.0f;
 	static inline const float kFlameTime = 1.0f / 60.0f;
 
 };
