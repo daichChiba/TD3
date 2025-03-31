@@ -55,7 +55,7 @@ private:
 	float createTimer_ = 0.0f;
 	static inline const float createCoolTime_ = 3.0f;
 
-	static inline const int fluEnemy = 40;
+	static inline const int fluEnemy = 100;
 	static inline const int longEnemy = 60;
 	static inline const int shortEnemy = 100;
 

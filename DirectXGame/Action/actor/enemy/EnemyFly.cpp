@@ -1,36 +1,53 @@
 #include "EnemyFly.h"
-#include "../bullet/BulletActor.h"
 
-EnemyFly::EnemyFly(){
+#include "../ActorManager.h"
+#include "../player/PlayerActor.h"
+
+#include "../bullet/BulletActor.h"
+#include "../bullet/BulletFlyEnemy.h"
+
+using namespace MathUtility;
+
+EnemyFly::EnemyFly() {
 	enemyStartPos = {1.0f, 5.0f, 1.0f};
-	minDistanceY_ = 5.0f;
+	kMinDistanceY_ = 5.0f;
 }
 
 EnemyFly::~EnemyFly() {}
 
-//void EnemyFly::Update() {
-//	FlyImGui();
-//}
-//
-//void EnemyFly::FlyImGui() {
-//	ImGui::Begin("enemy");
-//	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
-//	ImGui::Text("move : %.3f,%.3f,%.3f", move_.x, move_.y, move_.z);
-//	ImGui::Text("pPos : %.3f,%.3f,%.3f", PlayerWorldTransform_->translation_.x, PlayerWorldTransform_->translation_.y, PlayerWorldTransform_->translation_.z);
-//	ImGui::End();
-//}
 
-void EnemyFly::Move() {
+void EnemyFly::Move() { 
 	ApproachPlayer();
+	ImGui::Begin("enemyFly");
+	ImGui::Text("enemyFly");
+	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
+	ImGui::DragFloat3("move", &move_.x);
+	ImGui::DragFloat("attackTimer", &attackTiemr);
+	ImGui::End();
 }
 
 void EnemyFly::Attack() {
 	// 攻撃のコード
 
-	if (move_.x < 0.0f && move_.z < 0.0f)
-	{
-		std::shared_ptr<BulletActor> attack = std::make_shared<BulletPlayerNormalAttack>();
+	attackTiemr -= kFlameTime;
+
+	if ((std::fabs(move_.x) <= 0.0f && fabs(move_.z) <= 0.0f) && attackTiemr < 0.0f) {
+		std::shared_ptr<BulletActor> attack = std::make_shared<BulletFlyEnemy>();
 		attack->Initialize(BulletModel_, worldTransform_.translation_);
-		
+
+		Vector3 currentPos = worldTransform_.translation_;
+		Vector3 targetPos = actorManager_->GetPlayer()->GetWorldTransfrom()->translation_;
+
+		// プレイヤー方向へのベクトルを計算
+		Vector3 direction = targetPos - currentPos;
+		direction = Normalize(direction);
+
+		// 弾の移動ベクトルを設定
+		attack->SetMove(direction * 0.1f);
+		attack->SetEnumClassEnemy();
+
+		actorManager_->AddBullet(attack); // プレイヤーが持っているゲームシーンからゲームシーンにポインタを渡す
+	
+		attackTiemr = kAttackTiem;
 	}
 }

@@ -32,6 +32,9 @@ public:
 
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
+	float GetRadius() { return radius_; }
+	void OnCollision(){ return;}
+
 	void SetCameraRot(Vector3 cameraRot) { cameraRot_ = cameraRot; }
 
 protected:
@@ -43,6 +46,10 @@ protected:
 	WorldTransform worldTransform_;
 
 	Vector3 cameraRot_;
+
+	float radius_ = 1.0f;
+
+
 
 	ActorManager* actorManager_;
 

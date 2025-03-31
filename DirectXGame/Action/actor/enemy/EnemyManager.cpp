@@ -45,7 +45,7 @@ void EnemyManager::RandomCreate() {
 		createTimer_ = createCoolTime_;
 		// 円周上のランダムな位置を計算
 		float radius = 10.0f;// 円の半径
-		float angle = static_cast<float>(rand()) / RAND_MAX * 2.0f * 3.14159265358979323846f; // ランダムな角度
+		float angle = static_cast<float>(rand()) / RAND_MAX * 2.0f * PI; // ランダムな角度
 		Startpos_ = {
 			actorManager_->GetPlayer()->GetWorldTransfrom()->translation_.x + radius * std::cos(angle), 
 			0.0f,

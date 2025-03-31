@@ -1,5 +1,7 @@
 #include "BulletActor.h"
 
+#include "../ActorManager.h"
+
 using namespace MathUtility;
 
 void BulletActor::Initialize(Model* model, Vector3 pos)
@@ -45,6 +47,11 @@ void BulletActor::Draw(Camera& camera)
 void BulletActor::OnCollision()
 {
 	isDelete_ = true;
+}
+
+void BulletActor::SetACManager(ActorManager* acManager)
+{
+	actorManager_ = acManager;
 }
 
 void BulletActor::Move()

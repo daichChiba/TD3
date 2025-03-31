@@ -4,6 +4,8 @@
 
 using namespace KamataEngine;
 
+
+
 class ActorManager;
 
 class EnemyActor {
@@ -54,7 +56,11 @@ protected:
 
 	Vector3 enemyStartPos;
 	Vector3 distance_ = {1.0f, 0.0f, 1.0f};
-	float minDistanceY_ = 0.0f;
+	static inline const float kMinDistanceX_ = 8.0f;
+	static inline float kMinDistanceY_ = 0.0f;
+	static inline const float kMaxDistance_ = 5.0f;
+	static inline const float kApproachDistance_ = 3.0f;
+	 
 	float radius_ = 1.0f;
 
 	bool isDelete_ = false;

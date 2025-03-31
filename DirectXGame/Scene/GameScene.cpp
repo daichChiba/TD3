@@ -22,7 +22,7 @@ void GameScene::Initialize() {
 
 	skyDomeTrans.Initialize();
 
-	PlayerModel_ = Model::CreateFromOBJ("Player");
+	PlayerModel_ = Model::CreateFromOBJ("Remu");
 	playerBulletModel_ = Model::CreateFromOBJ("cube");
 
 	enemyModel_ = Model::CreateFromOBJ("Fairy");
