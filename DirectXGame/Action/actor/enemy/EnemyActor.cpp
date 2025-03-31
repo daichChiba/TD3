@@ -54,8 +54,10 @@ void EnemyActor::DrawImGui() {
 #endif
 }
 
-void EnemyActor::OnCollision()
+void EnemyActor::OnCollision(int damage)
 {
+	hp -= damage;
+	if(hp <= 0)
 	isDelete_ = true;
 }
 

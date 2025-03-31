@@ -28,4 +28,6 @@ private:
 	/// </summary>
 	void ApproachPlayer() override;
 
+	int enemy_hp_ = 10;
+
 };

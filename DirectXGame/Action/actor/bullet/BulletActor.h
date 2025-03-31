@@ -26,6 +26,8 @@ public:
 	Vector3 GetWorldPosition(){ return worldTransform_.translation_; }
 	float GetRadius() { return radius_; }
 
+	int GetDamage(){ return damage_;}
+
 	BulletType GetBulletType() {return bullet_; }
 
 	void SetEnumClassEnemy() { bullet_ = BulletType::enemy; }
@@ -56,6 +58,7 @@ protected:
 	static inline const float kDeleteDefaltTime_ = 5.0f;
 
 	float radius_ = 1.0f;
+	int damage_ = 1; 
 
 	ObjectColor* color = nullptr;
 

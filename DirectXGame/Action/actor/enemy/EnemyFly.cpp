@@ -23,9 +23,11 @@ EnemyFly::~EnemyFly() {}
 
 void EnemyFly::Move() { 
 	ApproachPlayer();
+
 	ImGui::Begin("enemyFly");
 	ImGui::Text("enemyFly");
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
+	ImGui::DragFloat3("rot", &worldTransform_.rotation_.x, 0.01f);
 	ImGui::DragFloat3("move", &move_.x);
 	ImGui::DragFloat("attackTimer", &attackTiemr);
 	ImGui::End();

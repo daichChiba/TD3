@@ -41,18 +41,18 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
     enemyManager_ = new EnemyManager();
 	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
 
-	enemyManager_->CreateEnemyShort();
+	//enemyManager_->CreateEnemyShort();
 
 	enemyManager_->CreateEnemyFly();
 
-	enemyManager_->CreateEnemyLong();
+	//enemyManager_->CreateEnemyLong();
 	
 
     followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 }
 
 void ActorManager::Update() {
-	enemyManager_->RandomCreate();
+	//enemyManager_->RandomCreate();
 
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
@@ -94,24 +94,22 @@ void ActorManager::CheckAllCollisions() {
 	for (auto& bullet : attack_) {
 		if (bullet->GetBulletType() == BulletType::enemy) {
 
-			// ������v�Z���ē����蔻���s��
 			Vector3 diff = playerManager_->GetPlayer()->GetWorldTransfrom()->translation_ - bullet->GetWorldPosition();
 			float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
 
 			if (distance < (bullet->GetRadius() + playerManager_->GetPlayer()->GetRadius())) {
-				// ���������ꍇ�̏���
+				
 				bullet->OnCollision();
 				playerManager_->GetPlayer()->OnCollision();
 			}
 		} else if (bullet->GetBulletType() == BulletType::player) {
 
 			for (auto& enemy : enemyManager_->GetEnemy()) {
-				// ������v�Z���ē����蔻���s��
 				Vector3 diff = enemy->GetWorldPosition() - bullet->GetWorldPosition();
 				float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
 
 				if (distance < (bullet->GetRadius() + enemy->GetRadius())) {
-					// ���������ꍇ�̏���
+					
 					bullet->OnCollision();
 					enemy->OnCollision();
 				}

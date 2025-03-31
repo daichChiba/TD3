@@ -35,7 +35,7 @@ public:
 
     Vector3 GetWorldPosition() { return worldTransform_.translation_; }
     float GetRadius() { return radius_; }
-    void OnCollision();
+    virtual void OnCollision(int damage);
     bool IsDelete() { return isDelete_; }
 
 protected:
@@ -59,6 +59,8 @@ protected:
     static inline const float kApproachDistance_ = 3.0f;
 
     float radius_ = 1.0f;
+
+    int hp = 5;
 
     bool isDelete_ = false;
 
