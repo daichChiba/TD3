@@ -13,7 +13,7 @@ EnemyFly::EnemyFly() {
 	// 最初の位置
 	enemyStartPos = {1.0f, 5.0f, 1.0f};
 	// プレイヤーとの高さを測る変数
-	minDistanceY_ = 5.0f;
+	//minDistanceY_ = 5.0f;
 	// プレイヤーとの距離を測る変数
 	distanceToPlayer_ = 3.0f;
 }
@@ -53,7 +53,7 @@ void EnemyFly::ApproachPlayer() {
 	float distance = Length(direction);
 
 	// プレイヤーの真上に到達したら動きを止める
-	if (fabs(playerPos.y - enemyPos.y) < minDistanceY_ && distance < distanceToPlayer_) {
+	if (fabs(playerPos.y - enemyPos.y) < kMinDistanceY_ && distance < distanceToPlayer_) {
 		move_ = Vector3{0.0f, 0.0f, 0.0f};
 		return;
 	}
@@ -67,7 +67,6 @@ void EnemyFly::ApproachPlayer() {
 	} else {
 		move_ = Vector3{0.0f, 0.0f, 0.0f};
 	}
-}
 
 	attackTiemr -= kFlameTime;
 
@@ -79,7 +78,7 @@ void EnemyFly::ApproachPlayer() {
 		Vector3 targetPos = actorManager_->GetPlayer()->GetWorldTransfrom()->translation_;
 
 		// プレイヤー方向へのベクトルを計算
-		Vector3 direction = targetPos - currentPos;
+		direction = targetPos - currentPos;
 		direction = Normalize(direction);
 
 		// 弾の移動ベクトルを設定

@@ -30,7 +30,7 @@ public:
 private:
 	void CheckAllCollisions();
 
-	Model* PlayeModel_,* PlayerBulletModel_,* enemyModel_,* enemyBulletModel_;
+	Model* PlayeModel_,* PlayerBulletModel_,* longModel_, *shortModel_,*flyModel_,* enemyBulletModel_;
 
 	Camera* camera_;
 	FollowCamera* followCamera_;

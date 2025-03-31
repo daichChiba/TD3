@@ -7,7 +7,7 @@
 
 using namespace MathUtility;
 
-void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model* enemyModel, Model* enemyBulletModel) {
+void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model* longModel, Model* shortModel, Model* flyModel, Model* enemyBulletModel) {
 #ifdef _DEBUG
 	assert(PlayeModel);
 	assert(PlayerBulletModel);

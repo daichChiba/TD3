@@ -8,7 +8,7 @@
 
 using namespace MathUtility;
 
-void EnemyManager::Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager) {
+void EnemyManager::Initialize(Model* longModel, Model* shortModel, Model* flyModel, Model* bulletModel, const Vector3 pos, ActorManager* actorManager) {
 #ifdef _DEBUG
 	assert(longModel);
 	assert(shortModel);
@@ -59,7 +59,7 @@ void EnemyManager::RandomCreate() {
 			CreateEnemyFly();
 			return;
 		} else if (enemyc < longEnemy) {
-			CreateEnemyTest();
+			CreateEnemyLong();
 			return;
 		} else if (enemyc < shortEnemy) {
 			CreateEnemyShort();
@@ -68,9 +68,9 @@ void EnemyManager::RandomCreate() {
 	}
 }
 
-void EnemyManager::CreateEnemyTest() {
-	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateEnemy();
-	newEnemy->Initialize(model_, bulletModel_, Startpos_, actorManager_);
+void EnemyManager::CreateEnemyLong() {
+	std::shared_ptr<EnemyActor> newEnemy = factory_->CreateLong();
+	newEnemy->Initialize(longModel_, bulletModel_, Startpos_, actorManager_);
 	Manager_.push_back(newEnemy);
 }
 

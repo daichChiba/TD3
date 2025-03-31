@@ -34,9 +34,8 @@ public:
 
 	std::list<std::shared_ptr<EnemyActor>> GetEnemy(){ return Manager_; }
 
-	void CreateEnemyTest();
 	void CreateEnemyLong();
-
+	
 	void CreateEnemyShort();
 
 	void CreateEnemyFly();
