@@ -1,3 +1,4 @@
+// Puzzle15.cpp
 #include "Puzzle15.h"
 
 // コンストラクタ
@@ -14,39 +15,42 @@ Puzzle15::~Puzzle15() {
 
 // 初期化関数
 void Puzzle15::Initialize() {
-	std::random_device rd; // 乱数の種
-	randomSeed.seed(rd()); // メルセンヌ・ツイスタの初期化
-	panelTexture_ = TextureManager::Load("Puzzle15/panel.png");
+	std::random_device rd; // 乱数の種を生成
+	randomSeed.seed(rd()); // メルセンヌ・ツイスタ乱数生成器に種を設定
 
-	// FileAccessorの初期化
-	fileAccessor_ = nullptr; // 初期化
-
-	// JSONファイル名を指定してFileAccessorを初期化 (相対パスを使用)
-	fileAccessor_ = new FileJson::FileAccessor("Resources/Puzzle15/Panel15.json");
-
-	// JSONからパネルサイズを読み込む
-	panelSize_ = fileAccessor_->ReadVector3("Puzzle15", "size", Vector3());
-
-	// JSONからisCompleteを読み込む
-	isClear_ = fileAccessor_->Read("Puzzle15", "isClear", bool());
-
-	// JSONからCSVデータを読み込む
-	csvData_ = fileAccessor_->ReadCsvData("Puzzle15", "start");     // 初期配置を読み込み
-	answerData_ = fileAccessor_->ReadCsvData("Puzzle15", "answer"); // 解答データを読み込み
-
-	blankSprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f)); // 空白パネルのスプライト作成
+	// テクスチャのロード
+	panelTexture_ = TextureManager::Load("Puzzle15/panel.png"); // 枠線のテクスチャ
 	for (size_t i = 1; i <= 15; i++) {
+		// 1から15までの数字パネルのテクスチャをロード
 		panelTextures_.push_back(TextureManager::Load("Puzzle15/puzzle15_" + std::to_string(i) + ".png"));
 	}
 
+	//flameTexture_ = TextureManager::Load("Puzzle15/puzzleFlame.png");
+	flameSprite = Sprite::Create(flameTexture_, {0.0f, 0.0f}); // ここを修正
+
+	// FileAccessorの初期化
+	fileAccessor_ = nullptr;
+
+	// JSONファイル名を指定してFileAccessorを初期化
+	fileAccessor_ = new FileJson::FileAccessor("Resources/Puzzle15/Panel15.json");
+
+	// JSONからパネルサイズ、クリアフラグ、CSVデータを読み込む
+	panelSize_ = fileAccessor_->ReadVector3("Puzzle15", "size", Vector3()); // パネルサイズを読み込む
+	isClear_ = fileAccessor_->Read("Puzzle15", "isClear", bool());          // クリアフラグを読み込む
+	csvData_ = fileAccessor_->ReadCsvData("Puzzle15", "start");             // 初期配置を読み込む
+	answerData_ = fileAccessor_->ReadCsvData("Puzzle15", "answer");         // 解答データを読み込む
+
+	// 空白パネルのスプライトを作成
+	blankSprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
+
 	// CSVデータを再生成（初期配置をランダムに生成）
 	ReCreateCsvData();
+
 	// パネルデータの変更（CSVデータに基づいてパネル情報を設定）
 	ChangePanelData();
 
 	BasePuzzle::Initialize(); // 親クラスの初期化処理
 }
-
 // 更新関数
 void Puzzle15::Update() {
 	// マウス座標の取得
@@ -55,34 +59,37 @@ void Puzzle15::Update() {
 	// パネルデータの更新
 	for (size_t y = 0; y < panelData_.size(); y++) {
 		for (size_t x = 0; x < panelData_[y].size(); x++) {
-			// パネルが空白でない場合
-
 			// パネルの座標を更新
-			panelData_[y][x].sprite->SetPosition({static_cast<float>(x * panelSize_.x + panelSize_.x * 0.5f), static_cast<float>(y * panelSize_.y + panelSize_.y * 0.5f)});
+			panelData_[y][x].sprite->SetPosition({static_cast<float>(x * panelSize_.x + panelSize_.x * 0.5f+500.0f), static_cast<float>(y * panelSize_.y + panelSize_.y * 0.5f+200.0f)});
 		}
 	}
 
+	// ホールドされていない場合
 	if (!isHold_) {
 		// マウスの左ボタンが押された場合
 		if (input_->IsTriggerMouse(0)) {
+			// 全てのパネルをチェック
 			for (size_t y = 0; y < panelData_.size(); y++) {
 				for (size_t x = 0; x < panelData_[y].size(); x++) {
 					// スプライトの位置を取得
 					Vector2 spritePos = panelData_[y][x].sprite->GetPosition();
 					// スプライトのサイズを取得
 					Vector2 spriteSize = {panelSize_.x, panelSize_.y};
+
 					// マウス座標がスプライトの範囲内にあるかチェック
 					if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
 						if (mousePos.y >= spritePos.y - spriteSize.y / 2 && mousePos.y <= spritePos.y + spriteSize.y / 2) {
 							// 選択されたスプライトのインデックスを保存
 							holdPos_ = IntVector2(static_cast<int>(x), static_cast<int>(y));
-							isHold_ = true;
+							isHold_ = true; // ホールド状態にする
 						}
 					}
 				}
 			}
 		}
-	} else {
+	}
+	// ホールドされている場合
+	else {
 		// マウスの左ボタンが押されている場合
 		if (input_->IsPressMouse(0)) {
 			// ドラッグ中のスプライトの位置を更新
@@ -90,13 +97,12 @@ void Puzzle15::Update() {
 		}
 		// マウスの左ボタンが離された場合
 		if (input_->IsReleseMouse(0)) {
-			UpdatePanelData();
+			UpdatePanelData(); // パネルデータを更新
 		}
 	}
 
-	CheckClear();
-	// ImGuiの描画処理
-	DrawImGui();
+	CheckClear(); // クリアチェック
+	DrawImGui();  // ImGuiの描画
 }
 
 // 描画関数（3D描画）
@@ -116,10 +122,8 @@ void Puzzle15::SpriteDraw() {
 		}
 	}
 
-	// NumberSpriteの描画
-	// for (size_t i = 0; i < numberSprite.size(); i++) {
-	//	numberSprite[i].Draw(); // 数字スプライト描画
-	//}
+	flameSprite->Draw();
+
 }
 
 // ImGuiの描画関数
@@ -140,17 +144,10 @@ void Puzzle15::DrawImGui() {
 // パネルデータの変更関数
 void Puzzle15::ChangePanelData() {
 	// CSVデータをPanelDataに変換
-	panelData_.resize(csvData_.size()); // PanelDataのサイズをCSVデータに合わせる
-
-	// NumberSpriteを初期化
-	// for (int i = 0; i < 15; i++) {
-	//	NumberSprite number;            // NumberSpriteのインスタンスを作成
-	//	number.Initialize(Vector2());   // 初期化
-	//	numberSprite.push_back(number); // ベクターに追加
-	//}
+	panelData_.resize(csvData_.size());
 
 	for (int y = 0; y < panelData_.size(); y++) {
-		panelData_[y].resize(csvData_[y].size()); // 各行のサイズをCSVデータに合わせる
+		panelData_[y].resize(csvData_[y].size());
 		for (int x = 0; x < panelData_[y].size(); x++) {
 			int panelNumber = csvData_[y][x]; // CSVデータからパネル番号を取得
 
@@ -158,25 +155,30 @@ void Puzzle15::ChangePanelData() {
 
 			if (panelNumber == 0) {
 				// 空白パネル
-				panelData_[y][x].date = PanelType::Blank;                                                                                        // パネルの種類を空白に設定
+				panelData_[y][x].date = PanelType::Blank;
+				// パネルの種類を空白に設定
 				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f)); // スプライト作成
-				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));                                                                                     // アンカーポイント設定
-				sprite->SetPosition(position);                                                                                                   // スプライトの位置を設定
-				panelData_[y][x].sprite = sprite;                                                                                                // スプライトをPanelDataに格納
+				// アンカーポイント設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				// スプライトの位置を設定
+				sprite->SetPosition(position);
+				// スプライトをPanelDataに格納
+				panelData_[y][x].sprite = sprite;
 			} else {
 				// 数字パネル
-				panelData_[y][x].date = static_cast<PanelType>(panelNumber); // PanelTypeにキャスト
+				// PanelTypeにキャスト
+				panelData_[y][x].date = static_cast<PanelType>(panelNumber);
 				Sprite* sprite = Sprite::Create(panelTextures_[panelNumber - 1], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
-				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f)); // アンカーポイント設定
-				sprite->SetPosition(position); // 数字スプライトの位置を設定
+				// アンカーポイント設定
+				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
+				// 数字スプライトの位置を設定
+				sprite->SetPosition(position);
 				panelData_[y][x].sprite = sprite;
-
-				// TODO : GetSpriteで指定している番号が常に0で良いか確認
-				//  (numberSprite[i]が常に1つのスプライトしか保持していないなら問題ない)
 			}
 		}
 	}
 }
+
 // CSVデータを再生成する関数（ランダムな初期配置を生成）
 void Puzzle15::ReCreateCsvData() {
 	// CSVデータのサイズを4x4に設定
@@ -212,6 +214,10 @@ void Puzzle15::ReCreateCsvData() {
 			}
 		}
 	}
+	// CSVファイルに書き込む
+	fileAccessor_->WriteCsvData("Puzzle15", "start", csvData_);
+
+	// AnswerDataを初期化
 	answerData_.resize(4);
 	int number = 1;
 	for (size_t y = 0; y < answerData_.size(); y++) {
@@ -224,10 +230,12 @@ void Puzzle15::ReCreateCsvData() {
 			}
 		}
 	}
+	// CSVファイルに書き込む
 	fileAccessor_->WriteCsvData("Puzzle15", "answer", answerData_);
 	fileAccessor_->Save();
 }
 
+// パネルデータの更新関数
 void Puzzle15::UpdatePanelData() {
 	for (size_t y = 0; y < panelData_.size(); y++) {
 		for (size_t x = 0; x < panelData_[y].size(); x++) {
@@ -248,25 +256,27 @@ void Puzzle15::UpdatePanelData() {
 						int tempData = csvData_[holdPos_.y][holdPos_.x];
 						csvData_[holdPos_.y][holdPos_.x] = csvData_[y][x];
 						csvData_[y][x] = tempData;
-						// jsonファイルに書き込む
+
+						// CSVファイルに書き込む
 						fileAccessor_->WriteCsvData("Puzzle15", "panel", csvData_);
 					}
 				}
 			}
 		}
 	}
-	isHold_ = false;
+	isHold_ = false; // ホールドを解除
 }
 
+// クリアチェック関数
 void Puzzle15::CheckClear() {
 	// answerDataとcsvDataを比較してクリアしているか判定
 	for (size_t y = 0; y < answerData_.size(); y++) {
 		for (size_t x = 0; x < answerData_[y].size(); x++) {
 			if (answerData_[y][x] != csvData_[y][x]) {
-				isClear_ = false;
-				return;
+				isClear_ = false; // クリアしていない
+				return;           // 関数を抜ける
 			} else {
-				isClear_ = true;
+				isClear_ = true; // クリアしている
 			}
 		}
 	}
@@ -278,5 +288,5 @@ void Puzzle15::CheckClear() {
 		// クリアしていない場合
 		fileAccessor_->Write("Puzzle15", "isClear", false);
 	}
-	fileAccessor_->Save();
+	fileAccessor_->Save(); // ファイルを保存
 }

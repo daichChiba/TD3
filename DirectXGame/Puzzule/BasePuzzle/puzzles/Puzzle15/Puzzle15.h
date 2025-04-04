@@ -1,3 +1,4 @@
+// Puzzle15.h
 #pragma once
 #include <KamataEngine.h>
 using namespace KamataEngine;
@@ -6,8 +7,8 @@ using namespace KamataEngine;
 #include "../../BasePuzzle.h"
 #include "NumberSprite.h"
 #include <random>
-// パネルの種類を定義するenumクラス
 
+// パネルの種類を定義するenumクラス
 class Puzzle15 : public BasePuzzle {
 
 public:
@@ -29,16 +30,19 @@ public:
 		Panel14, // 14Panel
 		Panel15, // 15Panel
 	};
+
 	// パネルのデータを保持する構造体
 	struct PanelData {
 		// パネルの配置データ
 		PanelType date;
 		Sprite* sprite;
 	};
+
 	// コンストラクタ
 	Puzzle15();
 	// デストラクタ
 	~Puzzle15();
+
 	// 初期化
 	void Initialize() override;
 	// 更新
@@ -58,9 +62,9 @@ private:
 	void ChangePanelData();
 	// パネルデータの再生成
 	void ReCreateCsvData();
-
+	// パネルデータの更新
 	void UpdatePanelData();
-
+	// クリアチェック
 	void CheckClear();
 
 private:
@@ -78,6 +82,7 @@ private:
 	// holdしているパネルの位置
 	IntVector2 holdPos_;
 
+	// パネルのテクスチャ
 	std::vector<uint32_t> panelTextures_;
 
 	// Json読み書き用のファイルアクセサ
@@ -86,12 +91,16 @@ private:
 	int selectedSpriteIndex = -1;
 
 	// 数字スプライト
-	//std::vector<NumberSprite> numberSprite;
+	// std::vector<NumberSprite> numberSprite;
+
+	uint32_t flameTexture_;
+	Sprite* flameSprite;
 
 	// クリアフラグ
 	bool isClear_;
 	// ホールドしているか
 	bool isHold_ = false;
 
+	// 乱数シード
 	std::mt19937 randomSeed;
 };

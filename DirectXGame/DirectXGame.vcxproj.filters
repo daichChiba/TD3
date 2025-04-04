@@ -87,11 +87,11 @@
     <ClCompile Include="MathUtilityEX.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberSprite.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberPanel.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberSprite.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,10 +174,10 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberSprite.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
     </ClInclude>
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\NumberPanel.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\puzzle15</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
