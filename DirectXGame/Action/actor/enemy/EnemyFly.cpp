@@ -15,7 +15,7 @@ EnemyFly::EnemyFly() {
 	// プレイヤーとの高さを測る変数
 	//minDistanceY_ = 5.0f;
 	// プレイヤーとの距離を測る変数
-	distanceToPlayer_ = 3.0f;
+	distanceToPlayer_ = 20.0f;
 }
 
 EnemyFly::~EnemyFly() {}

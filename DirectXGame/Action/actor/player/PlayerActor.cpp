@@ -48,11 +48,10 @@ void PlayerActor::Update() {
 	move_ = Normalize(move_) * kSpeed_;
 
 	Matrix4x4 matRot = MakeRotateYMatrix(cameraRot_.y);
-	
+
 	move_ = TransformNormal(move_, matRot);
 
-	if (isDush_)
-	{
+	if (isDush_) {
 		move_ *= dushSpeed_;
 	}
 
@@ -67,27 +66,26 @@ void PlayerActor::Update() {
 	worldTransform_.UpdateMatrix();
 }
 
-void PlayerActor::Draw(Camera& camera) { 
+void PlayerActor::Draw(Camera& camera) { 	
 	model_->Draw(worldTransform_, camera); 
 }
 
-void PlayerActor::UpdateDirectionBasedOnMovement()
-{
+void PlayerActor::UpdateDirectionBasedOnMovement() {
 
-    // 移動入力がある場合に向きを変更
-    if (move_.x != 0.0f || move_.z != 0.0f) {
-        float angle = atan2(move_.x, move_.z);
-        worldTransform_.rotation_.y = angle;
-    }
+	// 移動入力がある場合に向きを変更
+	if (move_.x != 0.0f || move_.z != 0.0f) {
+		float angle = atan2(move_.x, move_.z);
+		worldTransform_.rotation_.y = angle;
+	}
 }
 
 void PlayerActor::DrawImGui() {
-	#ifdef  _DEBUG
+#ifdef _DEBUG
 	ImGui::Begin("player");
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x, 0.01f);
 	ImGui::DragFloat3("rot", &worldTransform_.rotation_.x, 0.01f);
 	ImGui::DragFloat3("move", &move_.x, 0.1f);
 	ImGui::DragFloat3("cameraRot", &cameraRot_.x, 0.1f);
 	ImGui::End();
-	#endif
+#endif
 }

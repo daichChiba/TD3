@@ -48,6 +48,9 @@ private:
 	Model* PlayerModel_;
 	Model* playerBulletModel_;
 
+	uint32_t scopeTtexture;
+	Sprite* playerScpoeSprite;
+
 	Model* longModel_;
 	Model* shortModel;
 	Model* flyModel;
@@ -55,7 +58,6 @@ private:
 	//////////////////////////////
 	// Enemy
 	Model* enemyModel_;
-	ActorManager* actorManager_;
 	/*std::shared_ptr<EnemyActor> Enemy_;*/
 	//std::list<std::shared_ptr<EnemyActor>> Enemy;
 	//EnemyManager* enemy_;
@@ -68,4 +70,6 @@ private:
 	WorldTransform skyDomeTrans;
 
 	ActorManager* actorManager;
+
+	Vector2 scopePos = {600.0f, 350.0f};
 };

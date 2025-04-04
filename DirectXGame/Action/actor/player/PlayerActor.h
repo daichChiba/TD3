@@ -74,6 +74,4 @@ protected:
 	bool isDush_ = false;
 	float dushSpeed_ = 0.0f;
 	static inline const float kDushForce = 20.0f;
-
-
 };

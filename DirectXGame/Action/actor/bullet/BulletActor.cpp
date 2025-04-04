@@ -29,7 +29,12 @@ void BulletActor::Update()
 	Move();
 
 	worldTransform_.translation_ += move_;
-	#ifdef  _DEBUG
+	
+	if (worldTransform_.translation_.y < -3.0f)
+	{
+		isDelete_= true;
+	}
+#ifdef  _DEBUG
 	ImGui::Begin("bullet");
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("move", &move_.x);

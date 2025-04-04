@@ -33,13 +33,16 @@ void GameScene::Initialize() {
 	actorManager->SetGeamScene(this);
 	actorManager->Initialize(PlayerModel_, playerBulletModel_, longModel_,shortModel,flyModel, cubeModel_);
 	
+
+	scopeTtexture = TextureManager::Load("scope.png");
+	playerScpoeSprite = Sprite::Create(scopeTtexture, {17, 17});
+
 }
 
 void GameScene::Update() {
 	actorManager->Update();
 
 	skyDomeTrans.UpdateMatrix();
-
 }
 
 void GameScene::Draw() {
@@ -85,6 +88,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	playerScpoeSprite->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
