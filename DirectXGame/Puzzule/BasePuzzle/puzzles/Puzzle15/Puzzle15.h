@@ -37,7 +37,12 @@ public:
 		PanelType date;
 		Sprite* sprite;
 	};
-
+	// 散らばっているピースの構造体
+	struct ScatteredPanel {
+		int number;
+		Sprite* sprite;
+		Vector2 pos;
+	};
 	// コンストラクタ
 	Puzzle15();
 	// デストラクタ
@@ -61,13 +66,15 @@ private:
 	// パネルデータの変更
 	void ChangePanelData();
 	// パネルデータの再生成
-	void ReCreateCsvData();
+	//void ReCreateCsvData();
 	// パネルデータの更新
 	void UpdatePanelData();
 	// クリアチェック
 	void CheckClear();
 
 private:
+
+	std::vector<ScatteredPanel> scatteredPieces_;
 	// 空白のスプライト
 	Sprite* blankSprite;
 	// パネルのサイズ

@@ -180,60 +180,25 @@ void Puzzle15::ChangePanelData() {
 }
 
 // CSVデータを再生成する関数（ランダムな初期配置を生成）
-void Puzzle15::ReCreateCsvData() {
-	// CSVデータのサイズを4x4に設定
-	csvData_.resize(4);
-	// 0から15までの乱数を生成
-	std::uniform_int_distribution<int> random(0, 15);
-
-	for (int y = 0; y < csvData_.size(); y++) {
-		for (int x = 0; x < csvData_[y].size(); x++) {
-			// 初期値を-1に設定
-			csvData_[y][x] = -1;
-		}
-	}
-	// パネルの配置データを初期化し0~15までの数字をランダムに配置
-	for (int y = 0; y < csvData_.size(); y++) {
-		for (int x = 0; x < csvData_[y].size(); x++) {
-			bool is = true; // フラグ初期化
-			while (is) {
-				is = false; // 一度falseに設定
-				// 乱数生成
-				csvData_[y][x] = random(randomSeed); // 乱数生成
-
-				// 同じ数字がある場合は再度乱数を生成
-				for (int i = 0; i < csvData_.size(); i++) {
-					for (int j = 0; j < csvData_[i].size(); j++) {
-						if (!(i == y && j == x)) {                  // 自分自身を除く
-							if (csvData_[i][j] == csvData_[y][x]) { // 同じ数字があるか確認
-								is = true;                          // 同じ数字があればtrueに戻す
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	// CSVファイルに書き込む
-	fileAccessor_->WriteCsvData("Puzzle15", "start", csvData_);
-
-	// AnswerDataを初期化
-	answerData_.resize(4);
-	int number = 1;
-	for (size_t y = 0; y < answerData_.size(); y++) {
-		answerData_[y].resize(4);
-		for (size_t x = 0; x < answerData_[y].size(); x++) {
-			if (number <= 15) {
-				answerData_[y][x] = number++;
-			} else {
-				answerData_[y][x] = 0; // 最後の要素は0
-			}
-		}
-	}
-	// CSVファイルに書き込む
-	fileAccessor_->WriteCsvData("Puzzle15", "answer", answerData_);
-	fileAccessor_->Save();
-}
+//void Puzzle15::ReCreateCsvData() {
+//
+//	// AnswerDataを初期化
+//	answerData_.resize(4);
+//	int number = 1;
+//	for (size_t y = 0; y < answerData_.size(); y++) {
+//		answerData_[y].resize(4);
+//		for (size_t x = 0; x < answerData_[y].size(); x++) {
+//			if (number <= 15) {
+//				answerData_[y][x] = number++;
+//			} else {
+//				answerData_[y][x] = 0; // 最後の要素は0
+//			}
+//		}
+//	}
+//	// CSVファイルに書き込む
+//	fileAccessor_->WriteCsvData("Puzzle15", "answer", answerData_);
+//	fileAccessor_->Save();
+//}
 
 // パネルデータの更新関数
 void Puzzle15::UpdatePanelData() {
