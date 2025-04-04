@@ -24,7 +24,7 @@ void CircuitPuzzle::Initialize() {
 	// 乱数生成器の初期化
 	std::uniform_int_distribution<int> random(1, 6);
 	// 乱数を生成
-	int randomNum = random(randomSeed);
+	int randomNum =  random(randomSeed);
 
 	// FileAccessorの初期化
 	fileAccessor_ = nullptr;
@@ -80,7 +80,12 @@ void CircuitPuzzle::Update() {
 					if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
 						if (mousePos.y >= spritePos.y - spriteSize.y / 2 && mousePos.y <= spritePos.y + spriteSize.y / 2) {
 							// 動かせないパネルの場合はスキップ
-							if (panelData_[y][x].date == PanelType::Blank || panelData_[y][x].date == PanelType::StartPanel || panelData_[y][x].date == PanelType::GoalPanel) {
+							if (panelData_[y][x].date == PanelType::StartPanel || panelData_[y][x].date == PanelType::GoalPanel || panelData_[y][x].date == PanelType::Blank ||
+							    panelData_[y][x].date == PanelType::LockTPanel || panelData_[y][x].date == PanelType::LockLPanel || panelData_[y][x].date == PanelType::LockInvertedL ||
+							    panelData_[y][x].date == PanelType::LockIPanel || panelData_[y][x].date == PanelType::LockUpReverseLPanel || panelData_[y][x].date == PanelType::LockUpInvertedLPanel ||
+							    panelData_[y][x].date == PanelType::LockUpReverseTPanel || panelData_[y][x].date == PanelType::LockPlusPanel ||
+							    panelData_[y][x].date == PanelType::LockLeftRotateTPanel || panelData_[y][x].date == PanelType::LockRiteRotateTPanel ||
+							    panelData_[y][x].date == PanelType::LockMinusPanel) {
 								continue;
 							}
 
@@ -195,7 +200,10 @@ void CircuitPuzzle::UpdatePanelData() {
 			Vector2 spriteSize = {panelSize_.x, panelSize_.y};
 			bool dropTargetIsFixed =
 			    (panelData_[y][x].date == PanelType::StartPanel || panelData_[y][x].date == PanelType::GoalPanel || panelData_[y][x].date == PanelType::Blank ||
-			     panelData_[y][x].date >= PanelType::LockTPanel); // LockTPanel以降は固定パネル
+			      panelData_[y][x].date == PanelType::LockTPanel || panelData_[y][x].date == PanelType::LockLPanel || panelData_[y][x].date == PanelType::LockInvertedL ||
+			      panelData_[y][x].date == PanelType::LockIPanel || panelData_[y][x].date == PanelType::LockUpReverseLPanel || panelData_[y][x].date == PanelType::LockUpInvertedLPanel ||
+			      panelData_[y][x].date == PanelType::LockUpReverseTPanel || panelData_[y][x].date == PanelType::LockPlusPanel || panelData_[y][x].date == PanelType::LockLeftRotateTPanel ||
+			      panelData_[y][x].date == PanelType::LockRiteRotateTPanel || panelData_[y][x].date == PanelType::LockMinusPanel);
 
 			// マウス座標がスプライトの範囲内にあるかチェック
 			if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
