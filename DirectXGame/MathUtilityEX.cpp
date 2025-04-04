@@ -16,5 +16,10 @@ Matrix4x4 MathUtility::MakeAffineMatrix(const Vector3& scale, const Vector3& rot
 	return ret;
 }
 
+float MathUtility::Distance(const Vector2& v1, const Vector2& v2) {
+	float dx = v1.x - v2.x;
+	float dy = v1.y - v2.y;
+	return sqrtf(dx * dx + dy * dy);
+}
 
 

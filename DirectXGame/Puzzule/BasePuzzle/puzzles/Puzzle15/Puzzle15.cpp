@@ -44,7 +44,7 @@ void Puzzle15::Initialize() {
 	blankSprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 
 	// CSVデータを再生成（初期配置をランダムに生成）
-	ReCreateCsvData();
+	//ReCreateCsvData();
 
 	// パネルデータの変更（CSVデータに基づいてパネル情報を設定）
 	ChangePanelData();

@@ -108,6 +108,8 @@ float Lerp(float a, float b, float t);
 
 Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rotate, const Vector3& translate);
 
+float Distance(const Vector2& v1, const Vector2& v2);
+
 } // namespace MathUtility
 
 } // namespace KamataEngine

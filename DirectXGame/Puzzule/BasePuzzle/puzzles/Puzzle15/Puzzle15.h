@@ -36,12 +36,16 @@ public:
 		// パネルの配置データ
 		PanelType date;
 		Sprite* sprite;
+		bool isPlaced;           // 正しい位置に配置されたか
+		Vector2 correctPosition; // 正しい位置
 	};
-	// 散らばっているピースの構造体
+
+	// バラバラに置くパネル用構造体
 	struct ScatteredPanel {
-		int number;
-		Sprite* sprite;
-		Vector2 pos;
+		int number;     // パネルの番号（1～15）
+		Sprite* sprite; // スプライト
+		Vector2 pos;    // 初期位置（外周）
+		bool isPlaced;  // 正しく配置されたか
 	};
 	// コンストラクタ
 	Puzzle15();
@@ -65,16 +69,21 @@ private:
 
 	// パネルデータの変更
 	void ChangePanelData();
-	// パネルデータの再生成
-	//void ReCreateCsvData();
-	// パネルデータの更新
-	void UpdatePanelData();
+
+	// ランダムにバラバラパネル生成
+	void CreateScatteredPieces();
+	// 外周のランダム座標
+	Vector2 GetRandomScatterPos();
+	// ドロップ時の判定
+	void TryPlacePiece(ScatteredPanel& piece, const Vector2& dropPos);
+
 	// クリアチェック
 	void CheckClear();
 
 private:
-
 	std::vector<ScatteredPanel> scatteredPieces_;
+	ScatteredPanel* draggingPiece_ = nullptr;
+	Vector2 dragOffset_; // ドラッグ時の位置補正
 	// 空白のスプライト
 	Sprite* blankSprite;
 	// パネルのサイズ
@@ -100,6 +109,11 @@ private:
 	// 数字スプライト
 	// std::vector<NumberSprite> numberSprite;
 
+	// 正しい位置がわかりやすくするためのテクスチャ
+	uint32_t correctPositionTexture_;
+	// 正しい位置がわかりやすくするためのスプライト
+	Sprite* correctPositionSprite;
+
 	uint32_t flameTexture_;
 	Sprite* flameSprite;
 
@@ -110,4 +124,6 @@ private:
 
 	// 乱数シード
 	std::mt19937 randomSeed;
+
+	float scatterRadius_ = 500.0f; // パネルを配置する外周の半径
 };
