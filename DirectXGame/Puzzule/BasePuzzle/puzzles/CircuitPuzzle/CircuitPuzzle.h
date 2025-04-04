@@ -90,6 +90,9 @@ private:
 	std::vector<uint32_t> panelTextures_;
 	// パネルのスプライト
 
+	//パネルを中心に移動させるVector2
+	Vector2 centor_;
+
 	// パネルサイズ
 	Vector3 panelSize_;
 	// クリアフラグ

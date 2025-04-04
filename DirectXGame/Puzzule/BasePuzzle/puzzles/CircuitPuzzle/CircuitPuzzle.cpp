@@ -45,6 +45,7 @@ void CircuitPuzzle::Initialize() {
 	for (int i = 1; i <= 24; i++) {
 		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/circuitPuzzle_" + std::to_string(i) + ".png"));
 	}
+	centor_ = {500.0f, 200.0f};
 
 	ChangePanelData();
 
@@ -61,7 +62,7 @@ void CircuitPuzzle::Update() {
 			// パネルが空白でない場合
 			if (panelData_[y][x].date != PanelType::Blank) {
 				// パネルの座標を更新
-				panelData_[y][x].sprite->SetPosition({static_cast<float>(x * panelSize_.x + panelSize_.x * 0.5f), static_cast<float>(y * panelSize_.y + panelSize_.y * 0.5f)});
+				panelData_[y][x].sprite->SetPosition({static_cast<float>(x * panelSize_.x + panelSize_.x * 0.5f+centor_.x), static_cast<float>(y * panelSize_.y + panelSize_.y * 0.5f+centor_.y)});
 			}
 		}
 	}
@@ -169,14 +170,14 @@ void CircuitPuzzle::ChangePanelData() {
 				panelData_[i][j].date = PanelType::Blank;
 				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f};
+				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f+centor_.x, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f+centor_.y};
 				sprite->SetPosition(position);
 				panelData_[i][j].sprite = sprite;
 			} else {
 				panelData_[i][j].date = static_cast<PanelType>(csvData_[i][j]);
 				Sprite* sprite = Sprite::Create(panelTextures_[csvData_[i][j] - 1], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f};
+				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f+centor_.x, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f+centor_.y};
 				sprite->SetPosition(position);
 				panelData_[i][j].sprite = sprite;
 			}
