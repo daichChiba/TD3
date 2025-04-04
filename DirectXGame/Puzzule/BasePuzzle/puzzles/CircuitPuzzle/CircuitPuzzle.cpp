@@ -17,6 +17,15 @@ CircuitPuzzle::~CircuitPuzzle() {
 
 // 初期化
 void CircuitPuzzle::Initialize() {
+	// random_deviceを使用してシードを生成
+	std::random_device rd;
+	// 乱数生成器を初期化
+	randomSeed.seed(rd());
+	// 乱数生成器の初期化
+	std::uniform_int_distribution<int> random(1, 6);
+	// 乱数を生成
+	int randomNum = random(randomSeed);
+
 	// FileAccessorの初期化
 	fileAccessor_ = nullptr;
 	// JSONファイル名を指定してFileAccessorを初期化 (相対パスを使用)
@@ -29,11 +38,11 @@ void CircuitPuzzle::Initialize() {
 	isClear_ = fileAccessor_->Read("Circuit", "isClear", bool());
 	time_ = fileAccessor_->Read("Circuit", "time", int());
 	// JSONからCSVデータを読み込む
-	csvData_ = fileAccessor_->ReadCsvData("Circuit", "start");
-	answerData_ = fileAccessor_->ReadCsvData("Circuit", "answer");
+	csvData_ = fileAccessor_->ReadCsvData("Circuit", "stage_" + std::to_string(randomNum));
+	answerData_ = fileAccessor_->ReadCsvData("Circuit", "answer_" + std::to_string(randomNum));
 	// パネルのテクスチャを読み込む
 	panelTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/panel.png");
-	for (int i = 1; i <= 13; i++) {
+	for (int i = 1; i <= 24; i++) {
 		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/circuitPuzzle_" + std::to_string(i) + ".png"));
 	}
 
@@ -70,9 +79,7 @@ void CircuitPuzzle::Update() {
 					if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
 						if (mousePos.y >= spritePos.y - spriteSize.y / 2 && mousePos.y <= spritePos.y + spriteSize.y / 2) {
 							// 動かせないパネルの場合はスキップ
-							if (panelData_[y][x].date == PanelType::Blank ||
-								panelData_[y][x].date == PanelType::StartPanel ||
-								panelData_[y][x].date == PanelType::GoalPanel) {
+							if (panelData_[y][x].date == PanelType::Blank || panelData_[y][x].date == PanelType::StartPanel || panelData_[y][x].date == PanelType::GoalPanel) {
 								continue;
 							}
 
@@ -106,9 +113,9 @@ void CircuitPuzzle::SpriteDraw() {
 	// CSVデータに基づいて画像を描画
 	for (size_t y = 0; y < panelData_.size(); y++) {
 		for (size_t x = 0; x < panelData_[y].size(); x++) {
-			//if (panelData_[y][x].date != PanelType::Blank) {
-				// スプライト描画
-				panelData_[y][x].sprite->Draw();
+			// if (panelData_[y][x].date != PanelType::Blank) {
+			//  スプライト描画
+			panelData_[y][x].sprite->Draw();
 			//}
 		}
 	}
@@ -174,7 +181,6 @@ void CircuitPuzzle::ChangePanelData() {
 				panelData_[i][j].sprite = sprite;
 			}
 #pragma endregion
-
 		}
 	}
 }
@@ -186,8 +192,9 @@ void CircuitPuzzle::UpdatePanelData() {
 			Vector2 spritePos = panelData_[y][x].sprite->GetPosition();
 			// スプライトのサイズを取得
 			Vector2 spriteSize = {panelSize_.x, panelSize_.y};
-			bool dropTargetIsFixed = (panelData_[y][x].date == PanelType::StartPanel || panelData_[y][x].date == PanelType::GoalPanel || panelData_[y][x].date == PanelType::Blank);
-
+			bool dropTargetIsFixed =
+			    (panelData_[y][x].date == PanelType::StartPanel || panelData_[y][x].date == PanelType::GoalPanel || panelData_[y][x].date == PanelType::Blank ||
+			     panelData_[y][x].date >= PanelType::LockTPanel); // LockTPanel以降は固定パネル
 
 			// マウス座標がスプライトの範囲内にあるかチェック
 			if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
