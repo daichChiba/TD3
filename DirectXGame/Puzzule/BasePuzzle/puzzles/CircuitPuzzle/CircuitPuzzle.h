@@ -67,6 +67,8 @@ private:
 	// Json読み書き用のファイルアクセサ
 	FileJson::FileAccessor* fileAccessor_;
 
+
+
 	// クリックされたパネルのインデックスを保持する変数
 	int selectedSpriteIndex = -1;
 	// パネルのテクスチャ
