@@ -23,11 +23,6 @@ private:
 	/// </summary>
 	void Attack() override;
 
-	/// <summary>
-	/// プレイヤーに接近する
-	/// </summary>
-	void ApproachPlayer() override;
-
 	int enemy_hp_ = 10;
 
 };

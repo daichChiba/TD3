@@ -23,6 +23,10 @@ void PlayerActor::Update() {
 
 	XInputGetState(0, &xinput_);
 
+	if (invincibleTimer > 0.0f) {
+		invincibleTimer -= flameTime_;
+	}
+
 	// 左スティックのX, Y値を取得
 	lx = xinput_.Gamepad.sThumbLX / 32767.0f; // 正規化（-1.0 ～ 1.0）
 	ly = xinput_.Gamepad.sThumbLY / 32767.0f;
@@ -66,8 +70,17 @@ void PlayerActor::Update() {
 	worldTransform_.UpdateMatrix();
 }
 
-void PlayerActor::Draw(Camera& camera) { 	
-	model_->Draw(worldTransform_, camera); 
+void PlayerActor::Draw(Camera& camera) {
+	if (static_cast<int>(std::abs(invincibleTimer) * 10) % 2 == 0)
+		model_->Draw(worldTransform_, camera);
+}
+
+void PlayerActor::HpDraw() { 
+	for (int i = 0; i < hp; i++)
+	{
+		heratSprite[i]->SetPosition({static_cast<float>(i) * 40.0f, 40.0f});
+		heratSprite[i]->Draw();
+	}
 }
 
 void PlayerActor::UpdateDirectionBasedOnMovement() {
@@ -88,4 +101,13 @@ void PlayerActor::DrawImGui() {
 	ImGui::DragFloat3("cameraRot", &cameraRot_.x, 0.1f);
 	ImGui::End();
 #endif
+}
+
+void PlayerActor::SetHeartResources(uint32_t resources) {
+
+	heratResources_ = resources;
+	for (int i = 0; i < MaxHp; i++)
+	{
+		heratSprite[i] = Sprite::Create(heratResources_, {64, 64});
+	}
 }

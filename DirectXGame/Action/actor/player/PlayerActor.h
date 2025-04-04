@@ -25,6 +25,7 @@ public:
 	/// </summary>
 	/// <param name="camera">カメラ</param>
 	void Draw(Camera& camera);
+	void HpDraw();
 
 	void UpdateDirectionBasedOnMovement();
 
@@ -33,7 +34,16 @@ public:
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
 	float GetRadius() { return radius_; }
-	void OnCollision(){ return;}
+	void OnCollision(){ 
+		hp --;
+		invincibleTimer = invincibleTime;
+	}
+
+	float GetInvincibleTimer () const {return invincibleTimer; }
+
+	int GetHp () const { return hp; }
+
+	void SetHeartResources(uint32_t resources);
 
 	void SetCameraRot(Vector3 cameraRot) { cameraRot_ = cameraRot; }
 
@@ -45,11 +55,19 @@ protected:
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
 
+	static inline const int MaxHp = 10;
+
+	uint32_t heratResources_;
+	Sprite* heratSprite[10];
+
 	Vector3 cameraRot_;
 
 	float radius_ = 1.0f;
 
+	int hp = 10;
 
+	static inline const float invincibleTime = 1.0f;
+	float invincibleTimer = 1.0f;
 
 	ActorManager* actorManager_;
 

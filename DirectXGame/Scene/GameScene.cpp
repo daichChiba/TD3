@@ -39,6 +39,10 @@ void GameScene::Initialize() {
 	scopeTtexture = TextureManager::Load("scope.png");
 	playerScpoeSprite = Sprite::Create(scopeTtexture, {17, 17});
 	playerScpoeSprite->SetPosition(scopePos);
+
+	heartSperite_ = TextureManager::Load("heart.png");
+	actorManager->GetPlayer()->SetHeartResources(heartSperite_);
+
 }
 
 void GameScene::Update() {
@@ -102,6 +106,8 @@ void GameScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 	playerScpoeSprite->Draw();
+	actorManager->GetPlayer()->HpDraw();
+	
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

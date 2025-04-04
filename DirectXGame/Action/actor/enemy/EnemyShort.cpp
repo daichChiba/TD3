@@ -17,29 +17,3 @@ void EnemyShort::Move() {
 }
 
 void EnemyShort::Attack() {}
-
-void EnemyShort::ApproachPlayer() {
-	if (PlayerWorldTransform_ == nullptr) {
-		return;
-	}
-
-	// プレイヤーの位置を取得
-	Vector3 playerPos = PlayerWorldTransform_->translation_;
-
-	// 敵の位置を取得
-	Vector3 enemyPos = worldTransform_.translation_;
-
-	// プレイヤーに向かうベクトルを計算
-	direction = playerPos - enemyPos;
-	float distance = Length(direction);
-
-	  // プレイヤーに近づく処理
-	if (distance > distanceToPlayer_) {
-		direction = Normalize(direction);
-		move_ = direction * kSpeed_;
-
-		
-	} else {
-		move_ = Vector3{0.0f, 0.0f, 0.0f};
-	}
-}

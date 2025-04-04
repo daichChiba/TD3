@@ -54,6 +54,8 @@ private:
 	Model* PlayerModel_;
 	Model* playerBulletModel_;
 
+	uint32_t heartSperite_;
+
 	uint32_t scopeTtexture;
 	Sprite* playerScpoeSprite;
 
@@ -79,7 +81,7 @@ private:
 	ActorManager* actorManager;
 
 	Vector2 scopePos = {600.0f, 350.0f};
-
+	
 	bool isStop = false;
 	bool isEnd = false;
 	bool isClear = false;

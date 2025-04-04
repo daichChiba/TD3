@@ -77,17 +77,17 @@ void EnemyActor::ApproachPlayer() {
 	float distance = Length(direction);
 
     // プレイヤーの真上に到達したら動きを止める
-    if (fabs(playerPos.y - enemyPos.y) < kMinDistanceY_ && distance < kMinDistanceX_) {
+    if (fabs(playerPos.y - enemyPos.y) < kMinDistanceY_) {
         move_ = Vector3{0.0f, 0.0f, 0.0f};
         return;
     }
 
 	 // プレイヤーが一定距離以上離れたら再び動き出す
-	if (distance >= 3.0f) {
+	if (distance >= distanceToPlayer_) {
 		direction = Normalize(direction);
 		move_ = direction * kSpeed_;
 	} else {
-		move_ = Vector3{0.0f, 0.0f, 0.0f};
+		move_ = Vector3Zero();
 	}
 
     direction = Normalize(direction);
