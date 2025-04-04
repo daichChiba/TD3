@@ -37,7 +37,16 @@ public:
 	/// </summary>
 	void Draw();
 
-	
+		// デスフラグのgetter
+	bool ClearFinished() const { return ClearFinished_; }
+	bool DeadFinished() const { return DeadFinished_; }
+
+
+	// 終了フラグ
+	bool ClearFinished_ = false;
+	bool DeadFinished_ = false;
+
+
 private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;

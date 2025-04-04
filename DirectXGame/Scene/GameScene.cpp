@@ -40,6 +40,13 @@ void GameScene::Update() {
 
 	skyDomeTrans.UpdateMatrix();
 
+	if (Input::GetInstance()->ReleseKey(DIK_1)) {
+		ClearFinished_ = true;
+	}
+	if (Input::GetInstance()->ReleseKey(DIK_2)) {
+		DeadFinished_ = true;
+	}
+
 }
 
 void GameScene::Draw() {
