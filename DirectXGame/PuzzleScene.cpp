@@ -1,6 +1,8 @@
 #include "PuzzleScene.h"
 
-void PuzzleScene::Initialize() {}
+void PuzzleScene::Initialize() {
+
+}
 
 void PuzzleScene::Update() {
 	if (Input::GetInstance()->ReleseKey(DIK_RETURN)) {
