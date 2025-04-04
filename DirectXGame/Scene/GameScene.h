@@ -37,7 +37,13 @@ public:
 	/// </summary>
 	void Draw();
 
-	
+	// デスフラグのgetter
+	bool IsStop() const { return isStop; }
+	void SetIsStop() { isStop = !isStop; }
+	bool IsFinished() const { return isEnd; }
+	bool IsClear() const { return isClear; }
+
+
 private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -58,6 +64,7 @@ private:
 	//////////////////////////////
 	// Enemy
 	Model* enemyModel_;
+	Model* enemyBullet_;
 	/*std::shared_ptr<EnemyActor> Enemy_;*/
 	//std::list<std::shared_ptr<EnemyActor>> Enemy;
 	//EnemyManager* enemy_;
@@ -72,4 +79,8 @@ private:
 	ActorManager* actorManager;
 
 	Vector2 scopePos = {600.0f, 350.0f};
+
+	bool isStop = false;
+	bool isEnd = false;
+	bool isClear = false;
 };

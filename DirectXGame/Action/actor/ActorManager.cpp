@@ -52,7 +52,7 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 }
 
 void ActorManager::Update() {
-	//enemyManager_->RandomCreate();
+	enemyManager_->RandomCreate();
 
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();

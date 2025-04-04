@@ -16,6 +16,7 @@ EnemyFly::EnemyFly() {
 	//minDistanceY_ = 5.0f;
 	// プレイヤーとの距離を測る変数
 	distanceToPlayer_ = 20.0f;
+	kMinDistanceX_ = 8.0f;
 }
 
 EnemyFly::~EnemyFly() {}
@@ -24,13 +25,13 @@ EnemyFly::~EnemyFly() {}
 void EnemyFly::Move() { 
 	ApproachPlayer();
 
-	ImGui::Begin("enemyFly");
+	/*ImGui::Begin("enemyFly");
 	ImGui::Text("enemyFly");
 	ImGui::DragFloat3("pos", &worldTransform_.translation_.x);
 	ImGui::DragFloat3("rot", &worldTransform_.rotation_.x, 0.01f);
 	ImGui::DragFloat3("move", &move_.x);
 	ImGui::DragFloat("attackTimer", &attackTiemr);
-	ImGui::End();
+	ImGui::End();*/
 }
 
 void EnemyFly::Attack() {

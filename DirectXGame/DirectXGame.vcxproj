@@ -123,9 +123,14 @@
     <ClCompile Include="Action\actor\player\PlayerMain.cpp" />
     <ClCompile Include="Action\actor\player\PlayerManager.cpp" />
     <ClCompile Include="Action\FolloCamera.cpp" />
+    <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="DeadScene.cpp" />
+    <ClCompile Include="InputEX.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtilityEX.cpp" />
+    <ClCompile Include="PuzzleScene.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="worldTransfromEX.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +226,11 @@
     <ClInclude Include="Action\actor\player\PlayerMain.h" />
     <ClInclude Include="Action\actor\player\PlayerManager.h" />
     <ClInclude Include="Action\FolloCamera.h" />
+    <ClInclude Include="ClearScene.h" />
+    <ClInclude Include="DeadScene.h" />
+    <ClInclude Include="PuzzleScene.h" />
     <ClInclude Include="Scene\GameScene.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,26 +23,39 @@ void GameScene::Initialize() {
 	skyDomeTrans.Initialize();
 
 	PlayerModel_ = Model::CreateFromOBJ("Remu");
-	playerBulletModel_ = Model::CreateFromOBJ("cube");
+	playerBulletModel_ = Model::CreateFromOBJ("playerBullet");
 
 	longModel_ = Model::CreateFromOBJ("Alien");
 	shortModel = Model::CreateFromOBJ("pork");
 	flyModel = Model::CreateFromOBJ("Fairy");
 
+	enemyBullet_ = Model::CreateFromOBJ("enemyBullet");
+
 	actorManager = new ActorManager();
 	actorManager->SetGeamScene(this);
-	actorManager->Initialize(PlayerModel_, playerBulletModel_, longModel_,shortModel,flyModel, cubeModel_);
+	actorManager->Initialize(PlayerModel_, playerBulletModel_, longModel_,shortModel,flyModel, enemyBullet_);
 	
 
 	scopeTtexture = TextureManager::Load("scope.png");
 	playerScpoeSprite = Sprite::Create(scopeTtexture, {17, 17});
-
+	playerScpoeSprite->SetPosition(scopePos);
 }
 
 void GameScene::Update() {
 	actorManager->Update();
 
 	skyDomeTrans.UpdateMatrix();
+
+	if (Input::GetInstance()->ReleseKey(DIK_3)) {
+		isStop = true;
+	}
+	if (Input::GetInstance()->ReleseKey(DIK_1)) {
+		isEnd = true;
+	}
+	if (Input::GetInstance()->ReleseKey(DIK_2)) {
+		isEnd = true;
+	}
+
 }
 
 void GameScene::Draw() {
