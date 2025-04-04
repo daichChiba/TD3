@@ -18,7 +18,11 @@ enum class PanelType {
 	UpReverseLPanel,  // 「型パネル6
 	UpInvertedLPanel, // 」型パネル7
 	UpReverseTPanel,  // 逆T型パネル8
-	GoalPanel         // Goalパネル9
+	GoalPanel,         // Goalパネル9
+	LeftRotateTPanel, // 左回転T型パネル10
+	RiteRotateTPanel, // 右回転T型パネル11
+	MinusPanel,       // -型パネル12
+	PlusPanel,        // +型パネル13
 };
 
 // パネルのデータを保持する構造体

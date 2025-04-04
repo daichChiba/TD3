@@ -33,7 +33,7 @@ void CircuitPuzzle::Initialize() {
 	answerData_ = fileAccessor_->ReadCsvData("Circuit", "answer");
 	// パネルのテクスチャを読み込む
 	panelTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/panel.png");
-	for (int i = 1; i <= 9; i++) {
+	for (int i = 1; i <= 13; i++) {
 		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/circuitPuzzle_" + std::to_string(i) + ".png"));
 	}
 
