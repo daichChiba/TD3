@@ -6,9 +6,9 @@ bool Input::ReleseKey(BYTE keyNumber) const {
 	}
 	return false;
 }
-//bool Input::IsReleseMouse(int32_t mouseNumber) const {
-//	if (!Input::mouse_.rgbButtons[mouseNumber] && Input::mousePre_.rgbButtons[mouseNumber]) {
-//		return true;
-//	}
-//	return false;
-//}
+bool Input::IsReleseMouse(int32_t mouseNumber) const {
+	if (!Input::mouse_.rgbButtons[mouseNumber] && Input::mousePre_.rgbButtons[mouseNumber]) {
+		return true;
+	}
+	return false;
+}
