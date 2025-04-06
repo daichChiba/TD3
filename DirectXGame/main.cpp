@@ -1,10 +1,10 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 #include"Scene/GameScene.h"
-#include "TitleScene.h"
-#include"PuzzleScene.h"
-#include"ClearScene.h"
-#include"DeadScene.h"
+#include "Scene/TitleScene.h"
+#include"Scene/PuzzleScene.h"
+#include"Scene/ClearScene.h"
+#include"Scene/DeadScene.h"
 
 // シーン（型）
 enum class Scene {

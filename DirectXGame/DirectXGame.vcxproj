@@ -123,14 +123,20 @@
     <ClCompile Include="Action\actor\player\PlayerMain.cpp" />
     <ClCompile Include="Action\actor\player\PlayerManager.cpp" />
     <ClCompile Include="Action\FolloCamera.cpp" />
-    <ClCompile Include="ClearScene.cpp" />
-    <ClCompile Include="DeadScene.cpp" />
+    <ClCompile Include="Scene\ClearScene.cpp" />
+    <ClCompile Include="Scene\DeadScene.cpp" />
     <ClCompile Include="InputEX.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtilityEX.cpp" />
-    <ClCompile Include="PuzzleScene.cpp" />
+    <ClCompile Include="Scene\PuzzleScene.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp" />
+    <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
+    <ClCompile Include="Puzzule\PuzzleManager.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="worldTransfromEX.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -226,11 +232,17 @@
     <ClInclude Include="Action\actor\player\PlayerMain.h" />
     <ClInclude Include="Action\actor\player\PlayerManager.h" />
     <ClInclude Include="Action\FolloCamera.h" />
-    <ClInclude Include="ClearScene.h" />
-    <ClInclude Include="DeadScene.h" />
-    <ClInclude Include="PuzzleScene.h" />
+    <ClInclude Include="Scene\ClearScene.h" />
+    <ClInclude Include="Scene\DeadScene.h" />
+    <ClInclude Include="Scene\PuzzleScene.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h" />
+    <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h" />
+    <ClInclude Include="Puzzule\PuzzleManager.h" />
     <ClInclude Include="Scene\GameScene.h" />
-    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

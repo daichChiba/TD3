@@ -101,6 +101,13 @@ public: // メンバ関数
 	bool IsTriggerMouse(int32_t buttonNumber) const;
 
 	/// <summary>
+	/// マウスの解放をチェック
+	/// </summary>
+	/// <param name="mouseNumber">マウスボタン番号(0:左,1:右,2:中,3~7:拡張マウスボタン)</param>
+	/// <returns>解放されているか</returns>
+	bool IsReleseMouse(int32_t mouseNumber) const;
+
+	/// <summary>
 	/// マウス移動量を取得
 	/// </summary>
 	/// <returns>マウス移動量</returns>
