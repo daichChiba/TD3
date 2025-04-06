@@ -17,4 +17,10 @@ public:
 
 private:
 	void DrawImGui();
+	DirectXCommon* dxCommon_ = nullptr;
+	Input* input_ = nullptr;
+	Audio* audio_ = nullptr;
+
+	uint32_t titleTexture_ = 0;
+	Sprite* titleSprite_ = nullptr;
 };
