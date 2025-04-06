@@ -95,8 +95,7 @@ private:
 
 	// パネルサイズ
 	Vector3 panelSize_;
-	// クリアフラグ
-	bool isClear_;
+
 	// 時間
 	int time_;
 	// ホールドしているか

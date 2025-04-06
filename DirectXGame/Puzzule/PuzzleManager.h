@@ -42,6 +42,8 @@ public:
 	/// </summary>
 	void EndPuzzle();
 
+	bool GetIsClear();
+
 private:
 
 	GameScene* gameScene_ ;

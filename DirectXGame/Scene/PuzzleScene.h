@@ -1,7 +1,7 @@
 #pragma once
 #include "KamataEngine.h"
 using namespace KamataEngine;
-
+#include "../Puzzule/PuzzleManager.h"
 
 class PuzzleScene {
 public:
@@ -17,4 +17,10 @@ public:
 
 private:
 	void DrawImGui();
+	// パズルマネージャー
+	PuzzleManager* puzzleManager_ = nullptr;
+
+	DirectXCommon* dxCommon_ = nullptr;
+	Input* input_ = nullptr;
+	Audio* audio_ = nullptr;
 };

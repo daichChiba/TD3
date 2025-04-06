@@ -32,6 +32,7 @@ public:
 	/// </summary>
 	virtual void SpriteDraw();
 
+	bool GetIsClear() { return isClear_; }
 
 protected:
 	//難易度
@@ -40,6 +41,7 @@ protected:
 
 	Input* input_;
 
+	bool isClear_;
 
 	/// <summary>
 	/// ImGuiの描画

@@ -36,8 +36,9 @@ void PuzzleManager::StartPuzzle() {
 }
 
 void PuzzleManager::EndPuzzle() {
-	puzzle_.reset();
-}
+	puzzle_.reset(); }
+
+bool PuzzleManager::GetIsClear() {return puzzle_->GetIsClear(); }
 
 void PuzzleManager::DrawImGui() {
 #ifdef _DEBUG
