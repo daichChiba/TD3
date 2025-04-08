@@ -2,7 +2,6 @@
 #include "KamataEngine.h"
 using namespace KamataEngine;
 
-
 class ClearScene {
 public:
 	void Initialize();
@@ -17,4 +16,8 @@ public:
 
 private:
 	void DrawImGui();
+
+	DirectXCommon* dxCommon_ = nullptr;
+	Input* input_ = nullptr;
+	Audio* audio_ = nullptr;
 };
