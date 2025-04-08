@@ -151,13 +151,13 @@ void ChangeScene() {
 	case Scene::kTitle:
 		if (titleScene->IsFinished()) {
 			// シーン変更
-			scene = Scene::kPuzzle;
+			scene = Scene::kGame;
 			// 旧シーンの開放
 			delete titleScene;
 			titleScene = nullptr;
 			// 新シーンの生成と初期化
-			puzzleScene = new PuzzleScene;
-			puzzleScene->Initialize();
+			gameScene = new GameScene;
+			gameScene->Initialize();
 		}
 		break;
 	case Scene::kPuzzle:
@@ -176,6 +176,7 @@ void ChangeScene() {
 			if (gameScene->IsStop())
 			{
 				gameScene->SetIsStop();
+				gameScene->puzzleClear = true;
 			}
 		} //else if (mobScene->HP <= 0) {
 		//	// シーン変更

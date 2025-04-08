@@ -54,11 +54,6 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 }
 
 void ActorManager::Update() {
-	if (gameScene_->isStop == true)
-	{
-		puzzleClear = true;
-	}
-
 	enemyManager_->RandomCreate();
 
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
@@ -140,11 +135,11 @@ void ActorManager::CheckStartPuzule()
 		}
 	}
 
-	if (enemyDeadConnt >= startPazleCount && puzzleClear == false)
+	if (enemyDeadConnt >= startPazleCount && (gameScene_->puzzleClear) == false)
 	{
 		gameScene_->isStop = true;
 	}
-	if (enemyDeadConnt <= startPazleCount&& puzzleClear == true)
+	if (enemyDeadConnt >= clearEnemyCount && gameScene_->puzzleClear == true)
 	{
 		gameScene_->isClear = true;
 		gameScene_->isEnd = true;

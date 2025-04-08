@@ -1,6 +1,10 @@
 #include "ClearScene.h"
 
-void ClearScene::Initialize() {}
+void ClearScene::Initialize() {
+	dxCommon_ = DirectXCommon::GetInstance();
+	input_ = Input::GetInstance();
+	audio_ = Audio::GetInstance();
+}
 
 void ClearScene::Update() {
 	if (Input::GetInstance()->ReleseKey(DIK_RETURN)) {

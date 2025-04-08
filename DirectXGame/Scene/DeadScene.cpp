@@ -1,6 +1,10 @@
 #include "DeadScene.h"
 
-void DeadScene::Initialize() {}
+void DeadScene::Initialize() {
+	dxCommon_ = DirectXCommon::GetInstance();
+	input_ = Input::GetInstance();
+	audio_ = Audio::GetInstance();
+}
 
 void DeadScene::Update() {
 	if (Input::GetInstance()->ReleseKey(DIK_RETURN)) {

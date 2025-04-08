@@ -45,8 +45,6 @@ private:
 
 	int enemyDeadConnt = 0;
 
-	bool puzzleClear = 0;
-
 	static inline const int startPazleCount = 1;
 	static inline const int clearEnemyCount = 2;
 };

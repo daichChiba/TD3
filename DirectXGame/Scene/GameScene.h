@@ -37,6 +37,8 @@ public:
 	/// </summary>
 	void Draw();
 
+	bool puzzleClear = false;
+
 	bool isStop = false;
 	bool isEnd = false;
 	bool isClear = false;
