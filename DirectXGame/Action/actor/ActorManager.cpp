@@ -78,10 +78,12 @@ void ActorManager::Update() {
 
 	CheckStartPuzule();
 
-	ImGui::Begin("gamescene");
-	ImGui::Text("enemyDeadConnt : %d",enemyDeadConnt);
-	ImGui::End();
+#ifdef _DEBUG
 
+	ImGui::Begin("gamescene");
+	ImGui::Text("enemyDeadConnt : %d", enemyDeadConnt);
+	ImGui::End();
+#endif // _DEBUG
 }
 
 void ActorManager::Draw() {
@@ -127,22 +129,18 @@ void ActorManager::CheckAllCollisions() {
 #pragma endregion
 }
 
-void ActorManager::CheckStartPuzule()
-{
+void ActorManager::CheckStartPuzule() {
 	for (const auto& enemy : enemyManager_->GetEnemy()) {
 		if (enemy->IsDelete()) {
 			enemyDeadConnt++;
 		}
 	}
 
-	if (enemyDeadConnt >= startPazleCount && (gameScene_->puzzleClear) == false)
-	{
+	if (enemyDeadConnt >= startPazleCount && (gameScene_->puzzleClear) == false) {
 		gameScene_->isStop = true;
 	}
-	if (enemyDeadConnt >= clearEnemyCount && gameScene_->puzzleClear == true)
-	{
+	if (enemyDeadConnt >= clearEnemyCount && gameScene_->puzzleClear == true) {
 		gameScene_->isClear = true;
 		gameScene_->isEnd = true;
-		
 	}
 }
