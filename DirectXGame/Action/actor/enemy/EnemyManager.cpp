@@ -32,7 +32,10 @@ void EnemyManager::Initialize(Model* longModel, Model* shortModel, Model* flyMod
 void EnemyManager::Update() {
 	for (const auto& enemy : Manager_) {
 		enemy->Update();
+
 	}
+
+
 	Manager_.remove_if([](std::shared_ptr<EnemyActor> a) { return a->IsDelete(); });
 }
 

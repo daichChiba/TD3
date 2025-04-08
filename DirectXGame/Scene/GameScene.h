@@ -40,6 +40,9 @@ public:
 		// デスフラグのgetter
 	bool ClearFinished() const { return ClearFinished_; }
 	bool DeadFinished() const { return DeadFinished_; }
+	
+	void SetClearFinished() { ClearFinished_ = !ClearFinished_; }
+	void SetDeadFinished()  { DeadFinished_= !DeadFinished_; }
 
 
 	// 終了フラグ

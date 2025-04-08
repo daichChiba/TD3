@@ -3,6 +3,8 @@
 #include "../FolloCamera.h"
 
 #include "../../Scene/GameScene.h"
+#include "enemy/EnemyManager.h"
+#include "enemy/enemyActor.h"
 #include "player/PlayerManager.h"
 
 using namespace MathUtility;
@@ -37,34 +39,32 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 
-
-    enemyManager_ = new EnemyManager();
+	enemyManager_ = new EnemyManager();
 	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
 
-	//enemyManager_->CreateEnemyShort();
+	// enemyManager_->CreateEnemyShort();
 
-	enemyManager_->CreateEnemyFly();
+	// enemyManager_->CreateEnemyFly();
 
-	//enemyManager_->CreateEnemyLong();
-	
+	// enemyManager_->CreateEnemyLong();
 
-    followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
+	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
+
+	enemyDeadConnt = 0;
 }
 
 void ActorManager::Update() {
-	//enemyManager_->RandomCreate();
+	enemyManager_->RandomCreate();
 
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
 
-    enemyManager_->Update();
+	enemyManager_->Update();
 
-	for (std::shared_ptr<BulletActor> bullet : attack_)
-	{
+	for (std::shared_ptr<BulletActor> bullet : attack_) {
 		bullet->Update();
 	}
 	attack_.remove_if([](std::shared_ptr<BulletActor> a) { return a->IsDelete(); });
-
 
 	followCamera_->Update();
 	followCamera_->DrawImgui();
@@ -75,6 +75,9 @@ void ActorManager::Update() {
 	camera_->TransferMatrix();
 
 	CheckAllCollisions();
+
+	CheckStartPuzule();
+
 }
 
 void ActorManager::Draw() {
@@ -98,7 +101,7 @@ void ActorManager::CheckAllCollisions() {
 			float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
 
 			if (distance < (bullet->GetRadius() + playerManager_->GetPlayer()->GetRadius())) {
-				
+
 				bullet->OnCollision();
 				playerManager_->GetPlayer()->OnCollision();
 			}
@@ -109,7 +112,7 @@ void ActorManager::CheckAllCollisions() {
 				float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
 
 				if (distance < (bullet->GetRadius() + enemy->GetRadius())) {
-					
+
 					bullet->OnCollision();
 					enemy->OnCollision(bullet->GetDamage());
 				}
@@ -118,4 +121,18 @@ void ActorManager::CheckAllCollisions() {
 	}
 
 #pragma endregion
+}
+
+void ActorManager::CheckStartPuzule()
+{
+	for (const auto& enemy : enemyManager_->GetEnemy()) {
+		if (enemy->IsDelete()) {
+			enemyDeadConnt++;
+		}
+	}
+
+	if (enemyDeadConnt <= startPazleCount)
+	{
+
+	}
 }

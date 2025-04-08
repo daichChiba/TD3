@@ -29,6 +29,7 @@ public:
 
 private:
 	void CheckAllCollisions();
+	void CheckStartPuzule();
 
 	Model* PlayeModel_,* PlayerBulletModel_,* longModel_, *shortModel_,*flyModel_,* enemyBulletModel_;
 
@@ -41,5 +42,10 @@ private:
 	std::list<std::shared_ptr<BulletActor>> attack_;
 
 	Vector3 preCameraRot;
+
+	int enemyDeadConnt = 0;
+
+	static inline const int startPazleCount = 7;
+	static inline const int clearEnemyCount = 15;
 };
 

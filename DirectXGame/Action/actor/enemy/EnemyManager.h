@@ -33,7 +33,7 @@ public:
 	void RandomCreate();
 
 	std::list<std::shared_ptr<EnemyActor>> GetEnemy(){ return Manager_; }
-
+	
 	void CreateEnemyLong();
 	
 	void CreateEnemyShort();
@@ -61,5 +61,6 @@ private:
 	static inline const int longEnemy = 60;
 	static inline const int shortEnemy = 100;
 
+	
 	
 };
