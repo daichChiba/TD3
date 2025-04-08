@@ -20,4 +20,9 @@ private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	uint32_t deadTexture_ = 0;
+	Sprite* deadSprite_ = nullptr;
+	uint32_t pushTexture_ = 0;
+	Sprite* pushSprite_ = nullptr;
 };

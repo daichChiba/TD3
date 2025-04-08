@@ -7,6 +7,8 @@ void TitleScene::Initialize() {
 
 	titleTexture_ = TextureManager::Load("Scene/title.png");
 	titleSprite_ = Sprite::Create(titleTexture_, {0, 0});
+	pushTexture_ = TextureManager::Load("PushReturn.png");
+	pushSprite_ = Sprite::Create(pushTexture_, { 320, 600 });
 }
 
 void TitleScene::Update() {
@@ -55,6 +57,7 @@ void TitleScene::Draw() {
 	/// </summary>
 
 	titleSprite_->Draw();
+	pushSprite_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

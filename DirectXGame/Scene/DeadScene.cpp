@@ -4,6 +4,11 @@ void DeadScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	deadTexture_ = TextureManager::Load("Scene/gameOver.png");
+	deadSprite_ = Sprite::Create(deadTexture_, {0, 0});
+	pushTexture_ = TextureManager::Load("PushReturn.png");
+	pushSprite_ = Sprite::Create(pushTexture_, {320, 600});
 }
 
 void DeadScene::Update() {
@@ -51,7 +56,8 @@ void DeadScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
-
+	deadSprite_->Draw();
+	pushSprite_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
