@@ -5,6 +5,9 @@ using namespace KamataEngine;
 
 class PuzzleScene {
 public:
+	PuzzleScene();
+	~PuzzleScene();
+
 	void Initialize();
 	void Update();
 	void Draw();
@@ -16,5 +19,9 @@ public:
 	bool finished_ = false;
 
 private:
+	DirectXCommon* dxCommon_ = nullptr;
+	Input* input_ = nullptr;
+	Audio* audio_ = nullptr;
+
 	void DrawImGui();
 };

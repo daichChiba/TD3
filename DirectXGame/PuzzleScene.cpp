@@ -1,6 +1,15 @@
 #include "PuzzleScene.h"
 
+PuzzleScene::PuzzleScene()
+{
+}
+
+PuzzleScene::~PuzzleScene()
+{
+}
+
 void PuzzleScene::Initialize() {
+	dxCommon_ =  DirectXCommon::GetInstance();
 
 }
 
