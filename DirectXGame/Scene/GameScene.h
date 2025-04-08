@@ -38,11 +38,10 @@ public:
 	void Draw();
 
 		// デスフラグのgetter
-	bool ClearFinished() const { return ClearFinished_; }
-	bool DeadFinished() const { return DeadFinished_; }
-	
-	void SetClearFinished() { ClearFinished_ = !ClearFinished_; }
-	void SetDeadFinished()  { DeadFinished_= !DeadFinished_; }
+	bool IsStop() const { return isStop; }
+	void SetIsStop() { isStop = !isStop; }
+	bool IsFinished() const { return isEnd; }
+	bool IsClear() const { return isClear; }
 
 
 	// 終了フラグ
