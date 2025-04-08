@@ -54,6 +54,11 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 }
 
 void ActorManager::Update() {
+	if (gameScene_->isStop == true)
+	{
+		puzzleClear = true;
+	}
+
 	enemyManager_->RandomCreate();
 
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
@@ -77,6 +82,10 @@ void ActorManager::Update() {
 	CheckAllCollisions();
 
 	CheckStartPuzule();
+
+	ImGui::Begin("gamescene");
+	ImGui::Text("enemyDeadConnt : %d",enemyDeadConnt);
+	ImGui::End();
 
 }
 
@@ -131,8 +140,14 @@ void ActorManager::CheckStartPuzule()
 		}
 	}
 
-	if (enemyDeadConnt <= startPazleCount)
+	if (enemyDeadConnt >= startPazleCount && puzzleClear == false)
 	{
-
+		gameScene_->isStop = true;
+	}
+	if (enemyDeadConnt <= startPazleCount&& puzzleClear == true)
+	{
+		gameScene_->isClear = true;
+		gameScene_->isEnd = true;
+		
 	}
 }

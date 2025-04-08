@@ -37,6 +37,10 @@ public:
 	/// </summary>
 	void Draw();
 
+	bool isStop = false;
+	bool isEnd = false;
+	bool isClear = false;
+
 		// デスフラグのgetter
 	bool IsStop() const { return isStop; }
 	void SetIsStop() { isStop = !isStop; }
@@ -79,4 +83,6 @@ private:
 	WorldTransform skyDomeTrans;
 
 	ActorManager* actorManager;
+
+	
 };
