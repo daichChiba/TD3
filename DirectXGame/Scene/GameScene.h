@@ -1,9 +1,8 @@
 #pragma once
-#include <KamataEngine.h>
 #include "../Action/actor/ActorManager.h"
+#include <KamataEngine.h>
 
 #include "../Action/actor/enemy/EnemyManager.h"
-
 
 using namespace KamataEngine;
 
@@ -49,11 +48,9 @@ public:
 	bool IsFinished() const { return isEnd; }
 	bool IsClear() const { return isClear; }
 
-
 	// 終了フラグ
 	bool ClearFinished_ = false;
 	bool DeadFinished_ = false;
-
 
 private:
 	DirectXCommon* dxCommon_ = nullptr;
@@ -74,8 +71,8 @@ private:
 	Model* enemyModel_;
 	ActorManager* actorManager_;
 	/*std::shared_ptr<EnemyActor> Enemy_;*/
-	//std::list<std::shared_ptr<EnemyActor>> Enemy;
-	//EnemyManager* enemy_;
+	// std::list<std::shared_ptr<EnemyActor>> Enemy;
+	// EnemyManager* enemy_;
 
 	//////////////////////////////
 
