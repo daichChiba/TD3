@@ -183,24 +183,28 @@ void ChangeScene() {
 
 		break;
 	case Scene::kGame:
-		if (gameScene->ClearFinished()) {
+		if(gameScene->IsStop()){
 			// シーン変更
-			scene = Scene::kClear;
-			// 旧シーンの開放
-			delete gameScene;
-			gameScene = nullptr;
-			// 新シーンの生成と初期化
-			clearScene = new ClearScene;
-			clearScene->Initialize();
-		} else if (gameScene->DeadFinished()) {
-			// シーン変更
-			scene = Scene::kDead;
-			// 旧シーンの開放
-			delete gameScene;
-			gameScene = nullptr;
-			// 新シーンの生成と初期化
-			deadScene = new DeadScene;
-			deadScene->Initialize();
+			scene = Scene::kPuzzle;
+			delete puzzleScene;
+			puzzleScene = new PuzzleScene;
+			puzzleScene->Initialize();
+		}
+		if (gameScene->IsFinished())
+		{
+			if(gameScene->IsClear()){ 
+				scene = Scene::kClear; 
+				delete gameScene;
+
+				clearScene = new ClearScene;
+				clearScene->Initialize();
+			}else{
+				scene = Scene::kDead;
+				delete gameScene;
+
+				deadScene = new DeadScene;
+				deadScene->Initialize();
+			}
 		}
 
 		break;
