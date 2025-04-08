@@ -168,8 +168,15 @@ void ChangeScene() {
 			delete puzzleScene;
 			puzzleScene = nullptr;
 			// 新シーンの生成と初期化
-			gameScene = new GameScene;
-			gameScene->Initialize();
+			if (gameScene->IsFinished())
+			{
+				gameScene = new GameScene;
+				gameScene->Initialize();
+			}
+			if (gameScene->IsStop())
+			{
+				gameScene->SetIsStop();
+			}
 		} //else if (mobScene->HP <= 0) {
 		//	// シーン変更
 		//	scene = Scene::kDead;
