@@ -5,6 +5,11 @@ Puzzle15::Puzzle15() {}
 Puzzle15::~Puzzle15() {}
 
 void Puzzle15::Initialize() {
+	// random_deviceを使用してシードを生成
+	std::random_device rd;
+	// 乱数生成器を初期化
+	randomSeed.seed(rd());
+
 	BasePuzzle::Initialize();
 }
 
