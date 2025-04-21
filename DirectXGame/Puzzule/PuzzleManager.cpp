@@ -27,8 +27,8 @@ void PuzzleManager::SpriteDraw() {
 void PuzzleManager::CreatePuzzle() {
 	//puzzle_ = factory_->CreatePuzzle15();
 	//puzzle_->Initialize();
-	puzzle_ = factory_->CreateCircuitPuzzle();
-	puzzle_->Initialize();
+	/*puzzle_ = factory_->CreateCircuitPuzzle();
+	puzzle_->Initialize();*/
 }
 
 void PuzzleManager::StartPuzzle() {
