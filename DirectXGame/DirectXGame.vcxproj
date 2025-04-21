@@ -112,6 +112,7 @@
     <ClCompile Include="Action\actor\bullet\BulletPlayerNormalAttack.cpp" />
     <ClCompile Include="Action\actor\bullet\BulletPlayerSubAttack.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyActor.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyBoss.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyFactory.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyFly.cpp" />
     <ClCompile Include="Action\actor\enemy\EnemyLong.cpp" />
@@ -221,6 +222,7 @@
     <ClInclude Include="Action\actor\bullet\BulletPlayerNormalAttack.h" />
     <ClInclude Include="Action\actor\bullet\BulletPlayerSubAttack.h" />
     <ClInclude Include="Action\actor\enemy\EnemyActor.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyBoss.h" />
     <ClInclude Include="Action\actor\enemy\EnemyFactory.h" />
     <ClInclude Include="Action\actor\enemy\EnemyFly.h" />
     <ClInclude Include="Action\actor\enemy\EnemyLong.h" />

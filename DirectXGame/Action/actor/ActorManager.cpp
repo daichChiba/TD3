@@ -42,19 +42,13 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 	enemyManager_ = new EnemyManager();
 	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
 
-	// enemyManager_->CreateEnemyShort();
-
-	// enemyManager_->CreateEnemyFly();
-
-	// enemyManager_->CreateEnemyLong();
-
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 
 	enemyDeadConnt = 0;
 }
 
 void ActorManager::Update() {
-	enemyManager_->RandomCreate();
+	//enemyManager_->RandomCreate();
 
 	playerManager_->GetPlayer()->SetCameraRot(followCamera_->GetCamera().rotation_);
 	playerManager_->Update();
