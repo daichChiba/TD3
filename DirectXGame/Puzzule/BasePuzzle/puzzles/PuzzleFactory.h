@@ -17,4 +17,9 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	std::unique_ptr<BasePuzzle> CreateCircuitPuzzle();
+	/// <summary>
+	/// 一筆書きパズルを作成
+	/// </summary>
+	/// <returns></returns>
+	std::unique_ptr<BasePuzzle> CreateOneStrokePuzzle();
 };

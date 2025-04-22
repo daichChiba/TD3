@@ -2,6 +2,7 @@
 #include "../BasePuzzle.h"
 #include "Puzzle15/Puzzle15.h"
 #include "CircuitPuzzle/CircuitPuzzle.h"
+#include "OneStrokePuzzle/OneStrokePuzzle.h"
 
 std::unique_ptr<BasePuzzle> PuzzleFactory::CreatePuzzle15() {
 	std::unique_ptr<BasePuzzle> puzzle = std::make_unique<Puzzle15>();
@@ -10,5 +11,10 @@ std::unique_ptr<BasePuzzle> PuzzleFactory::CreatePuzzle15() {
 
 std::unique_ptr<BasePuzzle> PuzzleFactory::CreateCircuitPuzzle() {
 	std::unique_ptr<BasePuzzle> puzzle = std::make_unique<CircuitPuzzle>();
+	return puzzle;
+}
+
+std::unique_ptr<BasePuzzle> PuzzleFactory::CreateOneStrokePuzzle() {
+	std::unique_ptr<BasePuzzle> puzzle = std::make_unique<OneStrokePuzzle>();
 	return puzzle;
 }

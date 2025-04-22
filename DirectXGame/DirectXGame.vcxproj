@@ -106,6 +106,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\OneStrokePuzzle\OneStrokePuzzle.cpp" />
     <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -194,6 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IntVector2.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\OneStrokePuzzle\OneStrokePuzzle.h" />
     <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h" />
     <ClInclude Include="Puzzule\LoadJsonFile\nlohmann\json.hpp" />
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h" />

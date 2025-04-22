@@ -52,6 +52,12 @@
     <Filter Include="ヘッダー ファイル\puzzle\FileJson">
       <UniqueIdentifier>{4aba07c0-0113-4fc0-9205-757aa17cc194}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\puzzle\BasePuzzle\puzzles\OneStrokePuzzle">
+      <UniqueIdentifier>{b6fa2fad-f1f4-4387-8264-2082643f299e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\puzzle\BasePuzzle\puzzles\OneStrokePuzzle">
+      <UniqueIdentifier>{dab66d4a-f416-4470-bf75-1b55d81d7e79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp">
       <Filter>ソース ファイル\puzzle\FileJson</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\OneStrokePuzzle\OneStrokePuzzle.cpp">
+      <Filter>ソース ファイル\puzzle\BasePuzzle\puzzles\OneStrokePuzzle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="IntVector2.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\OneStrokePuzzle\OneStrokePuzzle.h">
+      <Filter>ヘッダー ファイル\puzzle\BasePuzzle\puzzles\OneStrokePuzzle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
