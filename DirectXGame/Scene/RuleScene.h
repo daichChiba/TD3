@@ -2,8 +2,8 @@
 #include "KamataEngine.h"
 using namespace KamataEngine;
 
-
-class TitleScene {
+//ルール説明のシーン
+class RuleScene {
 public:
 	void Initialize();
 	void Update();
@@ -11,21 +11,13 @@ public:
 
 	// デスフラグのgetter
 	bool IsFinished() const { return finished_; }
-	bool IsRule() const { return isRule_; }
-	
 
 private:
 	// 終了フラグ
 	bool finished_ = false;
-	bool isRule_ = false;
 
-	void DrawImGui();
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
-	uint32_t titleTexture_ = 0;
-	Sprite* titleSprite_ = nullptr;
-	uint32_t pushTexture_ = 0;
-	Sprite* pushSprite_ = nullptr;
 };

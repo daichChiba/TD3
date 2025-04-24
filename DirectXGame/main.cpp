@@ -1,15 +1,17 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
-#include"Scene/GameScene.h"
+#include "Scene/ClearScene.h"
+#include "Scene/DeadScene.h"
+#include "Scene/GameScene.h"
+#include "Scene/PuzzleScene.h"
+#include "Scene/RuleScene.h"
 #include "Scene/TitleScene.h"
-#include"Scene/PuzzleScene.h"
-#include"Scene/ClearScene.h"
-#include"Scene/DeadScene.h"
 
 // シーン（型）
 enum class Scene {
 	kUnknown = 0,
 	kTitle,
+	kRule,
 	kPuzzle,
 	kGame,
 	kClear,
@@ -25,6 +27,7 @@ void DrawScene();
 
 GameScene* gameScene = nullptr;
 TitleScene* titleScene = nullptr;
+RuleScene* ruleScene = nullptr;
 PuzzleScene* puzzleScene = nullptr;
 ClearScene* clearScene = nullptr;
 DeadScene* deadScene = nullptr;
@@ -39,7 +42,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	AxisIndicator* axisIndicator = nullptr;
 	PrimitiveDrawer* primitiveDrawer = nullptr;
 
-	//GameScene* gameScene = new GameScene;
+	// GameScene* gameScene = new GameScene;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -82,8 +85,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 #pragma endregion
 
-
-
 	// ゲームシーンの初期化
 	titleScene = new TitleScene();
 	titleScene->Initialize();
@@ -103,7 +104,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// ゲームシーンの毎フレーム処理
 		ChangeScene();
 		UpdateScene();
-		
+
 		// 軸表示の更新
 		axisIndicator->Update();
 		// ImGui受付終了
@@ -115,7 +116,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		DrawScene();
 		// 軸表示の描画
 		axisIndicator->Draw();
-		
+
 		// プリミティブ描画のリセット
 		primitiveDrawer->Reset();
 		// ImGui描画
@@ -126,11 +127,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// 各種解放
 	delete titleScene;
+	delete ruleScene;
 	delete gameScene;
 	delete puzzleScene;
 	delete clearScene;
 	delete deadScene;
-	
 
 	// 3Dモデル解放
 	Model::StaticFinalize();
@@ -144,20 +145,43 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	return 0;
 }
 
- // シーン切り替え
+// シーン切り替え
 void ChangeScene() {
 
 	switch (scene) {
 	case Scene::kTitle:
+
 		if (titleScene->IsFinished()) {
+			if (!titleScene->IsRule()) {
+				// シーン変更
+				scene = Scene::kGame;
+				// 旧シーンの開放
+				delete titleScene;
+				titleScene = nullptr;
+				// 新シーンの生成と初期化
+				gameScene = new GameScene;
+				gameScene->Initialize();
+			} else {
+				if (titleScene->IsRule()) {
+					scene = Scene::kRule;
+					delete titleScene;
+					titleScene = nullptr;
+					ruleScene = new RuleScene;
+					ruleScene->Initialize();
+				}
+			}
+		} 
+		break;
+	case Scene::kRule:
+		if (ruleScene->IsFinished()) {
 			// シーン変更
-			scene = Scene::kGame;
+			scene = Scene::kTitle;
 			// 旧シーンの開放
-			delete titleScene;
-			titleScene = nullptr;
+			delete ruleScene;
+			ruleScene = nullptr;
 			// 新シーンの生成と初期化
-			gameScene = new GameScene;
-			gameScene->Initialize();
+			titleScene = new TitleScene;
+			titleScene->Initialize();
 		}
 		break;
 	case Scene::kPuzzle:
@@ -168,17 +192,15 @@ void ChangeScene() {
 			delete puzzleScene;
 			puzzleScene = nullptr;
 			// 新シーンの生成と初期化
-			if (gameScene->IsFinished())
-			{
+			if (gameScene->IsFinished()) {
 				gameScene = new GameScene;
 				gameScene->Initialize();
 			}
-			if (gameScene->IsStop())
-			{
+			if (gameScene->IsStop()) {
 				gameScene->SetIsStop();
 				gameScene->puzzleClear = true;
 			}
-		} //else if (mobScene->HP <= 0) {
+		} // else if (mobScene->HP <= 0) {
 		//	// シーン変更
 		//	scene = Scene::kDead;
 		//	// 旧シーンの開放
@@ -191,22 +213,21 @@ void ChangeScene() {
 
 		break;
 	case Scene::kGame:
-		if(gameScene->IsStop()){
+		if (gameScene->IsStop()) {
 			// シーン変更
 			scene = Scene::kPuzzle;
 			delete puzzleScene;
 			puzzleScene = new PuzzleScene;
 			puzzleScene->Initialize();
 		}
-		if (gameScene->IsFinished())
-		{
-			if(gameScene->IsClear()){ 
-				scene = Scene::kClear; 
+		if (gameScene->IsFinished()) {
+			if (gameScene->IsClear()) {
+				scene = Scene::kClear;
 				delete gameScene;
 
 				clearScene = new ClearScene;
 				clearScene->Initialize();
-			}else{
+			} else {
 				scene = Scene::kDead;
 				delete gameScene;
 
@@ -248,6 +269,9 @@ void UpdateScene() {
 	case Scene::kTitle:
 		titleScene->Update();
 		break;
+	case Scene::kRule:
+		ruleScene->Update();
+		break;
 	case Scene::kPuzzle:
 		puzzleScene->Update();
 		break;
@@ -268,6 +292,9 @@ void DrawScene() {
 	switch (scene) {
 	case Scene::kTitle:
 		titleScene->Draw();
+		break;
+	case Scene::kRule:
+		ruleScene->Draw();
 		break;
 	case Scene::kPuzzle:
 		puzzleScene->Draw();

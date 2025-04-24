@@ -15,6 +15,12 @@ void TitleScene::Update() {
 	if (Input::GetInstance()->ReleseKey(DIK_RETURN)) {
 		finished_ = true;
 	}
+
+	if (Input::GetInstance()->ReleseKey(DIK_SPACE)) {
+		isRule_ = true;
+		finished_ = true;	
+	}
+
 	DrawImGui();
 }
 
