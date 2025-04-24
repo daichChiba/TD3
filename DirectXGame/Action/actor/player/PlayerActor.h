@@ -33,7 +33,22 @@ public:
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
 	float GetRadius() { return radius_; }
-	void OnCollision(){ return;}
+	void OnCollision(){ hp -= 1;
+		hitCoolDown  = 1.0f;
+	}
+
+	bool IsHitCoolDown() {
+
+		bool result = false;
+		if (hitCoolDown <= 0.0f)
+		{
+	
+			result = true;
+		}
+		return result;
+	}
+
+	int hp = 10;
 
 	void SetCameraRot(Vector3 cameraRot) { cameraRot_ = cameraRot; }
 
@@ -50,13 +65,16 @@ protected:
 	float radius_ = 1.0f;
 
 
-
 	ActorManager* actorManager_;
 
 	XINPUT_STATE xinput_;
 	float lx, ly;
 
 	static inline const float flameTime_ = 1.0f / 60.0f;
+
+	
+
+	float hitCoolDown = 3.0f;
 
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.3f;

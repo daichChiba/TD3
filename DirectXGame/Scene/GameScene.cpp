@@ -32,7 +32,7 @@ void GameScene::Initialize() {
 	actorManager = new ActorManager();
 	actorManager->SetGeamScene(this);
 	actorManager->Initialize(PlayerModel_, playerBulletModel_, longModel_,shortModel,flyModel, cubeModel_);
-	
+
 }
 
 void GameScene::Update() {
@@ -40,10 +40,7 @@ void GameScene::Update() {
 
 	skyDomeTrans.UpdateMatrix();
 
-	if (Input::GetInstance()->ReleseKey(DIK_1)) {
-		ClearFinished_ = true;
-	}
-	if (Input::GetInstance()->ReleseKey(DIK_2)) {
+	if (actorManager->GetPlayer()->hp == 0) {
 		DeadFinished_ = true;
 	}
 

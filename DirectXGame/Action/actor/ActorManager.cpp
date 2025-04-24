@@ -106,7 +106,7 @@ void ActorManager::CheckAllCollisions() {
 			Vector3 diff = playerManager_->GetPlayer()->GetWorldTransfrom()->translation_ - bullet->GetWorldPosition();
 			float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
 
-			if (distance < (bullet->GetRadius() + playerManager_->GetPlayer()->GetRadius())) {
+			if (distance < (bullet->GetRadius() + playerManager_->GetPlayer()->GetRadius()) && playerManager_->GetPlayer()->IsHitCoolDown()) {
 
 				bullet->OnCollision();
 				playerManager_->GetPlayer()->OnCollision();

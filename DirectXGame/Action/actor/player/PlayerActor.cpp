@@ -23,6 +23,11 @@ void PlayerActor::Update() {
 
 	XInputGetState(0, &xinput_);
 
+	if (hitCoolDown > 0.0f)
+	{
+		hitCoolDown -= flameTime_;
+	}
+
 	// 左スティックのX, Y値を取得
 	lx = xinput_.Gamepad.sThumbLX / 32767.0f; // 正規化（-1.0 ～ 1.0）
 	ly = xinput_.Gamepad.sThumbLY / 32767.0f;
@@ -68,7 +73,7 @@ void PlayerActor::Update() {
 }
 
 void PlayerActor::Draw(Camera& camera) { 
-	model_->Draw(worldTransform_, camera); 
+	model_->Draw(worldTransform_, camera);
 }
 
 void PlayerActor::UpdateDirectionBasedOnMovement()
@@ -88,6 +93,7 @@ void PlayerActor::DrawImGui() {
 	ImGui::DragFloat3("rot", &worldTransform_.rotation_.x, 0.01f);
 	ImGui::DragFloat3("move", &move_.x, 0.1f);
 	ImGui::DragFloat3("cameraRot", &cameraRot_.x, 0.1f);
+	ImGui::DragFloat("hit", &hitCoolDown, 0.1f);
 	ImGui::End();
 	#endif
 }

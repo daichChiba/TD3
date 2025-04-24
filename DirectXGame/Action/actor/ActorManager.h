@@ -45,7 +45,7 @@ private:
 
 	int enemyDeadConnt = 0;
 
-	static inline const int startPazleCount = 1;
-	static inline const int clearEnemyCount = 2;
+	static inline const int startPazleCount = 3;
+	static inline const int clearEnemyCount = 8;
 };
 

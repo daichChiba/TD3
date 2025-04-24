@@ -47,6 +47,7 @@ public:
 	void SetIsStop() { isStop = !isStop; }
 	bool IsFinished() const { return isEnd; }
 	bool IsClear() const { return isClear; }
+	bool isDead() { return DeadFinished_;} 
 
 	// 終了フラグ
 	bool ClearFinished_ = false;
@@ -83,5 +84,4 @@ private:
 
 	ActorManager* actorManager;
 
-	
 };

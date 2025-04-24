@@ -206,7 +206,7 @@ void ChangeScene() {
 
 				clearScene = new ClearScene;
 				clearScene->Initialize();
-			}else{
+			}else if(gameScene->isDead()){
 				scene = Scene::kDead;
 				delete gameScene;
 
