@@ -1,29 +1,21 @@
-#include "TitleScene.h"
+#include "RuleScene.h"
 
-void TitleScene::Initialize() {
+void RuleScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	titleTexture_ = TextureManager::Load("Scene/title.png");
-	titleSprite_ = Sprite::Create(titleTexture_, {0, 0});
-
+	ruleTexture_ = TextureManager::Load("Scene/rule.png");
+	ruleSprite_ = Sprite::Create(ruleTexture_, {0, 0});
 }
 
-void TitleScene::Update() {
-	if (Input::GetInstance()->ReleseKey(DIK_RETURN)) {
+void RuleScene::Update() {
+	if (Input::GetInstance()->ReleseKey(DIK_SPACE)) {
 		finished_ = true;
 	}
-
-	if (Input::GetInstance()->ReleseKey(DIK_SPACE)) {
-		isRule_ = true;
-		finished_ = true;	
-	}
-
-	DrawImGui();
 }
 
-void TitleScene::Draw() {
+void RuleScene::Draw() {
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
@@ -61,18 +53,10 @@ void TitleScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
-	titleSprite_->Draw();
+	ruleSprite_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
 #pragma endregion
-}
-
-void TitleScene::DrawImGui() {
-#ifdef _DEBUG
-	ImGui::Begin("TitleScene");
-	ImGui::Text("TitleScene");
-	ImGui::End();
-#endif
 }

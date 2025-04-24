@@ -136,6 +136,7 @@
     <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
     <ClCompile Include="Puzzule\PuzzleManager.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
+    <ClCompile Include="Scene\RuleScene.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="worldTransfromEX.cpp" />
   </ItemGroup>
@@ -243,6 +244,7 @@
     <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h" />
     <ClInclude Include="Puzzule\PuzzleManager.h" />
     <ClInclude Include="Scene\GameScene.h" />
+    <ClInclude Include="Scene\RuleScene.h" />
     <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
