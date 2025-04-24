@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClCompile Include="Action\actor\ActorManager.cpp" />
     <ClCompile Include="Action\actor\bullet\BulletActor.cpp" />
+    <ClCompile Include="Action\actor\bullet\BulletBossEnemyCircle.cpp" />
     <ClCompile Include="Action\actor\bullet\BulletFlyEnemy.cpp" />
     <ClCompile Include="Action\actor\bullet\BulletPlayerNormalAttack.cpp" />
     <ClCompile Include="Action\actor\bullet\BulletPlayerSubAttack.cpp" />
@@ -218,6 +219,7 @@
   <ItemGroup>
     <ClInclude Include="Action\actor\ActorManager.h" />
     <ClInclude Include="Action\actor\bullet\BulletActor.h" />
+    <ClInclude Include="Action\actor\bullet\BulletBossEnemyCircle.h" />
     <ClInclude Include="Action\actor\bullet\BulletFlyEnemy.h" />
     <ClInclude Include="Action\actor\bullet\BulletPlayerNormalAttack.h" />
     <ClInclude Include="Action\actor\bullet\BulletPlayerSubAttack.h" />

@@ -147,6 +147,9 @@
     <ClCompile Include="Action\actor\enemy\EnemyBoss.cpp">
       <Filter>ソース ファイル\action\actor\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Action\actor\bullet\BulletBossEnemyCircle.cpp">
+      <Filter>ソース ファイル\action\actor\bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
@@ -284,6 +287,9 @@
     </ClInclude>
     <ClInclude Include="Action\actor\enemy\EnemyBoss.h">
       <Filter>ヘッダー ファイル\action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\bullet\BulletBossEnemyCircle.h">
+      <Filter>ヘッダー ファイル\action\actor\bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

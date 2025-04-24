@@ -31,7 +31,12 @@ private:
 	void CheckAllCollisions();
 	void CheckStartPuzule();
 
-	Model* PlayeModel_,* PlayerBulletModel_,* longModel_, *shortModel_,*flyModel_,* enemyBulletModel_;
+	Model* PlayeModel_ = nullptr;
+    Model* PlayerBulletModel_ = nullptr;
+    Model* longModel_ = nullptr;
+    Model* shortModel_ = nullptr;
+    Model* flyModel_ = nullptr;
+    Model* enemyBulletModel_ = nullptr;
 
 	Camera* camera_;
 	FollowCamera* followCamera_;
