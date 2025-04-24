@@ -20,4 +20,7 @@ private:
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
+	uint32_t ruleTexture_ = 0;
+	Sprite* ruleSprite_ = nullptr;
+
 };

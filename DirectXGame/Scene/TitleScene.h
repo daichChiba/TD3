@@ -26,6 +26,5 @@ private:
 
 	uint32_t titleTexture_ = 0;
 	Sprite* titleSprite_ = nullptr;
-	uint32_t pushTexture_ = 0;
-	Sprite* pushSprite_ = nullptr;
+
 };
