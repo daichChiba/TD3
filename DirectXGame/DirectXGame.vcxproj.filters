@@ -131,6 +131,7 @@
       <Filter>シェーダー ファイル</Filter>
     </None>
     <None Include="Resources\CircuitPuzzle\CircuitPuzzle.json" />
+    <None Include="Resources\Puzzle15\Panel15.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene\GameScene.h">
