@@ -55,4 +55,6 @@ private:
 	std::unique_ptr<BasePuzzle> puzzle_;
 	// パズルファクトリー
 	std::unique_ptr<PuzzleFactory> factory_;
+
+
 };
