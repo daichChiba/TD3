@@ -10,6 +10,7 @@ void ClearScene::Initialize() {
 	pushTexture_ = TextureManager::Load("PushReturn.png");
 	pushSprite_ = Sprite::Create(pushTexture_, {320, 600});
 
+
 }
 
 void ClearScene::Update() {
