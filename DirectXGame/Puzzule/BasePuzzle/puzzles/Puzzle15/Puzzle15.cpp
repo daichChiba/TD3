@@ -144,7 +144,11 @@ void Puzzle15::DrawImGui() {
 #ifdef _DEBUG
 	ImGui::Begin("puzzle15");
 	ImGui::Text("puzzle15,UpDate,OK");
-	ImGui::Text("isclear_ : %d", isClear_); // パズルが完成しているかどうかをデバッグ表示
+	if (isClear_) {
+		ImGui::Text("isClear : true");
+	} else {
+		ImGui::Text("isClear : false");
+	}
 	ImGui::DragFloat2("mousePos", &mousePos.x, 0.1f);
 	ImGui::Text("selectedPanelIndex_ : %d", HoldIndex); // 選択されているパネルのインデックスをデバッグ表示
 	for (size_t row = 0; row < csvData_.size(); row++) {
