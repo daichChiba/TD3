@@ -33,7 +33,8 @@ public:
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
 	float GetRadius() { return radius_; }
-	void OnCollision(){ hp -= 1;
+	void OnCollision(){
+		hp--;
 		hitCoolDown  = 1.0f;
 	}
 
@@ -78,16 +79,6 @@ protected:
 
 	Vector3 move_;
 	static inline const float kSpeed_ = 0.3f;
-
-	float playerYSpeed;
-
-	bool onGround_;
-	static inline const float kGroundHeight = 0.5f;
-	static inline const float kGravity = -0.03f;
-
-	bool isJumping_ = true;
-	float jumpSpeed_ = 0.0f;
-	static inline const float kJumpForce = 0.5f;
 	
 	bool isDush_ = false;
 	float dushSpeed_ = 0.0f;

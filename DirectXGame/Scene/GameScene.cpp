@@ -41,7 +41,7 @@ void GameScene::Update() {
 	skyDomeTrans.UpdateMatrix();
 
 	if (actorManager->GetPlayer()->hp == 0) {
-		DeadFinished_ = true;
+		//DeadFinished_ = true;
 	}
 
 }

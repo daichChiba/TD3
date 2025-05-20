@@ -14,8 +14,6 @@ public:
 
 	void DrawImgui();
 
-	void DrowImgui();
-
 	const Camera&  GetCamera(){ return followCamera;}
 
 	void SetTarget( const WorldTransform* target){ target_ = target; }
@@ -33,7 +31,7 @@ private:
 	bool moveCameraRotateXAdd;
 	bool moveCameraRotateXLower;
 
-	Vector3 offset_ = {0.0f, 2.0f, -10.0f};
+	Vector3 offset_ = {0.0f, 13.0f, -20.0f};
 
 	static inline const float kRotationSpeed = 0.008f;
 

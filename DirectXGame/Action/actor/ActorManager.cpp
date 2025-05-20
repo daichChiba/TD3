@@ -33,7 +33,7 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 	enemyBulletModel_ = enemyBulletModel;
 
 	playerManager_ = new PlayerManager();
-	playerManager_->Initialize(PlayeModel_, PlayerBulletModel, Vector3{0.0f, 0.0f, 0.0f}, this);
+	playerManager_->Initialize(PlayeModel_, PlayerBulletModel, Vector3{0.0f, 0.58f, 0.0f}, this);
 
 	playerManager_->CreatePlayerMain();
 
@@ -41,12 +41,6 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 
 	enemyManager_ = new EnemyManager();
 	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
-
-	// enemyManager_->CreateEnemyShort();
-
-	// enemyManager_->CreateEnemyFly();
-
-	// enemyManager_->CreateEnemyLong();
 
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 

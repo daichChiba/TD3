@@ -36,19 +36,19 @@ void PlayerActor::Update() {
 
 	Attack();
 
-	// ジャンプ中の処理
-	if (isJumping_) {
-		worldTransform_.translation_.y += jumpSpeed_;
-		jumpSpeed_ += kGravity;
+	//// ジャンプ中の処理
+	//if (isJumping_) {
+	//	worldTransform_.translation_.y += jumpSpeed_;
+	//	jumpSpeed_ += kGravity;
 
-		// 地面に着地した場合
-		if (worldTransform_.translation_.y <= kGroundHeight) {
-			worldTransform_.translation_.y = kGroundHeight;
-			isJumping_ = false;
-			jumpSpeed_ = 0.0f;
-			onGround_ = true;
-		}
-	}
+	//	// 地面に着地した場合
+	//	if (worldTransform_.translation_.y <= kGroundHeight) {
+	//		worldTransform_.translation_.y = kGroundHeight;
+	//		isJumping_ = false;
+	//		jumpSpeed_ = 0.0f;
+	//		onGround_ = true;
+	//	}
+	//}
 
 	move_ = Normalize(move_) * kSpeed_;
 

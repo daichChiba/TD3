@@ -72,13 +72,6 @@ void PlayerMain::Move() {
 		}
 	}
 
-	// ジャンプの入力を検出
-	if (jumpKey && onGround_) {
-		isJumping_ = true;
-		jumpSpeed_ = kJumpForce;
-		onGround_ = false;
-	}
-
 	if (dushKey && dushTimer_ < 0.0f)
 	{
 		isDush_ =  true;
@@ -163,11 +156,6 @@ void PlayerMain::CheckKey() {
 	} else {
 		rightKey = false;
 	}
-	if (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_A || Input::GetInstance()->PushKey(DIK_SPACE)) {
-		jumpKey = true;
-	} else {
-		jumpKey = false;
-	}
 	if (xinput_.Gamepad.wButtons & XINPUT_GAMEPAD_B || Input::GetInstance()->PushKey(DIK_LSHIFT)) {
 		dushKey = true;
 	} else {
@@ -194,15 +182,7 @@ void PlayerMain::SkillTimerMove()
 }
 
 inline Vector3 PlayerMain::GetCameraForward() const {
-	// カメラの回転情報を取得
-    float yaw = cameraRot_.y;
-    float pitch = cameraRot_.x;
+	Vector2 mousePos = Input::GetInstance()->GetMousePosition();
 
-    // 前方ベクトルを計算
-    Vector3 forward;
-    forward.x = sin(yaw) * cos(pitch);
-    forward.y = sin(-pitch);
-    forward.z = cos(yaw) * cos(pitch);
-
-    return forward;
+  //  return forward;
 }

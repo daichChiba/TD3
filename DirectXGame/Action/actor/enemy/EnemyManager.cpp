@@ -59,7 +59,7 @@ void EnemyManager::RandomCreate() {
 			actorManager_->GetPlayer()->GetWorldTransfrom()->translation_.z + radius * std::sin(angle)};
 
 		if (enemyc < fluEnemy) {
-			CreateEnemyFly();
+			//CreateEnemyFly();
 			return;
 		} else if (enemyc < longEnemy) {
 			CreateEnemyLong();
