@@ -79,11 +79,11 @@ void PlayerActor::Draw(Camera& camera) {
 void PlayerActor::UpdateDirectionBasedOnMovement()
 {
 
-    // 移動入力がある場合に向きを変更
-    if (move_.x != 0.0f || move_.z != 0.0f) {
-        float angle = atan2(move_.x, move_.z);
-        worldTransform_.rotation_.y = angle;
-    }
+	// 移動入力がある場合に向きを変更
+	if (move_.x != 0.0f || move_.z != 0.0f) {
+		float angle = atan2(move_.x, move_.z);
+		worldTransform_.rotation_.y = angle;
+	}
 }
 
 void PlayerActor::DrawImGui() {
