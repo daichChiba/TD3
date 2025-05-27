@@ -24,7 +24,7 @@ void CircuitPuzzle::Initialize() {
 	// 乱数生成器の初期化
 	std::uniform_int_distribution<int> random(1, 6);
 	// 乱数を生成
-	int randomNum =  random(randomSeed);
+	int randomNum = random(randomSeed);
 
 	// FileAccessorの初期化
 	fileAccessor_ = nullptr;
@@ -43,7 +43,8 @@ void CircuitPuzzle::Initialize() {
 	// パネルのテクスチャを読み込む
 	panelTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/panel.png");
 	for (int i = 1; i <= 24; i++) {
-		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/circuitPuzzle_" + std::to_string(i) + ".png"));
+		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/CircuitPuzzles/circuitPuzzle_" + std::to_string(i) + ".png"));
+		connectedPanelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/correctPanel/correctPanel_" + std::to_string(i) + ".png"));
 	}
 	centor_ = {500.0f, 200.0f};
 
@@ -62,7 +63,7 @@ void CircuitPuzzle::Update() {
 			// パネルが空白でない場合
 			if (panelData_[y][x].date != PanelType::Blank) {
 				// パネルの座標を更新
-				panelData_[y][x].sprite->SetPosition({static_cast<float>(x * panelSize_.x + panelSize_.x * 0.5f+centor_.x), static_cast<float>(y * panelSize_.y + panelSize_.y * 0.5f+centor_.y)});
+				panelData_[y][x].sprite->SetPosition({static_cast<float>(x * panelSize_.x + panelSize_.x * 0.5f + centor_.x), static_cast<float>(y * panelSize_.y + panelSize_.y * 0.5f + centor_.y)});
 			}
 		}
 	}
@@ -110,6 +111,7 @@ void CircuitPuzzle::Update() {
 	}
 	fileAccessor_->Save();
 	CheckClear();
+	CorrectPanel();
 	DrawImGui();
 }
 void CircuitPuzzle::Draw() {}
@@ -136,10 +138,25 @@ void CircuitPuzzle::CheckClear() {
 			} else {
 				isClear_ = true;
 			}
+
+			// answerDataとcsvDataを一つずつ比較して正しい場合isCorrectをtrueにする
+			if (answerData_[y][x] == csvData_[y][x]) {
+				panelData_[y][x].isCorrect = true;
+			} else {
+				panelData_[y][x].isCorrect = false;
+			}
 		}
 	}
 
 	if (isClear_) {
+		//for (size_t i = 0; i < panelData_.size(); i++) {
+		//	for (size_t j = 0; j < panelData_[i].size(); j++) {
+		//		if (panelData_[i][j].date != PanelType::Blank) {
+		//			panelData_[i][j].sprite->SetTextureHandle(connectedPanelTextures_[static_cast<int>(panelData_[i][j].date)-1]);
+		//		}
+		//	}
+		//}
+
 		// クリアした場合
 		fileAccessor_->Write("Circuit", "isClear", true);
 	} else {
@@ -157,6 +174,19 @@ void CircuitPuzzle::DrawImGui() {
 	} else {
 		ImGui::Text("Not Clear");
 	}
+
+	// Panelデータを表示
+	for (size_t y = 0; y < panelData_.size(); y++) {
+		for (size_t x = 0; x < panelData_[y].size(); x++) {
+			ImGui::Text("Panel[%d][%d]: %d", static_cast<int>(y), static_cast<int>(x), static_cast<int>(panelData_[y][x].date));
+			if (panelData_[y][x].isCorrect) {
+				ImGui::Text("Correct!!");
+			} else {
+				ImGui::Text("Not Correct");
+			}
+		}
+	}
+
 	ImGui::End();
 #endif
 }
@@ -168,25 +198,23 @@ void CircuitPuzzle::ChangePanelData() {
 	for (size_t i = 0; i < csvData_.size(); ++i) {
 		panelData_[i].resize(csvData_[i].size());
 		for (size_t j = 0; j < csvData_[i].size(); ++j) {
-#pragma region BlankPanelの生成
 			// CSVデータをPanelTypeに変換
 			if (csvData_[i][j] == 0) {
 				// ブロックの場合
 				panelData_[i][j].date = PanelType::Blank;
 				Sprite* sprite = Sprite::Create(panelTexture_, Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f+centor_.x, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f+centor_.y};
+				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f + centor_.x, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f + centor_.y};
 				sprite->SetPosition(position);
 				panelData_[i][j].sprite = sprite;
 			} else {
 				panelData_[i][j].date = static_cast<PanelType>(csvData_[i][j]);
 				Sprite* sprite = Sprite::Create(panelTextures_[csvData_[i][j] - 1], Vector2(panelSize_.x + panelSize_.x * 0.5f, panelSize_.y + panelSize_.y * 0.5f));
 				sprite->SetAnchorPoint(Vector2(0.5f, 0.5f));
-				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f+centor_.x, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f+centor_.y};
+				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f + centor_.x, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f + centor_.y};
 				sprite->SetPosition(position);
 				panelData_[i][j].sprite = sprite;
 			}
-#pragma endregion
 		}
 	}
 }
@@ -200,10 +228,10 @@ void CircuitPuzzle::UpdatePanelData() {
 			Vector2 spriteSize = {panelSize_.x, panelSize_.y};
 			bool dropTargetIsFixed =
 			    (panelData_[y][x].date == PanelType::StartPanel || panelData_[y][x].date == PanelType::GoalPanel || panelData_[y][x].date == PanelType::Blank ||
-			      panelData_[y][x].date == PanelType::LockTPanel || panelData_[y][x].date == PanelType::LockLPanel || panelData_[y][x].date == PanelType::LockInvertedL ||
-			      panelData_[y][x].date == PanelType::LockIPanel || panelData_[y][x].date == PanelType::LockUpReverseLPanel || panelData_[y][x].date == PanelType::LockUpInvertedLPanel ||
-			      panelData_[y][x].date == PanelType::LockUpReverseTPanel || panelData_[y][x].date == PanelType::LockPlusPanel || panelData_[y][x].date == PanelType::LockLeftRotateTPanel ||
-			      panelData_[y][x].date == PanelType::LockRiteRotateTPanel || panelData_[y][x].date == PanelType::LockMinusPanel);
+			     panelData_[y][x].date == PanelType::LockTPanel || panelData_[y][x].date == PanelType::LockLPanel || panelData_[y][x].date == PanelType::LockInvertedL ||
+			     panelData_[y][x].date == PanelType::LockIPanel || panelData_[y][x].date == PanelType::LockUpReverseLPanel || panelData_[y][x].date == PanelType::LockUpInvertedLPanel ||
+			     panelData_[y][x].date == PanelType::LockUpReverseTPanel || panelData_[y][x].date == PanelType::LockPlusPanel || panelData_[y][x].date == PanelType::LockLeftRotateTPanel ||
+			     panelData_[y][x].date == PanelType::LockRiteRotateTPanel || panelData_[y][x].date == PanelType::LockMinusPanel);
 
 			// マウス座標がスプライトの範囲内にあるかチェック
 			if (mousePos.x >= spritePos.x - spriteSize.x / 2 && mousePos.x <= spritePos.x + spriteSize.x / 2) {
@@ -232,4 +260,17 @@ void CircuitPuzzle::UpdatePanelData() {
 	}
 
 	isHold_ = false;
+}
+
+void CircuitPuzzle::CorrectPanel() {
+	// startパネルの一個下のパネルが正しいがどうか
+	for (size_t y = 0; y < panelData_.size(); y++) {
+		for (size_t x = 0; x < panelData_[y].size(); x++) {
+			if (panelData_[y][x].isCorrect) {
+				if (panelData_[y][x].date != PanelType::Blank) {
+					panelData_[y][x].sprite->SetTextureHandle(connectedPanelTextures_[static_cast<int>(panelData_[y][x].date) - 1]);
+				}
+			}
+		}
+	}
 }

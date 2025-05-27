@@ -42,6 +42,8 @@ struct PanelData {
 	// パネルの配置データ
 	PanelType date;
 	Sprite* sprite;
+
+	bool isCorrect;   // 正しいかどうか
 };
 
 // 回路パズルクラス
@@ -71,6 +73,11 @@ private:
 
 	void UpdatePanelData();
 
+	/// <summary>
+	/// 接続されているか判定
+	/// </summary>
+	void CorrectPanel();
+
 private:
 	// パネルデータ
 	std::vector<std::vector<PanelData>> panelData_;
@@ -88,6 +95,7 @@ private:
 	// パネルのテクスチャ
 	uint32_t panelTexture_;
 	std::vector<uint32_t> panelTextures_;
+	std::vector<uint32_t> connectedPanelTextures_;
 	// パネルのスプライト
 
 	//パネルを中心に移動させるVector2
