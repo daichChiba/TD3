@@ -24,7 +24,7 @@ void CircuitPuzzle::Initialize() {
 	// 乱数生成器の初期化
 	std::uniform_int_distribution<int> random(1, 6);
 	// 乱数を生成
-	int randomNum = random(randomSeed);
+	int randomNum = 2;
 
 	// FileAccessorの初期化
 	fileAccessor_ = nullptr;
@@ -214,6 +214,9 @@ void CircuitPuzzle::ChangePanelData() {
 				Vector2 position = {static_cast<float>(j * panelSize_.x) + panelSize_.x * 0.5f + centor_.x, static_cast<float>(i * panelSize_.y) + panelSize_.y * 0.5f + centor_.y};
 				sprite->SetPosition(position);
 				panelData_[i][j].sprite = sprite;
+				if (panelData_[i][j].date == PanelType::StartPanel) {
+					panelData_[i][j].isCorrect = true;
+				}
 			}
 		}
 	}
@@ -284,39 +287,54 @@ void CircuitPuzzle::CorrectPanel() {
 void CircuitPuzzle::ConnectedPanel() {
 	for (size_t y = 0; y < csvData_.size(); y++) {
 		for (size_t x = 0; x < csvData_[y].size(); x++) {
-			// パネルの上が正しいかどうか
-			if (y > 0) { // yが0より大きい場合のみアクセス
-				if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
-					panelData_[y - 1][x].isCorrect = true;
-				} else {
-					panelData_[y - 1][x].isCorrect = false;
+			if (panelData_[y][x].isCorrect) {
+				// パネルの上が正しいかどうか
+				if (y > 0) { // yが0より大きい場合のみアクセス
+					if (panelData_[y - 1][x].date != PanelType::Blank) {
+						if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+							panelData_[y - 1][x].isCorrect = true;
+						} else {
+							panelData_[y - 1][x].isCorrect = false;
+						}
+					}
+				}
+
+				// パネルの下が正しいかどうか
+				if (y < csvData_.size() - 1) { // yが最終行より小さい場合のみアクセス
+					if (panelData_[y + 1][x].date != PanelType::Blank) {
+						if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+							panelData_[y + 1][x].isCorrect = true;
+						} else {
+							panelData_[y + 1][x].isCorrect = false;
+						}
+					}
+				}
+
+				// パネルの左が正しいかどうか
+				if (x > 0) { // xが0より大きい場合のみアクセス
+					if (panelData_[y][x - 1].date != PanelType::Blank) {
+						if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+							panelData_[y][x - 1].isCorrect = true;
+						} else {
+							panelData_[y][x - 1].isCorrect = false;
+						}
+					}
+				}
+
+				// パネルの右が正しいかどうか
+				if (x < csvData_[y].size() - 1) { // xが最終列より小さい場合のみアクセス
+					if (panelData_[y][x + 1].date != PanelType::Blank) {
+						if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+							panelData_[y][x + 1].isCorrect = true;
+						} else {
+							panelData_[y][x + 1].isCorrect = false;
+						}
+					}
 				}
 			}
-
-			// パネルの下が正しいかどうか
-			if (y < csvData_.size() - 1) { // yが最終行より小さい場合のみアクセス
-				if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
-					panelData_[y + 1][x].isCorrect = true;
-				} else {
-					panelData_[y + 1][x].isCorrect = false;
-				}
-			}
-
-			// パネルの左が正しいかどうか
-			if (x > 0) { // xが0より大きい場合のみアクセス
-				if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
-					panelData_[y][x - 1].isCorrect = true;
-				} else {
-					panelData_[y][x - 1].isCorrect = false;
-				}
-			}
-
-			// パネルの右が正しいかどうか
-			if (x < csvData_[y].size() - 1) { // xが最終列より小さい場合のみアクセス
-				if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
-					panelData_[y][x + 1].isCorrect = true;
-				} else {
-					panelData_[y][x + 1].isCorrect = false;
+			if (panelData_[y][x].date==PanelType::GoalPanel) {
+				if (!panelData_[y - 1][x].isCorrect) {
+					panelData_[y][x].isCorrect = false;
 				}
 			}
 		}
