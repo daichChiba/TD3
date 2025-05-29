@@ -140,22 +140,22 @@ void CircuitPuzzle::CheckClear() {
 			}
 
 			// answerDataとcsvDataを一つずつ比較して正しい場合isCorrectをtrueにする
-			if (answerData_[y][x] == csvData_[y][x]) {
-				panelData_[y][x].isCorrect = true;
-			} else {
-				panelData_[y][x].isCorrect = false;
-			}
+			// if (answerData_[y][x] == csvData_[y][x]) {
+			// panelData_[y][x].isCorrect = true;
+			//} else {
+			// panelData_[y][x].isCorrect = false;
+			//}
 		}
 	}
 
 	if (isClear_) {
-		//for (size_t i = 0; i < panelData_.size(); i++) {
+		// for (size_t i = 0; i < panelData_.size(); i++) {
 		//	for (size_t j = 0; j < panelData_[i].size(); j++) {
 		//		if (panelData_[i][j].date != PanelType::Blank) {
 		//			panelData_[i][j].sprite->SetTextureHandle(connectedPanelTextures_[static_cast<int>(panelData_[i][j].date)-1]);
 		//		}
 		//	}
-		//}
+		// }
 
 		// クリアした場合
 		fileAccessor_->Write("Circuit", "isClear", true);
@@ -263,12 +263,60 @@ void CircuitPuzzle::UpdatePanelData() {
 }
 
 void CircuitPuzzle::CorrectPanel() {
+	ConnectedPanel();
+
 	// startパネルの一個下のパネルが正しいがどうか
 	for (size_t y = 0; y < panelData_.size(); y++) {
 		for (size_t x = 0; x < panelData_[y].size(); x++) {
 			if (panelData_[y][x].isCorrect) {
 				if (panelData_[y][x].date != PanelType::Blank) {
 					panelData_[y][x].sprite->SetTextureHandle(connectedPanelTextures_[static_cast<int>(panelData_[y][x].date) - 1]);
+				}
+			} else {
+				if (panelData_[y][x].date != PanelType::Blank) {
+					panelData_[y][x].sprite->SetTextureHandle(panelTextures_[static_cast<int>(panelData_[y][x].date) - 1]);
+				}
+			}
+		}
+	}
+}
+
+void CircuitPuzzle::ConnectedPanel() {
+	for (size_t y = 0; y < csvData_.size(); y++) {
+		for (size_t x = 0; x < csvData_[y].size(); x++) {
+			// パネルの上が正しいかどうか
+			if (y > 0) { // yが0より大きい場合のみアクセス
+				if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+					panelData_[y - 1][x].isCorrect = true;
+				} else {
+					panelData_[y - 1][x].isCorrect = false;
+				}
+			}
+
+			// パネルの下が正しいかどうか
+			if (y < csvData_.size() - 1) { // yが最終行より小さい場合のみアクセス
+				if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+					panelData_[y + 1][x].isCorrect = true;
+				} else {
+					panelData_[y + 1][x].isCorrect = false;
+				}
+			}
+
+			// パネルの左が正しいかどうか
+			if (x > 0) { // xが0より大きい場合のみアクセス
+				if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+					panelData_[y][x - 1].isCorrect = true;
+				} else {
+					panelData_[y][x - 1].isCorrect = false;
+				}
+			}
+
+			// パネルの右が正しいかどうか
+			if (x < csvData_[y].size() - 1) { // xが最終列より小さい場合のみアクセス
+				if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+					panelData_[y][x + 1].isCorrect = true;
+				} else {
+					panelData_[y][x + 1].isCorrect = false;
 				}
 			}
 		}

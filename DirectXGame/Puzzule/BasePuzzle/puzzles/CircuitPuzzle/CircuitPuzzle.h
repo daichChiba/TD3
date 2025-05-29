@@ -74,9 +74,11 @@ private:
 	void UpdatePanelData();
 
 	/// <summary>
-	/// 接続されているか判定
+	/// 正しいかどうか
 	/// </summary>
 	void CorrectPanel();
+
+	void ConnectedPanel();
 
 private:
 	// パネルデータ
