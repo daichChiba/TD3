@@ -27,9 +27,15 @@ public:
 
 	void AddBullet(std::shared_ptr<BulletActor> attack) { attack_.push_back(attack); }
 
+	void CheckStartPuzule();
+
+	int GetEnemyDeadConnt() { return enemyDeadConnt; }
+
+	int GetClearEnemyCount() { return clearEnemyCount; }
+
 private:
 	void CheckAllCollisions();
-	void CheckStartPuzule();
+	
 
 	Model* PlayeModel_,* PlayerBulletModel_,* longModel_, *shortModel_,*flyModel_,* enemyBulletModel_;
 
@@ -47,5 +53,6 @@ private:
 
 	static inline const int startPazleCount = 3;
 	static inline const int clearEnemyCount = 8;
+
 };
 

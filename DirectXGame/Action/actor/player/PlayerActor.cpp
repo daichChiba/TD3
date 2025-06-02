@@ -94,6 +94,7 @@ void PlayerActor::DrawImGui() {
 	ImGui::DragFloat3("move", &move_.x, 0.1f);
 	ImGui::DragFloat3("cameraRot", &cameraRot_.x, 0.1f);
 	ImGui::DragFloat("hit", &hitCoolDown, 0.1f);
+	ImGui::DragInt("Hp", &hp, 1);
 	ImGui::End();
 	#endif
 }

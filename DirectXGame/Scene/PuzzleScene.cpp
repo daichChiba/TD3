@@ -15,6 +15,8 @@ void PuzzleScene::Update() {
 	// パズルマネージャーの更新
 	puzzleManager_->Update();
 	if (puzzleManager_->GetIsClear()) {
+		// 音声停止
+		audio_->StopWave(voiceHandle_);
 		finished_ = true;
 	}
 	DrawImGui();

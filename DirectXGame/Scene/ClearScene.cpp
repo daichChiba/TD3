@@ -10,11 +10,18 @@ void ClearScene::Initialize() {
 	pushTexture_ = TextureManager::Load("PushReturn.png");
 	pushSprite_ = Sprite::Create(pushTexture_, {320, 600});
 
-
+	// サウンドデータの読み込み
+	soundDataHandle_ = audio_->LoadWave("BGM/ClearBGM.mp3");
+	// 音声再生
+	audio_->PauseWave(soundDataHandle_);
+	// 第2引数でループ再生を指定
+	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
 }
 
 void ClearScene::Update() {
 	if (Input::GetInstance()->ReleseKey(DIK_RETURN)) {
+		// 音声停止
+		audio_->StopWave(voiceHandle_);
 		finished_ = true;
 	}
 	DrawImGui();

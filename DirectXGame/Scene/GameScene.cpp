@@ -35,6 +35,13 @@ void GameScene::Initialize() {
 	actorManager->SetGeamScene(this);
 	actorManager->Initialize(PlayerModel_, playerBulletModel_, longModel_,shortModel,flyModel, cubeModel_);
 
+	// サウンドデータの読み込み
+	soundDataHandle_ = audio_->LoadWave("BGM/GamePlay.mp3");
+	// 音声再生
+	audio_->PauseWave(soundDataHandle_);
+	// 第2引数でループ再生を指定
+	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+
 }
 
 void GameScene::Update() {
@@ -42,7 +49,15 @@ void GameScene::Update() {
 
 	skyDomeTrans.UpdateMatrix();
 
+	if (actorManager->GetEnemyDeadConnt() == actorManager->GetClearEnemyCount()) {
+		// 音声停止
+		audio_->StopWave(voiceHandle_);
+		DeadFinished_ = true;
+	}
+
 	if (actorManager->GetPlayer()->hp == 0) {
+		// 音声停止
+		audio_->StopWave(voiceHandle_);
 		DeadFinished_ = true;
 	}
 

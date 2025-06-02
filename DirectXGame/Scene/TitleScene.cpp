@@ -8,10 +8,19 @@ void TitleScene::Initialize() {
 	titleTexture_ = TextureManager::Load("Scene/title.png");
 	titleSprite_ = Sprite::Create(titleTexture_, {0, 0});
 
+	// サウンドデータの読み込み
+	soundDataHandle_ = audio_->LoadWave("BGM/TitleBGM.mp3");
+	// 音声再生
+	audio_->PauseWave(soundDataHandle_);
+	// 第2引数でループ再生を指定
+	voiceHandle_ = audio_->PlayWave(soundDataHandle_, true);
+
 }
 
 void TitleScene::Update() {
 	if (Input::GetInstance()->ReleseKey(DIK_RETURN)) {
+		// 音声停止
+		audio_->StopWave(voiceHandle_);
 		finished_ = true;
 	}
 

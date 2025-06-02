@@ -20,6 +20,11 @@ private:
 	// パズルマネージャー
 	PuzzleManager* puzzleManager_ = nullptr;
 
+	// サウドデータハンドル
+	uint32_t soundDataHandle_ = 0;
+	// 音声再生ハンドル
+	uint32_t voiceHandle_ = 0;
+
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
