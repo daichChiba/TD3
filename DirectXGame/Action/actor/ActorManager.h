@@ -19,6 +19,9 @@ public:
 	void Update();
 	void Draw();
 
+	ActorManager();
+	~ActorManager();
+
 	Camera* SetCamera(){ return camera_; }
 
 	void SetGeamScene(GameScene* gameScene) { gameScene_ = gameScene;};

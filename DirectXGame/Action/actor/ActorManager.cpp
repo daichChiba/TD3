@@ -89,6 +89,10 @@ void ActorManager::Draw() {
 	enemyManager_->Draw(*camera_);
 }
 
+ActorManager::ActorManager() {}
+
+ActorManager::~ActorManager() { attack_.clear(); }
+
 PlayerActor* ActorManager::GetPlayer() { return playerManager_->GetPlayer(); }
 
 void ActorManager::CheckAllCollisions() {
