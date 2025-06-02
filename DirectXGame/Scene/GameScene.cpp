@@ -9,7 +9,9 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	delete actorManager;
+}
 
 void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
