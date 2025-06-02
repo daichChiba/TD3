@@ -3,6 +3,7 @@
 using namespace KamataEngine;
 #include "../Puzzule/BasePuzzle/BasePuzzle.h"
 #include "../Puzzule/BasePuzzle/puzzles/PuzzleFactory.h"
+#include <random>
 class GameScene;
 
 class PuzzleManager {
@@ -36,7 +37,7 @@ public:
 	/// <summary>
 	/// パズルの開始
 	/// </summary>
-	void StartPuzzle() ;
+	void StartPuzzle();
 	/// <summary>
 	/// パズルの終了
 	/// </summary>
@@ -45,8 +46,7 @@ public:
 	bool GetIsClear();
 
 private:
-
-	GameScene* gameScene_ ;
+	GameScene* gameScene_;
 	Camera* camera_;
 	/// <summary>
 	/// puzzleManagerのImGui描画
@@ -57,4 +57,8 @@ private:
 	std::unique_ptr<BasePuzzle> puzzle_;
 	// パズルファクトリー
 	std::unique_ptr<PuzzleFactory> factory_;
+
+	// 乱数シード
+	std::mt19937 randomSeed;
+	int randomNum;
 };

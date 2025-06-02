@@ -91,7 +91,13 @@ void ActorManager::Draw() {
 
 ActorManager::ActorManager() {}
 
-ActorManager::~ActorManager() { attack_.clear(); }
+ActorManager::~ActorManager() {
+	attack_.clear();
+	delete camera_;
+	delete followCamera_;
+	delete playerManager_;
+	delete enemyManager_;
+}
 
 PlayerActor* ActorManager::GetPlayer() { return playerManager_->GetPlayer(); }
 
