@@ -252,13 +252,14 @@ void ChangeScene() {
 
 				clearScene = new ClearScene;
 				clearScene->Initialize();
-			}else if(gameScene->isDead()){
-				scene = Scene::kDead;
-				delete gameScene;
-
-				deadScene = new DeadScene;
-				deadScene->Initialize();
 			}
+		}
+		if (gameScene->DeadFinished_) {
+			scene = Scene::kDead;
+			delete gameScene;
+
+			deadScene = new DeadScene;
+			deadScene->Initialize();
 		}
 
 		break;

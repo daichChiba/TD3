@@ -152,7 +152,7 @@ void ActorManager::CheckStartPuzule() {
 		gameScene_->isStop = true;
 	}
 	if (enemyDeadConnt >= clearEnemyCount && gameScene_->puzzleClear == true) {
-		
+
 		gameScene_->isClear = true;
 		gameScene_->isEnd = true;
 	}
