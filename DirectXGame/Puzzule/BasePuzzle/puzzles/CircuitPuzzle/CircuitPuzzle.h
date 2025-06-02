@@ -43,7 +43,16 @@ struct PanelData {
 	PanelType date;
 	Sprite* sprite;
 
-	bool isCorrect;   // 正しいかどうか
+	bool isCorrect; // 正しいかどうか
+};
+
+// パネルの接続方向を定義するenumクラス
+enum class Direction {
+	None, // 接続なし
+	Up,
+	Down,
+	Left,
+	Right
 };
 
 // 回路パズルクラス
@@ -100,7 +109,7 @@ private:
 	std::vector<uint32_t> connectedPanelTextures_;
 	// パネルのスプライト
 
-	//パネルを中心に移動させるVector2
+	// パネルを中心に移動させるVector2
 	Vector2 centor_;
 
 	// パネルサイズ
@@ -113,4 +122,31 @@ private:
 	bool isHold_ = false;
 	// 乱数シード
 	std::mt19937 randomSeed;
+
+	std::map<PanelType, std::vector<Direction>> panelConnections = {
+	    {PanelType::StartPanel,           {Direction::Down}	                                              }, //  startPanelは下方向のみ接続可能
+	    {PanelType::TPanel,               {Direction::Up, Direction::Down, Direction::Left}                  }, // TPanelは上、下、左方向に接続可能
+	    {PanelType::LPanel,               {Direction::Up, Direction::Right}                                  }, // LPanelは上、右方向に接続可能
+	    {PanelType::InvertedL,            {Direction::Down, Direction::Right}                                }, // InvertedLは下、右方向に接続可能
+	    {PanelType::IPanel,               {Direction::Up, Direction::Down}                                   }, // IPanelは上下方向に接続可能
+	    {PanelType::UpReverseLPanel,      {Direction::Up, Direction::Left}                                   }, // UpReverseLPanelは上、左方向に接続可能
+	    {PanelType::UpInvertedLPanel,     {Direction::Down, Direction::Left}                                 }, // UpInvertedLPanelは下、左方向に接続可能
+	    {PanelType::UpReverseTPanel,      {Direction::Up, Direction::Left, Direction::Right}                 }, // UpReverseTPanelは上、左、右方向に接続可能
+	    {PanelType::GoalPanel,            {Direction::Up}	                                                }, // GoalPanelは上方向のみ接続可能
+	    {PanelType::PlusPanel,            {Direction::Up, Direction::Down, Direction::Left, Direction::Right}}, // PlusPanelは上下左右方向に接続可能
+	    {PanelType::LeftRotateTPanel,     {Direction::Up, Direction::Down, Direction::Right}                 }, // LeftRotateTPanelは上、下、右方向に接続可能
+	    {PanelType::RiteRotateTPanel,     {Direction::Up, Direction::Down, Direction::Left}                  }, // RiteRotateTPanelは上、下、左方向に接続可能
+	    {PanelType::MinusPanel,           {Direction::Left, Direction::Right}                                }, // MinusPanelは左右方向に接続可能
+	    {PanelType::LockTPanel,           {Direction::Up, Direction::Down, Direction::Left}                  }, // LockTPanelは上、下、左方向に接続可能
+	    {PanelType::LockLPanel,           {Direction::Up, Direction::Right}                                  }, // LockLPanelは上、右方向に接続可能
+	    {PanelType::LockInvertedL,        {Direction::Down, Direction::Right}                                }, // LockInvertedLは下、右方向に接続可能
+	    {PanelType::LockIPanel,           {Direction::Up, Direction::Down}                                   }, // LockIPanelは上下方向に接続可能
+	    {PanelType::LockUpReverseLPanel,  {Direction::Up, Direction::Left}                                   }, // LockUpReverseLPanelは上、左方向に接続可能
+	    {PanelType::LockUpInvertedLPanel, {Direction::Down, Direction::Left}                                 }, // LockUpInvertedLPanelは下、左方向に接続可能
+	    {PanelType::LockUpReverseTPanel,  {Direction::Up, Direction::Left, Direction::Right}                 }, // LockUpReverseTPanelは上、左、右方向に接続可能
+	    {PanelType::LockPlusPanel,        {Direction::Up, Direction::Down, Direction::Left, Direction::Right}}, // LockPlusPanelは上下左右方向に接続可能
+	    {PanelType::LockLeftRotateTPanel, {Direction::Up, Direction::Down, Direction::Right}                 }, // LockLeftRotateTPanelは上、下、右方向に接続可能
+	    {PanelType::LockRiteRotateTPanel, {Direction::Up, Direction::Down, Direction::Left}                  }, // LockRiteRotateTPanelは上、下、左方向に接続可能
+	    {PanelType::LockMinusPanel,       {Direction::Left, Direction::Right}                                }  // LockMinusPanelは左右方向に接続可能
+	};
 };

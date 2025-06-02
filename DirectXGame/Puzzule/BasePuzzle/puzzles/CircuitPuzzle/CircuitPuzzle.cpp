@@ -129,40 +129,20 @@ void CircuitPuzzle::SpriteDraw() {
 	}
 }
 void CircuitPuzzle::CheckClear() {
-	// answerDataとcsvDataを比較してクリアしているか判定
-	for (size_t y = 0; y < answerData_.size(); y++) {
-		for (size_t x = 0; x < answerData_[y].size(); x++) {
-			if (answerData_[y][x] != csvData_[y][x]) {
-				isClear_ = false;
-				return;
-			} else {
-				isClear_ = true;
+	ConnectedPanel(); // 接続状態を更新
+	bool isGoalCorrect = false;
+	for (const auto& row : panelData_) {
+		for (const auto& panel : row) {
+			if (panel.date == PanelType::GoalPanel && panel.isCorrect) {
+				isGoalCorrect = true;
+				break;
 			}
-
-			// answerDataとcsvDataを一つずつ比較して正しい場合isCorrectをtrueにする
-			// if (answerData_[y][x] == csvData_[y][x]) {
-			// panelData_[y][x].isCorrect = true;
-			//} else {
-			// panelData_[y][x].isCorrect = false;
-			//}
 		}
+		if (isGoalCorrect)
+			break;
 	}
-
-	if (isClear_) {
-		// for (size_t i = 0; i < panelData_.size(); i++) {
-		//	for (size_t j = 0; j < panelData_[i].size(); j++) {
-		//		if (panelData_[i][j].date != PanelType::Blank) {
-		//			panelData_[i][j].sprite->SetTextureHandle(connectedPanelTextures_[static_cast<int>(panelData_[i][j].date)-1]);
-		//		}
-		//	}
-		// }
-
-		// クリアした場合
-		fileAccessor_->Write("Circuit", "isClear", true);
-	} else {
-		// クリアしていない場合
-		fileAccessor_->Write("Circuit", "isClear", false);
-	}
+	isClear_ = isGoalCorrect;
+	fileAccessor_->Write("Circuit", "isClear", isClear_);
 	fileAccessor_->Save();
 }
 void CircuitPuzzle::DrawImGui() {
@@ -285,58 +265,86 @@ void CircuitPuzzle::CorrectPanel() {
 }
 
 void CircuitPuzzle::ConnectedPanel() {
-	for (size_t y = 0; y < csvData_.size(); y++) {
-		for (size_t x = 0; x < csvData_[y].size(); x++) {
-			if (panelData_[y][x].isCorrect) {
-				// パネルの上が正しいかどうか
-				if (y > 0) { // yが0より大きい場合のみアクセス
-					if (panelData_[y - 1][x].date != PanelType::Blank) {
-						if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
-							panelData_[y - 1][x].isCorrect = true;
-						} else {
-							panelData_[y - 1][x].isCorrect = false;
-						}
-					}
-				}
-
-				// パネルの下が正しいかどうか
-				if (y < csvData_.size() - 1) { // yが最終行より小さい場合のみアクセス
-					if (panelData_[y + 1][x].date != PanelType::Blank) {
-						if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
-							panelData_[y + 1][x].isCorrect = true;
-						} else {
-							panelData_[y + 1][x].isCorrect = false;
-						}
-					}
-				}
-
-				// パネルの左が正しいかどうか
-				if (x > 0) { // xが0より大きい場合のみアクセス
-					if (panelData_[y][x - 1].date != PanelType::Blank) {
-						if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
-							panelData_[y][x - 1].isCorrect = true;
-						} else {
-							panelData_[y][x - 1].isCorrect = false;
-						}
-					}
-				}
-
-				// パネルの右が正しいかどうか
-				if (x < csvData_[y].size() - 1) { // xが最終列より小さい場合のみアクセス
-					if (panelData_[y][x + 1].date != PanelType::Blank) {
-						if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
-							panelData_[y][x + 1].isCorrect = true;
-						} else {
-							panelData_[y][x + 1].isCorrect = false;
-						}
-					}
-				}
+	// 全てのパネルのisCorrectを一旦falseにする (スタートパネルを除く)
+	for (size_t y = 0; y < panelData_.size(); ++y) {
+		for (size_t x = 0; x < panelData_[y].size(); ++x) {
+			if (panelData_[y][x].date != PanelType::StartPanel) {
+				panelData_[y][x].isCorrect = false;
+			} else {
+				panelData_[y][x].isCorrect = true; // スタートパネルは常に正しい
 			}
-			if (panelData_[y][x].date==PanelType::GoalPanel) {
-				if (!panelData_[y - 1][x].isCorrect) {
-					panelData_[y][x].isCorrect = false;
+		}
+	}
+
+	bool changed = true;
+	while (changed) {
+		changed = false;
+		for (size_t y = 0; y < panelData_.size(); ++y) {
+			for (size_t x = 0; x < panelData_[y].size(); ++x) {
+				if (panelData_[y][x].isCorrect && panelData_[y][x].date != PanelType::Blank) {
+					PanelType currentPanelType = panelData_[y][x].date;
+					// 現在のパネルの出力方向を取得 (panelConnectionsを使用)
+					auto it = panelConnections.find(currentPanelType);
+					if (it != panelConnections.end()) {
+						for (Direction outputDir : it->second) {
+							int nextX = static_cast<int>(x);
+							int nextY = static_cast<int>(y);
+							Direction inputDir = Direction::None; // 入力方向を初期化
+
+							// 出力方向に応じて隣接パネルの座標と期待される入力方向を計算
+							if (outputDir == Direction::Up) {
+								nextY--;
+								inputDir = Direction::Down;
+							} else if (outputDir == Direction::Down) {
+								nextY++;
+								inputDir = Direction::Up;
+							} else if (outputDir == Direction::Left) {
+								nextX--;
+								inputDir = Direction::Right;
+							} else if (outputDir == Direction::Right) {
+								nextX++;
+								inputDir = Direction::Left;
+							}
+
+							// 隣接パネルが範囲内にあるか確認
+							if (nextY >= 0 && nextY < panelData_.size() && nextX >= 0 && nextX < panelData_[nextY].size()) {
+								if (panelData_[nextY][nextX].date != PanelType::Blank && !panelData_[nextY][nextX].isCorrect) {
+									// 隣接パネルの入力方向を取得
+									auto nextPanelIt = panelConnections.find(panelData_[nextY][nextX].date);
+									if (nextPanelIt != panelConnections.end()) {
+										for (Direction nextInputDir : nextPanelIt->second) {
+											// 隣接パネルが期待される入力方向を持っているか確認
+											if (nextInputDir == inputDir) {
+												panelData_[nextY][nextX].isCorrect = true;
+												changed = true;
+												break; // 一致する入力方向が見つかったら終了
+											}
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
+	}
+
+	// ゴールパネルが正しく接続されているか最終確認
+	bool goalFound = false;
+	for (size_t y = 0; y < panelData_.size(); ++y) {
+		for (size_t x = 0; x < panelData_[y].size(); ++x) {
+			if (panelData_[y][x].date == PanelType::GoalPanel && panelData_[y][x].isCorrect) {
+				goalFound = true;
+				break;
+			}
+		}
+		if (goalFound)
+			break;
+	}
+
+	if (!goalFound) {
+		// ゴールに正しく接続されていない場合、クリアフラグを下げるなどの処理
+		isClear_ = false;
 	}
 }
