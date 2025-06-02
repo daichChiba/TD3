@@ -22,7 +22,7 @@ public:
 	ActorManager();
 	~ActorManager();
 
-	Camera* SetCamera(){ return camera_; }
+	Camera* SetCamera() { return camera_; }
 
 	void SetGeamScene(GameScene* gameScene) { gameScene_ = gameScene;};
 
@@ -46,8 +46,8 @@ private:
 	FollowCamera* followCamera_;
 	GameScene* gameScene_;
 
-	PlayerManager* playerManager_;
-	EnemyManager* enemyManager_;
+	std::unique_ptr <PlayerManager> playerManager_;
+	std::unique_ptr < EnemyManager> enemyManager_;
 	std::list<std::shared_ptr<BulletActor>> attack_;
 
 	Vector3 preCameraRot;

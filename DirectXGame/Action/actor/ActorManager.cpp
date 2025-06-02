@@ -32,14 +32,14 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 	flyModel_ = flyModel;
 	enemyBulletModel_ = enemyBulletModel;
 
-	playerManager_ = new PlayerManager();
+	playerManager_ = std::make_unique< PlayerManager>();
 	playerManager_->Initialize(PlayeModel_, PlayerBulletModel, Vector3{0.0f, 0.0f, 0.0f}, this);
 
 	playerManager_->CreatePlayerMain();
 
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 
-	enemyManager_ = new EnemyManager();
+	enemyManager_ = std::make_unique<EnemyManager>();
 	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
 
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
@@ -91,13 +91,7 @@ void ActorManager::Draw() {
 
 ActorManager::ActorManager() {}
 
-ActorManager::~ActorManager() {
-	attack_.clear();
-	delete camera_;
-	delete followCamera_;
-	delete playerManager_;
-	delete enemyManager_;
-}
+ActorManager::~ActorManager() {  }
 
 PlayerActor* ActorManager::GetPlayer() { return playerManager_->GetPlayer(); }
 
