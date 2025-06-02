@@ -24,7 +24,7 @@ void CircuitPuzzle::Initialize() {
 	// 乱数生成器の初期化
 	std::uniform_int_distribution<int> random(1, 6);
 	// 乱数を生成
-	int randomNum = 2;
+	int randomNum = random(randomSeed);
 
 	// FileAccessorの初期化
 	fileAccessor_ = nullptr;
@@ -42,6 +42,8 @@ void CircuitPuzzle::Initialize() {
 	answerData_ = fileAccessor_->ReadCsvData("Circuit", "answer_" + std::to_string(randomNum));
 	// パネルのテクスチャを読み込む
 	panelTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/panel.png");
+	BackgroundTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/brick.png");
+	backgroundSprite_ = Sprite::Create(BackgroundTexture_, Vector2(1000.0f, 400.0f));
 	for (int i = 1; i <= 24; i++) {
 		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/CircuitPuzzles/circuitPuzzle_" + std::to_string(i) + ".png"));
 		connectedPanelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/correctPanel/correctPanel_" + std::to_string(i) + ".png"));
@@ -118,6 +120,10 @@ void CircuitPuzzle::Draw() {}
 
 // Sprite描画
 void CircuitPuzzle::SpriteDraw() {
+	backgroundSprite_->SetPosition(Vector2(0.0f,0.0f));
+	backgroundSprite_->Draw();
+
+
 	// CSVデータに基づいて画像を描画
 	for (size_t y = 0; y < panelData_.size(); y++) {
 		for (size_t x = 0; x < panelData_[y].size(); x++) {
@@ -265,86 +271,332 @@ void CircuitPuzzle::CorrectPanel() {
 }
 
 void CircuitPuzzle::ConnectedPanel() {
-	// 全てのパネルのisCorrectを一旦falseにする (スタートパネルを除く)
-	for (size_t y = 0; y < panelData_.size(); ++y) {
-		for (size_t x = 0; x < panelData_[y].size(); ++x) {
-			if (panelData_[y][x].date != PanelType::StartPanel) {
-				panelData_[y][x].isCorrect = false;
-			} else {
-				panelData_[y][x].isCorrect = true; // スタートパネルは常に正しい
-			}
-		}
-	}
+	for (size_t y = 0; y < csvData_.size(); y++) {
+		for (size_t x = 0; x < csvData_[y].size(); x++) {
+			if (panelData_[y][x].isCorrect) {
+#pragma region 上のパネルチェック
+				// パネルの上が正しいかどうか
+				if (y > 0) { // yが0より大きい場合のみアクセス
+					if (panelData_[y - 1][x].date != PanelType::Blank) {
+						// if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+						//	panelData_[y - 1][x].isCorrect = true;
+						// } else {
+						//	panelData_[y - 1][x].isCorrect = false;
+						// }
 
-	bool changed = true;
-	while (changed) {
-		changed = false;
-		for (size_t y = 0; y < panelData_.size(); ++y) {
-			for (size_t x = 0; x < panelData_[y].size(); ++x) {
-				if (panelData_[y][x].isCorrect && panelData_[y][x].date != PanelType::Blank) {
-					PanelType currentPanelType = panelData_[y][x].date;
-					// 現在のパネルの出力方向を取得 (panelConnectionsを使用)
-					auto it = panelConnections.find(currentPanelType);
-					if (it != panelConnections.end()) {
-						for (Direction outputDir : it->second) {
-							int nextX = static_cast<int>(x);
-							int nextY = static_cast<int>(y);
-							Direction inputDir = Direction::None; // 入力方向を初期化
-
-							// 出力方向に応じて隣接パネルの座標と期待される入力方向を計算
-							if (outputDir == Direction::Up) {
-								nextY--;
-								inputDir = Direction::Down;
-							} else if (outputDir == Direction::Down) {
-								nextY++;
-								inputDir = Direction::Up;
-							} else if (outputDir == Direction::Left) {
-								nextX--;
-								inputDir = Direction::Right;
-							} else if (outputDir == Direction::Right) {
-								nextX++;
-								inputDir = Direction::Left;
+						// LPanelかLockLPanelなら上のパネルをチェック
+						if (panelData_[y][x].date == PanelType::LPanel || panelData_[y][x].date == PanelType::LockLPanel) {
+							if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+								panelData_[y - 1][x].isCorrect = true;
+							} else {
+								panelData_[y - 1][x].isCorrect = false;
 							}
+						}
 
-							// 隣接パネルが範囲内にあるか確認
-							if (nextY >= 0 && nextY < panelData_.size() && nextX >= 0 && nextX < panelData_[nextY].size()) {
-								if (panelData_[nextY][nextX].date != PanelType::Blank && !panelData_[nextY][nextX].isCorrect) {
-									// 隣接パネルの入力方向を取得
-									auto nextPanelIt = panelConnections.find(panelData_[nextY][nextX].date);
-									if (nextPanelIt != panelConnections.end()) {
-										for (Direction nextInputDir : nextPanelIt->second) {
-											// 隣接パネルが期待される入力方向を持っているか確認
-											if (nextInputDir == inputDir) {
-												panelData_[nextY][nextX].isCorrect = true;
-												changed = true;
-												break; // 一致する入力方向が見つかったら終了
-											}
-										}
-									}
-								}
+						// UpReverseTPanelかLockUpReverseTPanelなら上のパネルをチェック
+						if (panelData_[y][x].date == PanelType::UpReverseTPanel || panelData_[y][x].date == PanelType::LockUpReverseTPanel) {
+							if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+								panelData_[y - 1][x].isCorrect = true;
+							} else {
+								panelData_[y - 1][x].isCorrect = false;
+							}
+						}
+
+						// InvertedLか LockInvertedLなら上のパネルをチェック
+						if (panelData_[y][x].date == PanelType::InvertedL || panelData_[y][x].date == PanelType::LockInvertedL) {
+							if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+								panelData_[y - 1][x].isCorrect = true;
+							} else {
+								panelData_[y - 1][x].isCorrect = false;
+							}
+						}
+
+						// IPanelかLockIPanelなら上のパネルをチェック
+						if (panelData_[y][x].date == PanelType::IPanel || panelData_[y][x].date == PanelType::LockIPanel) {
+							if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+								panelData_[y - 1][x].isCorrect = true;
+							} else {
+								panelData_[y - 1][x].isCorrect = false;
+							}
+						}
+
+						// PlusPanelかLockPlusPanelなら上のパネルをチェック
+						if (panelData_[y][x].date == PanelType::PlusPanel || panelData_[y][x].date == PanelType::LockPlusPanel) {
+							if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+								panelData_[y - 1][x].isCorrect = true;
+							} else {
+								panelData_[y - 1][x].isCorrect = false;
+							}
+						}
+
+						// LeftRotateTPanelかLockLeftRotateTPanelなら上のパネルをチェック
+						if (panelData_[y][x].date == PanelType::LeftRotateTPanel || panelData_[y][x].date == PanelType::LockLeftRotateTPanel) {
+							if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+								panelData_[y - 1][x].isCorrect = true;
+							} else {
+								panelData_[y - 1][x].isCorrect = false;
+							}
+						}
+
+						// RiteRotateTPanelかLockRiteRotateTPanelなら上のパネルをチェック
+						if (panelData_[y][x].date == PanelType::RiteRotateTPanel || panelData_[y][x].date == PanelType::LockRiteRotateTPanel) {
+							if (csvData_[y - 1][x] == answerData_[y - 1][x]) {
+								panelData_[y - 1][x].isCorrect = true;
+							} else {
+								panelData_[y - 1][x].isCorrect = false;
 							}
 						}
 					}
 				}
-			}
-		}
-	}
+#pragma endregion
 
-	// ゴールパネルが正しく接続されているか最終確認
-	bool goalFound = false;
-	for (size_t y = 0; y < panelData_.size(); ++y) {
-		for (size_t x = 0; x < panelData_[y].size(); ++x) {
-			if (panelData_[y][x].date == PanelType::GoalPanel && panelData_[y][x].isCorrect) {
-				goalFound = true;
-				break;
-			}
-		}
-		if (goalFound)
-			break;
-	}
+#pragma region 下のパネルチェック
+				// パネルの下が正しいかどうか
+				if (y < csvData_.size() - 1) { // yが最終行より小さい場合のみアクセス
+					if (panelData_[y + 1][x].date != PanelType::Blank) {
+						// if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+						//	panelData_[y + 1][x].isCorrect = true;
+						// } else {
+						//	panelData_[y + 1][x].isCorrect = false;
+						// }
 
-	if (!goalFound) {
-		// ゴールに正しく接続されていない場合、クリアフラグを下げるなどの処理
-		isClear_ = false;
+						// パネルがStartPanelなら下のパネルをチェック
+						if (panelData_[y][x].date == PanelType::StartPanel) {
+							if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+								panelData_[y + 1][x].isCorrect = true;
+							} else {
+								panelData_[y + 1][x].isCorrect = false;
+							}
+						}
+
+						// パネルがTPanelかLockTPanelなら下のパネルをチェック
+						if (panelData_[y][x].date == PanelType::TPanel || panelData_[y][x].date == PanelType::LockTPanel) {
+							if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+								panelData_[y + 1][x].isCorrect = true;
+							} else {
+								panelData_[y + 1][x].isCorrect = false;
+							}
+						}
+
+						// パネルがIPanelかLockIPanelなら下のパネルをチェック
+						if (panelData_[y][x].date == PanelType::IPanel || panelData_[y][x].date == PanelType::LockIPanel) {
+							if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+								panelData_[y + 1][x].isCorrect = true;
+							} else {
+								panelData_[y + 1][x].isCorrect = false;
+							}
+						}
+
+						// パネルがUpReverseLPanelかLockUpReverseLPanelなら下のパネルをチェック
+						if (panelData_[y][x].date == PanelType::UpReverseLPanel || panelData_[y][x].date == PanelType::LockUpReverseLPanel) {
+							if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+								panelData_[y + 1][x].isCorrect = true;
+							} else {
+								panelData_[y + 1][x].isCorrect = false;
+							}
+						}
+
+						// パネルがUpInvertedLPanelかLockUpInvertedLPanelなら下のパネルをチェック
+						if (panelData_[y][x].date == PanelType::UpInvertedLPanel || panelData_[y][x].date == PanelType::LockUpInvertedLPanel) {
+							if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+								panelData_[y + 1][x].isCorrect = true;
+							} else {
+								panelData_[y + 1][x].isCorrect = false;
+							}
+						}
+
+						// パネルがPlusPanelかLockPlusPanelなら下のパネルをチェック
+						if (panelData_[y][x].date == PanelType::PlusPanel || panelData_[y][x].date == PanelType::LockPlusPanel) {
+							if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+								panelData_[y + 1][x].isCorrect = true;
+							} else {
+								panelData_[y + 1][x].isCorrect = false;
+							}
+						}
+
+						// パネルがLeftRotateTPanelかLockLeftRotateTPanelなら下のパネルをチェック
+						if (panelData_[y][x].date == PanelType::LeftRotateTPanel || panelData_[y][x].date == PanelType::LockLeftRotateTPanel) {
+							if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+								panelData_[y + 1][x].isCorrect = true;
+							} else {
+								panelData_[y + 1][x].isCorrect = false;
+							}
+						}
+
+						// パネルがRiteRotateTPanelかLockRiteRotateTPanelなら下のパネルをチェック
+						if (panelData_[y][x].date == PanelType::RiteRotateTPanel || panelData_[y][x].date == PanelType::LockRiteRotateTPanel) {
+							if (csvData_[y + 1][x] == answerData_[y + 1][x]) {
+								panelData_[y + 1][x].isCorrect = true;
+							} else {
+								panelData_[y + 1][x].isCorrect = false;
+							}
+						}
+					}
+				}
+#pragma endregion
+
+#pragma region 左のパネルチェック
+				// パネルの左が正しいかどうか
+				if (x > 0) { // xが0より大きい場合のみアクセス
+					if (panelData_[y][x - 1].date != PanelType::Blank) {
+						// if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+						//	panelData_[y][x - 1].isCorrect = true;
+						// } else {
+						//	panelData_[y][x - 1].isCorrect = false;
+						// }
+
+						// パネルがTPanelかLockTPanelなら左のパネルをチェック
+						if (panelData_[y][x].date == PanelType::TPanel || panelData_[y][x].date == PanelType::LockTPanel) {
+							if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+								panelData_[y][x - 1].isCorrect = true;
+							} else {
+								panelData_[y][x - 1].isCorrect = false;
+							}
+						}
+
+						// パネルがUpReverseTPanelかLockUpReverseTPanelなら左のパネルをチェック
+						if (panelData_[y][x].date == PanelType::UpReverseTPanel || panelData_[y][x].date == PanelType::LockUpReverseTPanel) {
+							if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+								panelData_[y][x - 1].isCorrect = true;
+							} else {
+								panelData_[y][x - 1].isCorrect = false;
+							}
+						}
+
+						// パネルがRiteRotateTPanelかLockRiteRotateTPanelなら左のパネルをチェック
+						if (panelData_[y][x].date == PanelType::RiteRotateTPanel || panelData_[y][x].date == PanelType::LockRiteRotateTPanel) {
+							if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+								panelData_[y][x - 1].isCorrect = true;
+							} else {
+								panelData_[y][x - 1].isCorrect = false;
+							}
+						}
+						
+
+						// UpReverseLPanelかLockUpReverseLPanelなら左のパネルをチェック
+						if (panelData_[y][x].date == PanelType::UpReverseLPanel || panelData_[y][x].date == PanelType::LockUpReverseLPanel) {
+							if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+								panelData_[y][x - 1].isCorrect = true;
+							} else {
+								panelData_[y][x - 1].isCorrect = false;
+							}
+						}
+
+						// InvertedLかLockInvertedLなら左のパネルをチェック
+						if (panelData_[y][x].date == PanelType::InvertedL || panelData_[y][x].date == PanelType::LockInvertedL) {
+							if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+								panelData_[y][x - 1].isCorrect = true;
+							} else {
+								panelData_[y][x - 1].isCorrect = false;
+							}
+						}
+
+						// PlusPanelかLockPlusPanelなら左のパネルをチェック
+						if (panelData_[y][x].date == PanelType::PlusPanel || panelData_[y][x].date == PanelType::LockPlusPanel) {
+							if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+								panelData_[y][x - 1].isCorrect = true;
+							} else {
+								panelData_[y][x - 1].isCorrect = false;
+							}
+						}
+
+						// MinusPanelかLockMinusPanelなら左のパネルをチェック
+						if (panelData_[y][x].date == PanelType::MinusPanel || panelData_[y][x].date == PanelType::LockMinusPanel) {
+							if (csvData_[y][x - 1] == answerData_[y][x - 1]) {
+								panelData_[y][x - 1].isCorrect = true;
+							} else {
+								panelData_[y][x - 1].isCorrect = false;
+							}
+						}
+					}
+				}
+
+#pragma endregion
+
+#pragma region 右のパネルチェック
+				// パネルの右が正しいかどうか
+				if (x < csvData_[y].size() - 1) { // xが最終列より小さい場合のみアクセス
+					if (panelData_[y][x + 1].date != PanelType::Blank) {
+						//if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+						//	panelData_[y][x + 1].isCorrect = true;
+						//} else {
+						//	panelData_[y][x + 1].isCorrect = false;
+						//}
+
+						// パネルがTPanelかLockTPanelなら右のパネルをチェック
+						if (panelData_[y][x].date == PanelType::TPanel || panelData_[y][x].date == PanelType::LockTPanel) {
+							if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+								panelData_[y][x + 1].isCorrect = true;
+							} else {
+								panelData_[y][x + 1].isCorrect = false;
+							}
+						}
+
+						// パネルがUpReverseTPanelかLockUpReverseTPanelなら右のパネルをチェック
+						if (panelData_[y][x].date == PanelType::UpReverseTPanel || panelData_[y][x].date == PanelType::LockUpReverseTPanel) {
+							if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+								panelData_[y][x + 1].isCorrect = true;
+							} else {
+								panelData_[y][x + 1].isCorrect = false;
+							}
+						}
+
+						// パネルがLeftRotateTPanelかLockLeftRotateTPanelなら右のパネルをチェック
+						if (panelData_[y][x].date == PanelType::LeftRotateTPanel || panelData_[y][x].date == PanelType::LockLeftRotateTPanel) {
+							if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+								panelData_[y][x + 1].isCorrect = true;
+							} else {
+								panelData_[y][x + 1].isCorrect = false;
+							}
+						}
+
+
+						// パネルがUpReverseLPanelかLockUpReverseLPanelなら右のパネルをチェック
+						if (panelData_[y][x].date == PanelType::UpReverseLPanel || panelData_[y][x].date == PanelType::LockUpReverseLPanel) {
+							if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+								panelData_[y][x + 1].isCorrect = true;
+							} else {
+								panelData_[y][x + 1].isCorrect = false;
+							}
+						}
+
+						// パネルがLPanelかLockLPanelなら右のパネルをチェック
+						if (panelData_[y][x].date == PanelType::LPanel || panelData_[y][x].date == PanelType::LockLPanel) {
+							if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+								panelData_[y][x + 1].isCorrect = true;
+							} else {
+								panelData_[y][x + 1].isCorrect = false;
+							}
+						}
+
+						// パネルがPlusPanelかLockPlusPanelなら右のパネルをチェック
+						if (panelData_[y][x].date == PanelType::PlusPanel || panelData_[y][x].date == PanelType::LockPlusPanel) {
+							if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+								panelData_[y][x + 1].isCorrect = true;
+							} else {
+								panelData_[y][x + 1].isCorrect = false;
+							}
+						}
+
+						// パネルがMinusPanelかLockMinusPanelなら右のパネルをチェック
+						if (panelData_[y][x].date == PanelType::MinusPanel || panelData_[y][x].date == PanelType::LockMinusPanel) {
+							if (csvData_[y][x + 1] == answerData_[y][x + 1]) {
+								panelData_[y][x + 1].isCorrect = true;
+							} else {
+								panelData_[y][x + 1].isCorrect = false;
+							}
+						}
+
+					}
+				}
+			}
+#pragma endregion
+
+			//if (panelData_[y][x].date == PanelType::GoalPanel) {
+			//	if (!panelData_[y - 1][x].isCorrect) {
+			//		panelData_[y][x].isCorrect = false;
+			//	}
+			//}
+		}
 	}
 }

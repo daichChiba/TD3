@@ -109,7 +109,10 @@ private:
 	std::vector<uint32_t> connectedPanelTextures_;
 	// パネルのスプライト
 
-	// パネルを中心に移動させるVector2
+	uint32_t BackgroundTexture_;
+	Sprite* backgroundSprite_;
+
+	//パネルを中心に移動させるVector2
 	Vector2 centor_;
 
 	// パネルサイズ
