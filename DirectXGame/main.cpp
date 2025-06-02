@@ -99,19 +99,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		if (win->ProcessMessage()) {
 			break;
 		}
-
-		if (Input::GetInstance()->TriggerKey(DIK_P)) {
-			scene = Scene::kTitle;
-
-			delete gameScene;
-			delete puzzleScene;
-			delete ruleScene;
-			delete clearScene;
-			delete deadScene;
-			delete titleScene;
-
-			titleScene->Initialize();
-		}
 		if (scene == Scene::kGame) {
 			// マウスカーソルをウィンドウ中央に固定
 			CenterMouseCursor(win->GetHwnd());
