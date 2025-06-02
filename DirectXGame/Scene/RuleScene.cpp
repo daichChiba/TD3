@@ -7,6 +7,7 @@ void RuleScene::Initialize() {
 
 	ruleTexture_ = TextureManager::Load("Scene/rule.png");
 	ruleSprite_ = Sprite::Create(ruleTexture_, {0, 0});
+
 }
 
 void RuleScene::Update() {
