@@ -93,8 +93,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	titleScene->Initialize();
 	scene = Scene::kTitle;
 
-	bool debugFulag = false;
-
 	// メインループ
 	while (true) {
 		// メッセージ処理
@@ -102,10 +100,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			break;
 		}
 
-		if (Input::GetInstance()->TriggerKey(DIK_P)) {
-			debugFulag = !debugFulag;
-		}
-		if (scene == Scene::kGame && debugFulag == true) {
+		//if (Input::GetInstance()->TriggerKey(DIK_P)) {
+		//	debugFulag = !debugFulag;
+		//}
+		if (scene == Scene::kGame) {
 			// マウスカーソルをウィンドウ中央に固定
 			CenterMouseCursor(win->GetHwnd());
 		}
