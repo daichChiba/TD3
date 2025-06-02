@@ -22,7 +22,7 @@ void CircuitPuzzle::Initialize() {
 	// 乱数生成器を初期化
 	randomSeed.seed(rd());
 	// 乱数生成器の初期化
-	std::uniform_int_distribution<int> random(1, 6);
+	std::uniform_int_distribution<int> random(1, 5);
 	// 乱数を生成
 	int randomNum = random(randomSeed);
 
