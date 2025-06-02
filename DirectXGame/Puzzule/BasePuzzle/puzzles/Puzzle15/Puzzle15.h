@@ -105,8 +105,9 @@ private:
 	// 黒いテクスチャ(パネルを入れる場所をわかりやすくするために必要なもの)
 	uint32_t BlaccTexture_;
 
-	// クリアフラグ
-	bool isClear_ = false;
+	
+	uint32_t BackgroundTexture_;
+	Sprite* backgroundSprite_;
 
 	// LoadJsonFileのファイルアクセサ
 	FileJson::FileAccessor* fileAccessor_ = nullptr;

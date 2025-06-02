@@ -8,6 +8,8 @@ Puzzle15::~Puzzle15() {}
 
 void Puzzle15::Initialize() {
 
+	isClear_ = false; // パズルのクリア状態を初期化
+
 	// 中心座標を設定
 	centor_ = {500.0f, 200.0f};
 
@@ -21,6 +23,8 @@ void Puzzle15::Initialize() {
 	for (int i = 1; i <= 15; i++) {
 		panelTextures_.push_back(TextureManager::Load("Puzzle15/puzzle15_" + std::to_string(i) + ".png"));
 	}
+	BackgroundTexture_ = TextureManager::Load("../Resources/Puzzle15/brick.png");
+	backgroundSprite_ = Sprite::Create(BackgroundTexture_, Vector2(0.0f, 0.0f));
 
 	// パネルデータの初期化
 	for (size_t i = 0; i < 16; i++) {
@@ -46,7 +50,6 @@ void Puzzle15::Initialize() {
 
 	// JSONファイルからデータを読み込む
 	panelSize_ = fileAccessor_->ReadVector3("Puzzle15", "size", Vector3());
-	isClear_ = fileAccessor_->Read("Puzzle15", "isClear", bool());
 	csvData_ = fileAccessor_->ReadCsvData("Puzzle15", "startPanel");
 	clearData = fileAccessor_->ReadCsvData("Puzzle15", "clearPanel");
 
@@ -129,6 +132,9 @@ void Puzzle15::Update() {
 void Puzzle15::Draw() {}
 
 void Puzzle15::SpriteDraw() {
+
+	backgroundSprite_->Draw();
+
 	// 全ての白いパネルを描画
 	for (BlackPanelDate whitePanel : BlackPanels) {
 		whitePanel.sprite->Draw();
@@ -211,7 +217,8 @@ int Puzzle15::IsInsideBlackPanel(Vector2 pos, Sprite*& targetBlackPanel) {
 		Vector2 blackPanelPos = blackPanel.sprite->GetPosition();
 		Vector2 blackPanelSize = blackPanel.sprite->GetSize();
 
-		if (pos.x >= blackPanelPos.x - blackPanelSize.x / 2 && pos.x <= blackPanelPos.x + blackPanelSize.x / 2 && pos.y >= blackPanelPos.y - blackPanelSize.y / 2 &&pos.y <= blackPanelPos.y + blackPanelSize.y / 2) {
+		if (pos.x >= blackPanelPos.x - blackPanelSize.x / 2 && pos.x <= blackPanelPos.x + blackPanelSize.x / 2 && pos.y >= blackPanelPos.y - blackPanelSize.y / 2 &&
+		    pos.y <= blackPanelPos.y + blackPanelSize.y / 2) {
 			targetBlackPanel = blackPanel.sprite; // 黒いパネルを取得
 			return i;
 		}
@@ -221,19 +228,19 @@ int Puzzle15::IsInsideBlackPanel(Vector2 pos, Sprite*& targetBlackPanel) {
 }
 
 void Puzzle15::IsClear(int blackPanelIndex) {
-	int x = blackPanelIndex % 4; // 黒いパネルのX座標
-	int y = blackPanelIndex / 4; // 黒いパネルのY座標
+	int x = blackPanelIndex % 4;                                   // 黒いパネルのX座標
+	int y = blackPanelIndex / 4;                                   // 黒いパネルのY座標
 	csvData_[y][x] = static_cast<int>(panelData_[HoldIndex].date); // CSVデータにパネルの種類を保存
 	// パズルが完成したかどうかを判定
 	for (size_t row = 0; row < csvData_.size(); row++) {
 		for (size_t col = 0; col < csvData_[row].size(); col++) {
 			if (csvData_[row][col] != clearData[row][col]) {
-				isClear_=false; // パズルが完成していない
+				isClear_ = false; // パズルが完成していない
 				return;
 			}
 		}
 	}
-	isClear_=true; // パズルが完成している
+	isClear_ = true; // パズルが完成している
 
 	fileAccessor_->Write("Puzzle15", "isClear", isClear_); // JSONファイルに書き込み
 	fileAccessor_->Save();                                 // JSONファイルを保存

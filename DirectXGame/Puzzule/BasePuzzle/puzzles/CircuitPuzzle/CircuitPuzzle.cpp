@@ -17,12 +17,15 @@ CircuitPuzzle::~CircuitPuzzle() {
 
 // 初期化
 void CircuitPuzzle::Initialize() {
+
+	isClear_ = false; // パネルの初期化
+
 	// random_deviceを使用してシードを生成
 	std::random_device rd;
 	// 乱数生成器を初期化
 	randomSeed.seed(rd());
 	// 乱数生成器の初期化
-	std::uniform_int_distribution<int> random(1, 6);
+	std::uniform_int_distribution<int> random(1, 5);
 	// 乱数を生成
 	int randomNum = random(randomSeed);
 
@@ -43,7 +46,7 @@ void CircuitPuzzle::Initialize() {
 	// パネルのテクスチャを読み込む
 	panelTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/panel.png");
 	BackgroundTexture_ = TextureManager::Load("../Resources/CircuitPuzzle/brick.png");
-	backgroundSprite_ = Sprite::Create(BackgroundTexture_, Vector2(1000.0f, 400.0f));
+	backgroundSprite_ = Sprite::Create(BackgroundTexture_, Vector2(0.0f, 0.0f));
 	for (int i = 1; i <= 24; i++) {
 		panelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/CircuitPuzzles/circuitPuzzle_" + std::to_string(i) + ".png"));
 		connectedPanelTextures_.push_back(TextureManager::Load("../Resources/CircuitPuzzle/correctPanel/correctPanel_" + std::to_string(i) + ".png"));
