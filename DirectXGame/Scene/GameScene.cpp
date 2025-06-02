@@ -45,6 +45,10 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+	if (DeadFinished_ || ClearFinished_) {
+		return; // 終了状態なら何もしない
+	}
+
 	actorManager->Update();
 
 	skyDomeTrans.UpdateMatrix();
@@ -64,6 +68,10 @@ void GameScene::Update() {
 }
 
 void GameScene::Draw() {
+	if (DeadFinished_ || ClearFinished_) {
+		return; // 終了状態なら描画しない
+	}
+
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
