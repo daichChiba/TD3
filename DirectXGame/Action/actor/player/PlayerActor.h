@@ -33,7 +33,8 @@ public:
 	WorldTransform* GetWorldTransfrom() { return &worldTransform_; }
 
 	float GetRadius() { return radius_; }
-	void OnCollision(){ hp -= 1;
+	void OnCollision(){ 
+		hp -= 1;
 		hitCoolDown  = 1.0f;
 	}
 
@@ -60,6 +61,7 @@ protected:
 	Model* BulletModel_;
 	WorldTransform worldTransform_;
 
+
 	Vector3 cameraRot_;
 
 	float radius_ = 1.0f;
@@ -72,7 +74,8 @@ protected:
 
 	static inline const float flameTime_ = 1.0f / 60.0f;
 
-	
+	Vector4 color = {1, 1, 1, 1};
+	ObjectColor* objectColor;
 
 	float hitCoolDown = 3.0f;
 

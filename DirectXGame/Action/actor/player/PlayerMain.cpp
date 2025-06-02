@@ -173,12 +173,12 @@ void PlayerMain::CheckKey() {
 	} else {
 		dushKey = false;
 	}
-	if (xinput_.Gamepad.bRightTrigger >= 100 || Input::GetInstance()->PushKey(DIK_Q)) {
+	if (xinput_.Gamepad.bRightTrigger >= 100 || Input::GetInstance()->PushKey(DIK_Q) || Input::GetInstance()->IsTriggerMouse(0)) {
 		normalAttackKey = true;
 	} else {
 		normalAttackKey = false;
 	}
-	if (xinput_.Gamepad.bLeftTrigger >= 100 || Input::GetInstance()->PushKey(DIK_E)) {
+	if (xinput_.Gamepad.bLeftTrigger >= 100 || Input::GetInstance()->PushKey(DIK_E) || Input::GetInstance()->IsTriggerMouse(1)) {
 		subAttackKey = true;
 	} else {
 		subAttackKey = false;

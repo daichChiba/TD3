@@ -1,8 +1,18 @@
 #include "PuzzleManager.h"
-#include "BasePuzzle/BasePuzzle.h"
 #include "../Puzzule/BasePuzzle/puzzles/PuzzleFactory.h"
+#include "BasePuzzle/BasePuzzle.h"
 
 void PuzzleManager::Initialize() {
+
+	// random_deviceを使用してシードを生成
+	std::random_device rd;
+	// 乱数生成器を初期化
+	randomSeed.seed(rd());
+	// 乱数生成器の初期化
+	std::uniform_int_distribution<int> random(1, 2);
+	// 乱数を生成
+	randomNum = random(randomSeed);
+
 	camera_ = new Camera();
 	camera_->Initialize();
 	factory_ = std::make_unique<PuzzleFactory>();
@@ -17,28 +27,26 @@ void PuzzleManager::Update() {
 	puzzle_->Update();
 }
 
-void PuzzleManager::Draw() {
-	puzzle_->Draw(); }
+void PuzzleManager::Draw() { puzzle_->Draw(); }
 
-void PuzzleManager::SpriteDraw() {
-	puzzle_->SpriteDraw();
-}
+void PuzzleManager::SpriteDraw() { puzzle_->SpriteDraw(); }
 
 void PuzzleManager::CreatePuzzle() {
-	//puzzle_ = factory_->CreatePuzzle15();
-	//puzzle_->Initialize();
-	puzzle_ = factory_->CreateCircuitPuzzle();
-	puzzle_->Initialize();
+	if (randomNum == 1) {
+		puzzle_ = factory_->CreatePuzzle15();
+		puzzle_->Initialize();
+	}
+	if (randomNum == 2) {
+		puzzle_ = factory_->CreateCircuitPuzzle();
+		puzzle_->Initialize();
+	}
 }
 
-void PuzzleManager::StartPuzzle() {
-	CreatePuzzle();
-}
+void PuzzleManager::StartPuzzle() { CreatePuzzle(); }
 
-void PuzzleManager::EndPuzzle() {
-	puzzle_.reset(); }
+void PuzzleManager::EndPuzzle() { puzzle_.reset(); }
 
-bool PuzzleManager::GetIsClear() {return puzzle_->GetIsClear(); }
+bool PuzzleManager::GetIsClear() { return puzzle_->GetIsClear(); }
 
 void PuzzleManager::DrawImGui() {
 #ifdef _DEBUG
