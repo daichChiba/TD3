@@ -3,6 +3,8 @@
 #include "../ActorManager.h"
 #include "../player/PlayerActor.h"
 
+#include <Windows.h>
+
 using namespace MathUtility;
 
 void EnemyActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos, ActorManager* actorManager) {

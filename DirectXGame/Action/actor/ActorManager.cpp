@@ -42,12 +42,6 @@ void ActorManager::Initialize(Model* PlayeModel, Model* PlayerBulletModel, Model
 	enemyManager_ = new EnemyManager();
 	enemyManager_->Initialize(longModel_, shortModel_, flyModel_, enemyBulletModel_, Vector3(5.0f, 0.0f, 0.0f), this);
 
-	// enemyManager_->CreateEnemyShort();
-
-	// enemyManager_->CreateEnemyFly();
-
-	// enemyManager_->CreateEnemyLong();
-
 	followCamera_->SetTarget(GetPlayer()->GetWorldTransfrom());
 
 	enemyDeadConnt = 0;
@@ -100,6 +94,14 @@ PlayerActor* ActorManager::GetPlayer() { return playerManager_->GetPlayer(); }
 void ActorManager::CheckAllCollisions() {
 
 #pragma region
+	for (auto& enemy : enemyManager_->GetEnemy()) {
+		Vector3 diff = enemy->GetWorldPosition() - playerManager_->GetPlayer()->GetWorldTransfrom()->translation_;
+		float distance = sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z);
+		if (distance < (enemy->GetRadius() + playerManager_->GetPlayer()->GetRadius()) && playerManager_->GetPlayer()->IsHitCoolDown()) {
+
+			playerManager_->GetPlayer()->OnCollision();
+		}
+	}
 	for (auto& bullet : attack_) {
 		if (bullet->GetBulletType() == BulletType::enemy) {
 

@@ -7,6 +7,8 @@ void FollowCamera::Initialize() { followCamera.Initialize(); }
 void FollowCamera::Update() {
 	XInputGetState(0, &xinput_);
 
+	auto mouseMove = Input::GetInstance()->GetMouseMove();
+
 	moveCameraRotateXAdd = true;
 	moveCameraRotateXLower = true;
 
@@ -44,7 +46,7 @@ void FollowCamera::Update() {
 		if(moveCameraRotateXLower && Ry > 0.0f)
 			followCamera.rotation_.x += Ry * kRotationSpeed;
 	} 
-	else if (Input::GetInstance()->PushKey(DIK_J)) {
+	/*else if (Input::GetInstance()->PushKey(DIK_J)) {
 		followCamera.rotation_.y -= kRotationSpeed;
 	} else if (Input::GetInstance()->PushKey(DIK_L)) {
 		followCamera.rotation_.y += kRotationSpeed;
@@ -58,7 +60,15 @@ void FollowCamera::Update() {
 		if (moveCameraRotateXAdd)
 		followCamera.rotation_.x -= kRotationSpeed;
 		
-	} 
+	} */
+	// マウス移動によるカメラ回転
+	float mouseSensitivity = 0.001f; // 必要に応じて調整
+	followCamera.rotation_.y -= mouseMove.lX * mouseSensitivity;
+	if (moveCameraRotateXAdd && mouseMove.lY < 0.2f)
+		followCamera.rotation_.x += mouseMove.lY * mouseSensitivity;
+	if (moveCameraRotateXLower && mouseMove.lY > 0.2f)
+		followCamera.rotation_.x += mouseMove.lY * mouseSensitivity;
+
 
 	if (followCamera.rotation_.y > 6.28f || followCamera.rotation_.y < -6.28f)
 	{

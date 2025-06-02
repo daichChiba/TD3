@@ -1,3 +1,4 @@
+#include <Windows.h>
 #include <KamataEngine.h>
 using namespace KamataEngine;
 #include "Scene/ClearScene.h"
@@ -20,6 +21,8 @@ enum class Scene {
 
 // 現在シーン（型）
 Scene scene = Scene::kUnknown;
+
+void CenterMouseCursor(HWND hwnd);
 
 void ChangeScene();
 void UpdateScene();
@@ -90,10 +93,23 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	titleScene->Initialize();
 	scene = Scene::kTitle;
 
+	bool debugFulag = false;
+
 	// メインループ
 	while (true) {
 		// メッセージ処理
 		if (win->ProcessMessage()) {
+			break;
+		}
+
+		if (Input::GetInstance()->TriggerKey(DIK_P)) {
+			debugFulag = !debugFulag;
+		}
+		if (scene == Scene::kGame && debugFulag == true) {
+			// マウスカーソルをウィンドウ中央に固定
+			CenterMouseCursor(win->GetHwnd());
+		}
+		if (Input::GetInstance()->TriggerKey(DIK_ESCAPE)){
 			break;
 		}
 
@@ -143,6 +159,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	win->TerminateGameWindow();
 
 	return 0;
+}
+
+void CenterMouseCursor(HWND hwnd) {
+	RECT rect;
+	if (GetWindowRect(hwnd, &rect)) {
+		int centerX = (rect.left + rect.right) / 2;
+		int centerY = (rect.top + rect.bottom) / 2;
+		SetCursorPos(centerX, centerY);
+	}
 }
 
 // シーン切り替え

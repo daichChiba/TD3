@@ -17,6 +17,9 @@ void PlayerActor::Initialize(Model* model, Model* bulletModel, const Vector3 pos
 	worldTransform_.translation_ = pos;
 
 	actorManager_ = actorManager;
+
+	objectColor = new ObjectColor;
+	objectColor->Initialize();
 }
 
 void PlayerActor::Update() {
@@ -73,7 +76,17 @@ void PlayerActor::Update() {
 }
 
 void PlayerActor::Draw(Camera& camera) { 
-	model_->Draw(worldTransform_, camera);
+
+	if (hitCoolDown < 1.0f)
+	{
+		color.w = 0.8f;
+	} else
+	{
+		color.w = 1.0f;
+	}
+	objectColor->SetColor(color);
+
+	model_->Draw(worldTransform_, camera, objectColor);
 }
 
 void PlayerActor::UpdateDirectionBasedOnMovement()
@@ -94,6 +107,7 @@ void PlayerActor::DrawImGui() {
 	ImGui::DragFloat3("move", &move_.x, 0.1f);
 	ImGui::DragFloat3("cameraRot", &cameraRot_.x, 0.1f);
 	ImGui::DragFloat("hit", &hitCoolDown, 0.1f);
+	ImGui::DragInt("HP", &hp);
 	ImGui::End();
 	#endif
 }

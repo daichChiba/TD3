@@ -9,7 +9,7 @@ EnemyLong::EnemyLong() {
 	hp = enemy_hp_;
 
 	// プレイヤーとの距離を測る変数
-	distanceToPlayer_ = 20.0f;
+	distanceToPlayer_ = 2.0f;
 }
 
 EnemyLong::~EnemyLong() {}
