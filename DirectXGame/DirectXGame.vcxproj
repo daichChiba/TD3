@@ -45,14 +45,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\External\DirectXTex\include;$(ProjectDir)..\External\imgui;$(ProjectDir)..\External\KamataEngine\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\External\DirectXTex\include;$(ProjectDir)..\External\imgui;$(ProjectDir)..\External\KamataEngine\include;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\External\KamataEngine\lib\$(Configuration);$(ProjectDir)..\External\DirectXTex\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\External\DirectXTex\include;$(ProjectDir)..\External\imgui;$(ProjectDir)..\External\KamataEngine\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\External\DirectXTex\include;$(ProjectDir)..\External\imgui;$(ProjectDir)..\External\KamataEngine\include;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\External\KamataEngine\lib\$(Configuration);$(ProjectDir)..\External\DirectXTex\lib\$(Configuration);$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)..\Generated\Outputs\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\Generated\Obj\$(ProjectName)\$(Configuration)\</IntDir>
@@ -134,6 +134,12 @@
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp" />
     <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
     <ClCompile Include="Puzzule\PuzzleManager.cpp" />
+    <ClCompile Include="Scene\ClearScene.cpp" />
+    <ClCompile Include="Scene\DeadScene.cpp" />
+    <ClCompile Include="Scene\GameScene.cpp" />
+    <ClCompile Include="Scene\PuzzleScene.cpp" />
+    <ClCompile Include="Scene\RuleScene.cpp" />
+    <ClCompile Include="Scene\TitleScene.cpp" />
     <ClCompile Include="worldTransfromEX.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -237,7 +243,12 @@
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h" />
     <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h" />
     <ClInclude Include="Puzzule\PuzzleManager.h" />
+    <ClInclude Include="Scene\ClearScene.h" />
+    <ClInclude Include="Scene\DeadScene.h" />
     <ClInclude Include="Scene\GameScene.h" />
+    <ClInclude Include="Scene\PuzzleScene.h" />
+    <ClInclude Include="Scene\RuleScene.h" />
+    <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
