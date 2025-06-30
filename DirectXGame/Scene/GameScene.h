@@ -1,6 +1,12 @@
 #pragma once
+#include "../Action/actor/ActorManager.h"
 #include <KamataEngine.h>
+
+#include "../Action/actor/enemy/EnemyManager.h"
+
 using namespace KamataEngine;
+
+class FollowCamera;
 
 class GameScene {
 public:
@@ -30,8 +36,57 @@ public:
 	/// </summary>
 	void Draw();
 
-	private:
+	bool puzzleClear = false;
+
+	bool isStop = false;
+	bool isEnd = false;
+	bool isClear = false;
+
+		// デスフラグのgetter
+	bool IsStop() const { return isStop; }
+	void SetIsStop() { isStop = !isStop; }
+	bool IsFinished() const { return isEnd; }
+	bool IsClear() const { return isClear; }
+	bool isDead() { return DeadFinished_;} 
+
+	// 終了フラグ
+	bool ClearFinished_ = false;
+	bool DeadFinished_ = false;
+
+private:
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	// サウドデータハンドル
+	uint32_t soundDataHandle_ = 0;
+	// 音声再生ハンドル
+	uint32_t voiceHandle_ = 0;
+
+	Model* cubeModel_;
+
+	Model* PlayerModel_;
+	Model* playerBulletModel_;
+
+	Model* longModel_;
+	Model* shortModel;
+	Model* flyModel;
+
+	//////////////////////////////
+	// Enemy
+	Model* enemyModel_;
+	ActorManager* actorManager_;
+	/*std::shared_ptr<EnemyActor> Enemy_;*/
+	// std::list<std::shared_ptr<EnemyActor>> Enemy;
+	// EnemyManager* enemy_;
+
+	//////////////////////////////
+
+	Model* skyDome_;
+	Model* ground_;
+
+	WorldTransform skyDomeTrans;
+
+	ActorManager* actorManager;
+
 };

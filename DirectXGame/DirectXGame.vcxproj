@@ -106,8 +106,35 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action\actor\ActorManager.cpp" />
+    <ClCompile Include="Action\actor\bullet\BulletActor.cpp" />
+    <ClCompile Include="Action\actor\bullet\BulletFlyEnemy.cpp" />
+    <ClCompile Include="Action\actor\bullet\BulletPlayerNormalAttack.cpp" />
+    <ClCompile Include="Action\actor\bullet\BulletPlayerSubAttack.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyActor.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyFactory.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyFly.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyLong.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyManager.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyShort.cpp" />
+    <ClCompile Include="Action\actor\enemy\EnemyTest.cpp" />
+    <ClCompile Include="Action\actor\player\PlayerActor.cpp" />
+    <ClCompile Include="Action\actor\player\PlayerFactory.cpp" />
+    <ClCompile Include="Action\actor\player\PlayerMain.cpp" />
+    <ClCompile Include="Action\actor\player\PlayerManager.cpp" />
+    <ClCompile Include="Action\FolloCamera.cpp" />
+    <ClCompile Include="BulletFlyEnemy.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="InputEX.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MathUtilityEX.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp" />
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp" />
+    <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp" />
+    <ClCompile Include="Puzzule\PuzzleManager.cpp" />
+    <ClCompile Include="worldTransfromEX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -185,6 +212,31 @@
     <None Include="Resources\shaders\Sprite.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action\actor\ActorManager.h" />
+    <ClInclude Include="Action\actor\bullet\BulletActor.h" />
+    <ClInclude Include="Action\actor\bullet\BulletFlyEnemy.h" />
+    <ClInclude Include="Action\actor\bullet\BulletPlayerNormalAttack.h" />
+    <ClInclude Include="Action\actor\bullet\BulletPlayerSubAttack.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyActor.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyFactory.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyFly.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyLong.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyManager.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyShort.h" />
+    <ClInclude Include="Action\actor\enemy\EnemyTest.h" />
+    <ClInclude Include="Action\actor\player\PlayerActor.h" />
+    <ClInclude Include="Action\actor\player\PlayerFactory.h" />
+    <ClInclude Include="Action\actor\player\PlayerMain.h" />
+    <ClInclude Include="Action\actor\player\PlayerManager.h" />
+    <ClInclude Include="Action\FolloCamera.h" />
+    <ClInclude Include="BulletFlyEnemy.h" />
+    <ClInclude Include="IntVector2.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h" />
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h" />
+    <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h" />
+    <ClInclude Include="Puzzule\PuzzleManager.h" />
     <ClInclude Include="Scene\GameScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
