@@ -123,11 +123,9 @@
     <ClCompile Include="Action\actor\player\PlayerMain.cpp" />
     <ClCompile Include="Action\actor\player\PlayerManager.cpp" />
     <ClCompile Include="Action\FolloCamera.cpp" />
-    <ClCompile Include="BulletFlyEnemy.cpp" />
-    <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="InputEX.cpp" />
+    <ClCompile Include="etc\InputEX.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MathUtilityEX.cpp" />
+    <ClCompile Include="etc\MathUtilityEX.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp" />
     <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp" />
@@ -140,7 +138,7 @@
     <ClCompile Include="Scene\PuzzleScene.cpp" />
     <ClCompile Include="Scene\RuleScene.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
-    <ClCompile Include="worldTransfromEX.cpp" />
+    <ClCompile Include="etc\worldTransfromEX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -235,8 +233,7 @@
     <ClInclude Include="Action\actor\player\PlayerMain.h" />
     <ClInclude Include="Action\actor\player\PlayerManager.h" />
     <ClInclude Include="Action\FolloCamera.h" />
-    <ClInclude Include="BulletFlyEnemy.h" />
-    <ClInclude Include="IntVector2.h" />
+    <ClInclude Include="etc\IntVector2.h" />
     <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h" />
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h" />
     <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h" />

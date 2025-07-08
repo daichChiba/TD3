@@ -2,7 +2,7 @@
 #include <KamataEngine.h>
 using namespace KamataEngine;
 #include "../../BasePuzzle.h"
-#include "IntVector2.h"
+#include "../../../../etc/IntVector2.h"
 #include "Puzzule/LoadJsonFile/FileJson.h"
 #include <iostream>
 #include <random>

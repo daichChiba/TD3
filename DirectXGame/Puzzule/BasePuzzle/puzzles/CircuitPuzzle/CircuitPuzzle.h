@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../../IntVector2.h"
+#include "../../../../etc/IntVector2.h"
 #include "../../../LoadJsonFile/FileJson.h"
 #include "../../BasePuzzle.h"
 #include <iostream>

@@ -16,13 +16,184 @@
     <Filter Include="シェーダー ファイル">
       <UniqueIdentifier>{718c7f4c-fc51-40ad-a221-b9456a7a1a3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Action">
+      <UniqueIdentifier>{e0cf717e-3d51-4ceb-b1c7-e41d13babbe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Action">
+      <UniqueIdentifier>{0026d8d1-9bf9-409f-a5d2-a61349169a22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Puzzle">
+      <UniqueIdentifier>{6b4141c4-5e18-48a3-b07e-5856fb543303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Puzzle">
+      <UniqueIdentifier>{8cd6e91f-0209-4362-8e68-86399aeb4ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{bf7d293a-72db-4978-b3ac-10b7c2a2e66a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{4f348d6b-8c63-4a1c-b9b0-381e99a7f1fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\etc">
+      <UniqueIdentifier>{f29a1a3f-b9d1-420c-bbfc-5c939057b572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\etc">
+      <UniqueIdentifier>{801a6db1-b9e6-4b82-b2b6-41e423c1edd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Action\actor">
+      <UniqueIdentifier>{16e11165-b3a6-498f-810d-56f53d11cd1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Action\actor\bullet">
+      <UniqueIdentifier>{293d3c24-532d-44e6-8979-920f045e8ff3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Action\actor\enemy">
+      <UniqueIdentifier>{3c87dd58-9dd3-4f66-9714-3dbb8eafc2f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Action\actor\player">
+      <UniqueIdentifier>{9431449b-0476-41f9-bbb3-fe57466df67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Action\actor">
+      <UniqueIdentifier>{195be3c4-6cad-4d89-b02a-283ebaf8a2db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Action\actor\bullet">
+      <UniqueIdentifier>{12f28f1e-12d8-421c-9daf-ee32125bb4e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Action\actor\enemy">
+      <UniqueIdentifier>{2af60682-8e81-45e9-9ad4-4d980c4c7e80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Action\actor\player">
+      <UniqueIdentifier>{f4362253-b0ad-47e9-8cfd-55ba876060e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Puzzle\BasePuzzle">
+      <UniqueIdentifier>{72288d4f-3294-401d-b2af-67ad376c436e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Puzzle\LoadJsonFile">
+      <UniqueIdentifier>{3615611a-da77-4eb6-b33d-599af4e4e99a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Puzzle\BasePuzzle\puzzles">
+      <UniqueIdentifier>{71d658da-bec7-4d27-bb06-2082cfca7c67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Puzzle\BasePuzzle\puzzles\CircuitPuzzle">
+      <UniqueIdentifier>{8eeaa968-c357-4150-adcc-5844d8d6f184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Puzzle\BasePuzzle\puzzles\Puzzle15">
+      <UniqueIdentifier>{fb9bc083-5835-4947-a99f-5074080b2967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Puzzle\BasePuzzle">
+      <UniqueIdentifier>{1262fb28-083a-4082-a2c5-c7157b6345bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Puzzle\BasePuzzle\puzzles">
+      <UniqueIdentifier>{3851dc04-cdf3-413f-9bc5-de1bdf73b577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Puzzle\BasePuzzle\puzzles\CircuitPuzzle">
+      <UniqueIdentifier>{7c354e9e-4638-4fe9-a44a-3b1b7a557f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Puzzle\BasePuzzle\puzzles\Puzzle15">
+      <UniqueIdentifier>{9d077ea9-ba0a-4c1f-b97b-4cbff1802386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Puzzle\LoadJson">
+      <UniqueIdentifier>{97a6ac97-7562-40b8-84c0-605128bde32f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Action\FolloCamera.cpp">
+      <Filter>ソース ファイル\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\PuzzleManager.cpp">
+      <Filter>ソース ファイル\Puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ClearScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\DeadScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\GameScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\PuzzleScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\RuleScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TitleScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="etc\InputEX.cpp">
+      <Filter>ソース ファイル\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="etc\MathUtilityEX.cpp">
+      <Filter>ソース ファイル\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="etc\worldTransfromEX.cpp">
+      <Filter>ソース ファイル\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\ActorManager.cpp">
+      <Filter>ソース ファイル\Action\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\bullet\BulletActor.cpp">
+      <Filter>ソース ファイル\Action\actor\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\bullet\BulletFlyEnemy.cpp">
+      <Filter>ソース ファイル\Action\actor\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\bullet\BulletPlayerNormalAttack.cpp">
+      <Filter>ソース ファイル\Action\actor\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\bullet\BulletPlayerSubAttack.cpp">
+      <Filter>ソース ファイル\Action\actor\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyActor.cpp">
+      <Filter>ソース ファイル\Action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyFactory.cpp">
+      <Filter>ソース ファイル\Action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyFly.cpp">
+      <Filter>ソース ファイル\Action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyLong.cpp">
+      <Filter>ソース ファイル\Action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyManager.cpp">
+      <Filter>ソース ファイル\Action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyShort.cpp">
+      <Filter>ソース ファイル\Action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\enemy\EnemyTest.cpp">
+      <Filter>ソース ファイル\Action\actor\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\player\PlayerActor.cpp">
+      <Filter>ソース ファイル\Action\actor\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\player\PlayerFactory.cpp">
+      <Filter>ソース ファイル\Action\actor\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\player\PlayerMain.cpp">
+      <Filter>ソース ファイル\Action\actor\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Action\actor\player\PlayerManager.cpp">
+      <Filter>ソース ファイル\Action\actor\player</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\LoadJsonFile\FileJson.cpp">
+      <Filter>ソース ファイル\Puzzle\LoadJson</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\BasePuzzle.cpp">
+      <Filter>ソース ファイル\Puzzle\BasePuzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.cpp">
+      <Filter>ソース ファイル\Puzzle\BasePuzzle\puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.cpp">
+      <Filter>ソース ファイル\Puzzle\BasePuzzle\puzzles\CircuitPuzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.cpp">
+      <Filter>ソース ファイル\Puzzle\BasePuzzle\puzzles\Puzzle15</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,8 +246,95 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action\FolloCamera.h">
+      <Filter>ヘッダー ファイル\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ClearScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\DeadScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="Scene\GameScene.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\PuzzleScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\RuleScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TitleScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="etc\IntVector2.h">
+      <Filter>ヘッダー ファイル\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\bullet\BulletActor.h">
+      <Filter>ヘッダー ファイル\Action\actor\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\bullet\BulletFlyEnemy.h">
+      <Filter>ヘッダー ファイル\Action\actor\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\bullet\BulletPlayerNormalAttack.h">
+      <Filter>ヘッダー ファイル\Action\actor\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\bullet\BulletPlayerSubAttack.h">
+      <Filter>ヘッダー ファイル\Action\actor\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\ActorManager.h">
+      <Filter>ヘッダー ファイル\Action\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyActor.h">
+      <Filter>ヘッダー ファイル\Action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyFactory.h">
+      <Filter>ヘッダー ファイル\Action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyFly.h">
+      <Filter>ヘッダー ファイル\Action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyLong.h">
+      <Filter>ヘッダー ファイル\Action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyManager.h">
+      <Filter>ヘッダー ファイル\Action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyShort.h">
+      <Filter>ヘッダー ファイル\Action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\enemy\EnemyTest.h">
+      <Filter>ヘッダー ファイル\Action\actor\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\player\PlayerActor.h">
+      <Filter>ヘッダー ファイル\Action\actor\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\player\PlayerFactory.h">
+      <Filter>ヘッダー ファイル\Action\actor\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\player\PlayerMain.h">
+      <Filter>ヘッダー ファイル\Action\actor\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Action\actor\player\PlayerManager.h">
+      <Filter>ヘッダー ファイル\Action\actor\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\LoadJsonFile\FileJson.h">
+      <Filter>ヘッダー ファイル\Puzzle\LoadJsonFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\BasePuzzle.h">
+      <Filter>ヘッダー ファイル\Puzzle\BasePuzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\PuzzleFactory.h">
+      <Filter>ヘッダー ファイル\Puzzle\BasePuzzle\puzzles</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\CircuitPuzzle\CircuitPuzzle.h">
+      <Filter>ヘッダー ファイル\Puzzle\BasePuzzle\puzzles\CircuitPuzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\BasePuzzle\puzzles\Puzzle15\Puzzle15.h">
+      <Filter>ヘッダー ファイル\Puzzle\BasePuzzle\puzzles\Puzzle15</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzule\PuzzleManager.h">
+      <Filter>ヘッダー ファイル\Puzzle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

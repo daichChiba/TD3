@@ -19,7 +19,6 @@ enum class Scene {
 	kDead,
 };
 
-
 // 現在シーン（型）
 Scene scene = Scene::kUnknown;
 
